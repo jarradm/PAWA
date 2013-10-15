@@ -1,2 +1,6 @@
-To build database, open Package Manager(Tools->Library Package Manager->Package Manager Console)
-and type 'update-database' without the quotes.
+1. Install EntityFramework Package
+  -> Open Package Manager Console (Tools->Library Package Manager->Package Manager Console)
+  -> In Package Manager Console type 'install-package EntityFramework'
+  
+2. Build database
+  -> In Package Manager Console type 'update-database'
