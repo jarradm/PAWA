@@ -108,13 +108,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\TestTagRepo.cs" />
-    <Compile Include="Controllers\TestController.cs" />
-    <Compile Include="DAL\IFile.cs" />
-    <Compile Include="DAL\ITagsRepository.cs" />
     <Compile Include="DAL\PAWAContext.cs" />
-    <Compile Include="DAL\Repository.cs" />
-    <Compile Include="DAL\TagsRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -163,7 +157,10 @@
     </Content>
     <Content Include="Views\Web.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Classes\" />
+    <Folder Include="Controllers\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
@@ -180,9 +177,6 @@
     <EmbeddedResource Include="Migrations\201310141524045_TableNullableUpdate.resx">
       <DependentUpon>201310141524045_TableNullableUpdate.cs</DependentUpon>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Test\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
