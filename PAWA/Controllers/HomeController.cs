@@ -19,15 +19,7 @@ namespace PAWA.Controllers
         //
         // GET: /Home/AlbumTree
 
-        public ActionResult AlbumTree()
-        {
-            return View();
-        }
-
-        //
-        // GET: /Home/AlbumGrid
-
-        public ActionResult AlbumGrid()
+        public ActionResult Album()
         {
             return View();
         }
