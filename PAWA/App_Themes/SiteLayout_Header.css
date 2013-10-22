@@ -1,0 +1,92 @@
+﻿#header-area {
+
+}
+
+#header-content-area {
+    width: 940px;
+}
+
+#header-login-area {
+    height: 49px;
+}
+
+#header-logo-area {
+
+}
+
+#header-menulist-area {
+    height: 129px;
+}
+
+#header-logo-username-area {
+    position: relative;
+    top: 70px;
+    width: 200px;
+    display: inline-block;
+}
+
+#header-logo-username-user {
+    text-decoration:underline;
+    color:blue;
+}
+
+#header-logo-image {
+    position: relative;
+    width: 740px;
+    height: 124px;
+    top: 0px;
+    left: 200px;
+}
+
+#header-menulist-list {
+    list-style-type: none;
+    width: 940px;
+    font-size: 0px;
+    margin: 0px;
+    padding: 0px;
+}
+
+#header-menulist-list li {
+    font-size: 16px;
+    width: 234px;
+    height: 88px;
+    border-left: 1px solid rgb(10, 144, 103);
+    display: inline-block;
+}
+
+#header-menulist-list-home {
+    background-image: url(/Images/BlueGreenGradient2.jpg);
+}
+
+#header-menulist-list-gallery {
+    background-image: url(/Images/BlueGreenGradient2.jpg);
+}
+
+#header-menulist-list-upload {
+    background-image: url(/Images/BlueGreenGradient3.jpg);
+}
+
+#header-menulist-list-options {
+    background-image: url(/Images/BlueGreenGradient4.jpg);
+}
+
+.header-menulist-list-nav-message {
+    color: black;
+    font-size: 16px;
+    font-family: Arial;
+    padding-left: 5px;
+    display: inline-block;
+}
+
+.header-menulist-list-nav-links {
+    padding: 0px 0px 10px 5px;
+    font-size: 18px;
+    color: white;
+}
+
+a.header-menulist-list-nav-links:visited {
+    padding: 0px 0px 10px 5px;
+    font-size: 18px;
+    color: white;
+    text-decoration: none;
+}

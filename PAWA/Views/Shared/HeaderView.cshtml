@@ -1,0 +1,60 @@
+﻿@{
+    ViewBag.Title = "HeaderView";
+}
+
+<link href="@Url.Content("~/App_Themes/SiteLayout_Header.css")" rel="stylesheet" type="text/css" />
+
+
+<div id="header-area">
+    <div id="header-content-area">
+        <div id="header-login-area">
+
+        </div>
+
+        <div id="header-logo-area">
+            <div id="header-logo-username-area">
+                @{string name;
+                      name = "Peter Rabbit";
+                }
+                <a id="header-logo-username-user" href="#">@name</a>.
+            </div>
+            <img id="header-logo-image" src="~/Images/PAWACP Logo2.jpg" />
+        </div>
+
+        <div id="header-menulist-area">
+            <ul id="header-menulist-list">
+                <li id="header-menulist-list-home">
+                    <a href="#" class="header-menulist-list-nav-links">Home</a> <br />
+                    <span class="header-menulist-list-nav-message">
+                        Edit details or <br />                            
+                        view recent activity.
+                    </span>
+                </li>
+                <li id="header-menulist-list-gallery">
+                    <a href="#" class="header-menulist-list-nav-links">Gallery</a> <br />
+                    <span class="header-menulist-list-nav-message">
+                        View your photo <br />
+                        albums.
+                    </span>
+                </li>
+                <li id="header-menulist-list-upload">
+                    <a href="#" class="header-menulist-list-nav-links">Upload</a> <br />
+                    <span class="header-menulist-list-nav-message">
+                        Upload photos to <br />
+                        your gallery.
+                    </span>
+                </li>
+                <li id="header-menulist-list-options">
+                    <a href="#" class="header-menulist-list-nav-links">Options</a> <br />
+                    <span class="header-menulist-list-nav-message">
+                        Select your own <br />
+                        display preferences.
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script>
+    $("#header-content-area").position({ my: "center top", at: "center top", of: "#header-area" });
+</script>

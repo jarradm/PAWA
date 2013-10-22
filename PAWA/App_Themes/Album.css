@@ -1,0 +1,30 @@
+﻿#body-content-area {
+    width: 940px;
+}
+
+#body-content-table {
+    border: 1px solid black;
+    width: 938px;
+    padding-bottom: 3px;
+}
+
+#body-content-table tr td {
+    font-size: 0px;
+    margin: 0px;
+    padding: 0px;
+}
+
+.body-content-table-image {
+    width: 181px;
+    padding-left: 3px;
+    padding-top: 3px;
+    height: 100px;
+}
+/*
+#body-wrap {
+    position: absolute;
+    width: 100%;
+    top: 500px;
+    left: 0px;
+    border: 1px solid red;
+}*/
