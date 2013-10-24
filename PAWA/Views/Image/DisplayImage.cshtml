@@ -1,5 +1,42 @@
-﻿@{
+﻿@model PAWA.Models.File
+
+@{
     ViewBag.Title = "DisplayImage";
 }
 
-<h2>DisplayImage</h2>
+<link rel="stylesheet" href="~/App_Themes/DisplayImage.css" type="text/css" />
+
+<div id="body-area">
+    <div id="body-content-image-area">
+        <img src="../../Images/User/@Model.Filename" id="body-content-image"/>
+    </div>
+    <div id="body-content-description-area">
+        Description:
+        <div id="body-content-description">
+            @Model.Description
+        </div>
+    </div>
+    <div id="body-content-tags-area">
+        Tags:
+        <div id="body-content-tags">
+            @Html.Raw(PAWA.Classes.DisplayImage.GetTags(Model.Tags))
+        </div>
+    </div>
+    <div id="body-content-button-area">
+        <input type="button" name="edit" value="Edit Image" id="body-content-button-edit" />
+        <input type="button" name="delete" value ="Delete Image" id="body-content-button-delete" />
+    </div>
+</div>
+
+<script>
+    // position after image loads
+    $(window).load(function () {
+        $("#body-content-image-area").position({ my: "center top", at: "center top", of: "#body-area", collision: "none" });
+        $("#body-content-description-area").position({ my: "center top", at: "center bottom+5", of: "#body-content-image-area", collision: "none" });
+        $("#body-content-tags-area").position({ my: "center top", at: "center bottom+5", of: "#body-content-description-area", collision: "none" });
+        $("#body-content-text-area").position({ my: "center top", at: "center bottom+10", of: "#body-content-image-area", collision: "none" });
+        $("#body-content-button-area").position({ my: "center top", at: "center bottom+5", of: "#body-content-tags-area", collision: "none" });
+        $("#body-content-button-edit").position({ my: "left top", at: "left top", of: "#body-content-button-area", collision: "none" });
+        $("#body-content-button-delete").position({ my: "right top", at: "right top", of: "#body-content-button-area", collision: "none" });
+    });
+</script>

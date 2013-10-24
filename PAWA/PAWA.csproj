@@ -109,6 +109,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\AlbumGrid.cs" />
+    <Compile Include="Classes\DisplayImage.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -151,6 +153,7 @@
       <DependentUpon>PAWADB.mdf</DependentUpon>
     </Content>
     <Content Include="App_Themes\Album.css" />
+    <Content Include="App_Themes\DisplayImage.css" />
     <Content Include="App_Themes\SiteLayout_Footer.css" />
     <Content Include="App_Themes\SiteLayout_Header.css" />
     <Content Include="App_Themes\SiteLayout.css" />
@@ -222,6 +225,7 @@
     <Content Include="Images\BlueGreenGradient2.jpg" />
     <Content Include="Images\BlueGreenGradient3.jpg" />
     <Content Include="Images\BlueGreenGradient4.jpg" />
+    <Content Include="Images\folder.png" />
     <Content Include="Images\PAWACP Logo.jpg" />
     <Content Include="Images\PAWACP Logo2.jpg" />
     <Content Include="Images\Rabbit Profile.jpg" />
@@ -239,11 +243,11 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Classes\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
