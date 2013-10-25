@@ -8,19 +8,19 @@
     <div id="body-content-area">
         @using(Html.BeginForm())
         {
-            <select>
+            <select disabled>
                 <option value="Edit">Edit Selected</option>
                 <option value="Move">Move Selected</option>
                 <option value="Delete">Delete Selected</option>
             </select>
-            <input type="button" name="Submit" value="Go" />
-            <input type="button" name="Create" value="Create Folder" id="body-content-button-create" />
+            <input type="button" name="Submit" value="Go" disabled />
+            <input type="button" name="Create" value="Create Folder" id="body-content-button-create" disabled />
             
             PAWA.Classes.AlbumGrid ag = new PAWA.Classes.AlbumGrid(new PAWA.DAL.PAWAContext());
             @Html.Raw(ag.CreateTable());
             
-            <input type="button" name="Next" value="Next Page" id="body-content-button-next" /> 
-            <input type="button" name="Top" value="Go To Top" id="body-content-button-top" />
+            <input type="button" name="Next" value="Next Page" id="body-content-button-next" disabled /> 
+            <input type="button" name="Top" value="Go To Top" id="body-content-button-top" disabled />
         }
     </div>
 </div>

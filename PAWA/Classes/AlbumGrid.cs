@@ -66,28 +66,28 @@ namespace PAWA.Classes
             var files1 = new List<File>
             {
                 new File { UserID = 1, TypeID = 1, FolderID = 2, Tags = "1,2", 
-                    Filename = "SydHarbour", UploadedDateTime = DateTime.Parse("2013/08/27 17:16:15"), 
-                    Description = "Sydney Harbour as seen from the peak of the Sydney Harbour Bridge", 
+                    Filename = "Koala.jpg", UploadedDateTime = DateTime.Parse("2013/08/27 17:16:15"), 
+                    Description = "A killer koala, seen in its natural habit waiting for its prey.", 
                     SizeMB = 3500, SizeHeight = 680, SizeWidth = 1048 },
 
                 new File { UserID = 1, TypeID = 1, FolderID = null, Tags = "1", 
-                    Filename = "SydOpera", UploadedDateTime = DateTime.Parse("2013/08/27 17:16:19"), 
-                    Description = "Sydney Opera House as seen from the peak of the Sydney Harbour Bridge", 
+                    Filename = "Chrysanthemum.jpg", UploadedDateTime = DateTime.Parse("2013/08/27 17:16:19"), 
+                    Description = "That flower that's hard to say and even harder to spell...but they make great tea.", 
                     SizeMB = 3478, SizeHeight = 680, SizeWidth = 1048 },
 
                 new File { UserID = 1, TypeID = 1, FolderID = null, Tags = "1", 
-                    Filename = "SydOpera", UploadedDateTime = DateTime.Parse("2013/08/27 17:16:19"), 
-                    Description = "Sydney Opera House as seen from the peak of the Sydney Harbour Bridge", 
+                    Filename = "Desert.jpg", UploadedDateTime = DateTime.Parse("2013/08/27 17:16:19"), 
+                    Description = "Desert.", 
                     SizeMB = 3478, SizeHeight = 680, SizeWidth = 1048 },
 
                 new File { UserID = 1, TypeID = 1, FolderID = null, Tags = "1", 
-                    Filename = "SydOpera", UploadedDateTime = DateTime.Parse("2013/08/27 17:16:19"), 
-                    Description = "Sydney Opera House as seen from the peak of the Sydney Harbour Bridge", 
+                    Filename = "Hydrangeas.jpg", UploadedDateTime = DateTime.Parse("2013/08/27 17:16:19"), 
+                    Description = "Flower.", 
                     SizeMB = 3478, SizeHeight = 680, SizeWidth = 1048 },
 
                 new File { UserID = 1, TypeID = 1, FolderID = null, Tags = "1", 
-                    Filename = "SydOpera", UploadedDateTime = DateTime.Parse("2013/08/27 17:16:19"), 
-                    Description = "Sydney Opera House as seen from the peak of the Sydney Harbour Bridge", 
+                    Filename = "Jellyfish.jpg", UploadedDateTime = DateTime.Parse("2013/08/27 17:16:19"), 
+                    Description = "The invasion has begun.", 
                     SizeMB = 3478, SizeHeight = 680, SizeWidth = 1048 }
             };
 
@@ -148,9 +148,10 @@ namespace PAWA.Classes
                         }
                         else
                         {
-                            htmlOutput += "<td>\n<img src=\"FileNotFound\" class=\"body-content-table-image\"/>\n" +
+                            htmlOutput += "<td>\n<a href=\"../../Image/DisplayImage?filename=" + files.ElementAt(filesIndex).Filename + 
+                            "\"><img src=\"../../Images/User/" + files.ElementAt(filesIndex).Filename + "\" class=\"body-content-table-image\"/>\n" +
                             "<input type=\"checkbox\" class=\"body-content-table-checkbox\" name=\"selectedBoxes\" id=\"" +
-                            folders.ElementAt(filesIndex).FolderID.ToString() + "_folder\" />\n</td>";
+                            files.ElementAt(filesIndex).FileID.ToString() + "_folder\" /></a>\n</td>";
 
                             filesIndex++;
                         }
