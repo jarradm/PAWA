@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using PAWA.DAL;
 using PAWA.Models;
+using System.Drawing;
 
 namespace PAWA.Controllers
 {
@@ -88,7 +89,120 @@ namespace PAWA.Controllers
 
         public ActionResult UploadImage()
         {
-            return View();
+            //Tools to call methods
+            Tools funcs = new Tools();
+
+            //temp user for authentication testing
+            Tools.UserID = 1;
+
+            //list used to generate DDL
+            IList<Models.Folder> list = funcs.getFolders(Tools.UserID);
+
+
+            /*True = Uploaded worked
+            * False = Error
+            * Null =  No action*/
+            if (Tools.uploaded == true) { ViewData["Uploaded"] = "File Uploaded Sucessfully!"; }
+            else if (Tools.uploaded == false) { ViewData["Uploaded"] = "File couldn't upload"; }
+            else if (Tools.uploaded == null) { ViewData["Uploaded"] = " "; }
+
+            //return list to view
+            return View(list);
+        }
+        [HttpPost]
+        public ActionResult UploadImage(HttpPostedFileBase file, string FolderID, string newName, string description, string tags)
+        {
+            PAWAContext db = new PAWAContext();
+            Tools funcs = new Tools();         //funcs contains resize/rename method
+            Tools.UserID = 1;
+            Size newSize = new Size(181, 100); //global size for all thumbnails
+            System.Drawing.Imaging.ImageFormat fileExtension;
+
+
+            //Start upload
+            if (file != null)
+            {
+                //Declare filename and path
+                var fileName = System.IO.Path.GetFileName(file.FileName);
+                var path = "";
+
+                //rename file?
+                if (newName != "")
+                {
+                    fileName = funcs.Rename(fileName, newName);
+                }
+
+                //split tags
+                if (tags.Contains(','))
+                {
+                    tags = funcs.seperateTags(tags);
+                }
+
+                //Find filetype
+                fileExtension = funcs.checkExtension(fileName);
+
+                //Path is directory  and filename
+                path = System.IO.Path.Combine(Server.MapPath("~/App_Data/Uploads/"), fileName);
+
+                //save uploaded picture via path
+                file.SaveAs(path);
+
+                //temp image for thumb resize, so it doesnt overwrite the original image
+                Image tempImage = System.Drawing.Image.FromFile(path);
+
+                //Create new database file using tempimage properties
+                var ImageFile = new PAWA.Models.File
+                {
+                    UploadedDateTime = System.DateTime.Now,
+                    SizeHeight = (int)tempImage.Height,
+                    SizeWidth = (int)tempImage.Width,
+                    SizeMB = (int)(new System.IO.FileInfo(path).Length / 1000),
+                    Filename = fileName,
+                    Tags = tags,
+                    Description = description,
+
+                    //Required
+                    TypeID = 1,
+                    UserID = Tools.UserID,
+                    FolderID = Convert.ToInt16(FolderID)
+
+                };
+                //Insert file into database
+                db.Files.Add(ImageFile);
+                db.SaveChanges();
+
+                //call resize on tempimage
+                tempImage = funcs.ImageResize(tempImage, newSize); //resize tempimage using resize method in tools
+
+                //save tempimage to server
+                tempImage.Save(Server.MapPath("~/App_Data/Uploads/" + fileName.Split('.')[0] + "_thumb." + fileExtension.ToString()), fileExtension); //save temp image
+
+                //.jpg .png .bmp
+                //Clear connection to image
+                tempImage.Dispose();
+
+                /*  Testing
+                //ImageFile Properties
+                System.Diagnostics.Debug.WriteLine(ImageFile.Filename);
+                System.Diagnostics.Debug.WriteLine(ImageFile.Tags);
+                System.Diagnostics.Debug.WriteLine(ImageFile.Description);
+                System.Diagnostics.Debug.WriteLine(ImageFile.UploadedDateTime);
+                System.Diagnostics.Debug.WriteLine(ImageFile.SizeHeight);
+                System.Diagnostics.Debug.WriteLine(ImageFile.SizeWidth);
+                System.Diagnostics.Debug.WriteLine(ImageFile.SizeMB);
+                System.Diagnostics.Debug.WriteLine("Type ID: " + ImageFile.TypeID);
+                System.Diagnostics.Debug.WriteLine("Folder ID: " +ImageFile.FolderID);
+                System.Diagnostics.Debug.WriteLine("User ID:" + ImageFile.UserID);
+                */
+                //Return sucessfull upload view
+                Tools.uploaded = true;
+            }
+            //Error, couldnt upload for w/e reason...
+            else { Tools.uploaded = false; }
+
+
+
+            return RedirectToAction("UploadImage");
         }
     }
 }
