@@ -2,4 +2,38 @@
     ViewBag.Title = "Album";
 }
 
-<h2>Album</h2>
+<link rel="stylesheet" href="~/App_Themes/Album.css" type="text/css" />
+
+<div id="body-area">
+    <div id="body-content-area">
+        @using(Html.BeginForm())
+        {
+            <select disabled>
+                <option value="Edit">Edit Selected</option>
+                <option value="Move">Move Selected</option>
+                <option value="Delete">Delete Selected</option>
+            </select>
+            <input type="button" name="Submit" value="Go" disabled />
+            <input type="button" name="Create" value="Create Folder" id="body-content-button-create" disabled />
+            
+            PAWA.Classes.AlbumGrid ag = new PAWA.Classes.AlbumGrid(new PAWA.DAL.PAWAContext());
+            @Html.Raw(ag.CreateTable());
+            
+            <input type="button" name="Next" value="Next Page" id="body-content-button-next" disabled /> 
+            <input type="button" name="Top" value="Go To Top" id="body-content-button-top" disabled />
+        }
+    </div>
+</div>
+
+<script>
+    $("#body-content-area").position({ my: "center top", at: "center top", of: "#body-area" });
+    $("#body-content-button-create").position({ my: "right top", at: "right-4 top+2", of: "#body-content-area" });
+    $("#body-content-button-next").position({ my: "center bottom", at: "center bottom-2", of: "#body-content-area" });
+    $("#body-content-button-top").position({ my: "right bottom", at: "right-4 bottom-2", of: "#body-content-area" });
+    $(".body-content-table-checkbox").each(function () {
+        $(this).position({ my: "right bottom", at: "right-5 bottom-5", of: $(this).parent().children("img") });
+    });
+    $(".body-content-table-folder-text").each(function () {
+        $(this).position({ my: "center", at: "center center+10", of: $(this).parent().children("img") });
+    });
+</script>

@@ -1,0 +1,27 @@
+﻿#body-content-description-area, #body-content-tags-area {
+    width: 420px;
+    font-size: 16px;
+}
+
+#body-content-description, #body-content-tags {
+    border: 2px solid rgb(190, 190, 190);
+    background-color: rgb(237, 237, 237);
+    padding: 5px;
+    font-size: 14px;
+}
+
+#body-content-image {
+    max-width: 940px;
+}
+
+#body-content-image-area {
+    width: 940px;
+}
+
+#body-content-button-area {
+    width: 420px;
+}
+
+#body-area {
+    padding-bottom: 20px;
+}

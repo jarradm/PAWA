@@ -1,0 +1,162 @@
+﻿                    /*This area is for Resetting CSS */
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{ margin:0; padding:0; border:0; outline:0; font-size:100%; vertical-align:baseline; background:transparent; }
+ol,ul{ list-style:none; }
+blockquote,q{ quotes:none; }
+blockquote:before,blockquote:after,q:before,q:after{ content:''; content:none; }
+:focus{ outline:0; }        
+                     /*This area is the area for the banner where the page links are found */
+.header-area {
+    position:absolute;
+    z-index:2;
+    overflow:hidden;
+    top: 0px;
+}
+.content {
+    margin:0px auto;
+    width:940px;
+    overflow:hidden;
+}
+.navigation-menu {
+    height:129px;
+    padding: 1px 0px 0px;
+    position:relative;
+    z-index:0;
+    margin-bottom:20px;
+    top:-20px;
+    left:160px;
+}
+.menulist {
+    float:left;
+    width:975px;
+}
+.menu-list li {
+    float:left;
+    border-left: 1px solid rgb(10, 144, 103);
+    font-size:16px;
+    height: 88px;
+}
+li {
+    font-size:16px;
+}
+ul {
+    list-style:none outside none;
+    width:940px;
+}
+                    /*This area is for the link backgrounds*/
+#nav-home {
+    background-image:url(/Images/BlueGreenGradient2.jpg);
+}
+#nav-gallery {
+    background-image:url(/Images/BlueGreenGradient2.jpg);
+}
+#nav-upload {
+    background-image:url(/Images/BlueGreenGradient3.jpg);
+}
+#nav-options {
+    background-image:url(/Images/BlueGreenGradient4.jpg);
+}
+                    /*This is where the anchor tag code is*/
+.nav-links {
+    color:white;
+    padding:5px 5px 5px 5px;
+}
+a, a:visited {
+    color: rgb(51, 51, 51);
+    font-size: 16px;
+    text-decoration: none;
+    padding:5px 5px 5px 5px;
+}
+.menulist a {
+    text-decoration:none;
+    text-align:left;
+    display:block;
+    font-size:22px;
+    height:71px;
+    padding: 18px 4px 5px;
+}
+                    /*This is where the link message goes*/
+.menu-list li span {
+    color:black;
+    font-size:16px;
+    display:block;
+    padding:5px 5px 5px 5px;
+}
+span {
+    text-align:left;
+    overflow:hidden;
+}
+.nav-message {
+    color:black;
+    font-size:12px;
+    font-family:Arial;
+}
+                    /*This is the area for the logo*/
+.logo-area {
+    width:940px;
+}
+#username {
+    position:relative;
+    left:160px;
+}
+#logo {
+    left:160px;
+    position:relative;
+    height:124px;
+    width:463px;
+}
+#user {
+    text-decoration:underline;
+    color:blue;
+}
+                    /*This is the body and main area of the page */
+body {
+    color: rgb(51, 51, 51);
+}
+main {
+    position:relative;
+    z-index:2;
+    overflow:hidden;
+}
+p {
+    top:77px;
+    width:160px;
+    float:left;
+    position:relative;
+}
+html, body, applet, object, iframe, h1, h2, h3, h4, h5, 
+h6, blockquote, pre, a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, ins, kbd, q, s, samp, small, strike, strong,
+sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, fieldset, 
+form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+    margin: 0px;
+    padding: 0px;
+    border: 0px none;
+    outline: 0px none;
+    vertical-align: baseline;
+    background: none repeat scroll 0% 0% transparent;
+}
+                    /*This Area is the gap at the top of the page where the login and register is found.*/
+.page-gap {
+    display:block;
+}
+.login-bar {
+    position:relative;
+    height:49px;
+}
+.bodygap {
+    position:relative;
+    height:20px;
+}
+                    /*This Area is for the Footer*/
+.pagebottom {
+    position:relative;
+    z-index:2;
+    overflow:hidden;
+}
+                    /*This Area is the wrapper for the whole page.*/
+.wrapper {
+    position: relative;
+    margin-top: 5px;
+    width: 100%;
+    float: left;
+}
