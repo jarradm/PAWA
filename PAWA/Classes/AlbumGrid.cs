@@ -4,12 +4,14 @@ using System.Linq;
 using System.Web;
 using PAWA.Models;
 using PAWA.DAL;
+//struct config { int _MaxColumns = 5;}
 
 namespace PAWA.Classes
 {
     public class AlbumGrid
     {
         PAWAContext dbContext;
+        int _MaxColumns = 5;
 
         public AlbumGrid(PAWAContext dbc)
         {
@@ -19,11 +21,16 @@ namespace PAWA.Classes
         public IEnumerable<Folder> GetFolders()
         {
             var UserID = 1;
-
-            var folders = from f in dbContext.Folders
-                          where f.UserID == UserID
-                          select f;
-            
+            try
+            {
+                var folders = from f in dbContext.Folders
+                              where f.UserID == UserID
+                              select f;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.InnerException);
+            }
             var folders1 = new List<Folder>
             {
                 new Folder { UserID = 1, InFolderID = null, 
@@ -58,10 +65,16 @@ namespace PAWA.Classes
         public IEnumerable<File> GetFiles()
         {
             var UserID = 1;
-
-            var files = from f in dbContext.Files
-                        where f.UserID == UserID
-                        select f;
+            try
+            {
+                var files = from f in dbContext.Files
+                            where f.UserID == UserID
+                            select f;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.InnerException);
+            }
 
             var files1 = new List<File>
             {
@@ -110,7 +123,7 @@ namespace PAWA.Classes
             {
                 htmlOutput += "<tr>\n";
 
-                for (i = 0; i < 5; i++)
+                for (i = 0; i < _MaxColumns ; i++)
                 {
                     // Add folders to table
                     if (!exitFolders)

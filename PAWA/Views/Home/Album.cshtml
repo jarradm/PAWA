@@ -3,17 +3,18 @@
 }
 
 <link rel="stylesheet" href="~/App_Themes/Album.css" type="text/css" />
+<script src="~/Scripts/GridOptionHandle.js" type="text/javascript"></script>
 
 <div id="body-area">
     <div id="body-content-area">
-        @using(Html.BeginForm())
+        @using (Html.BeginForm("gridViewForm", "Home", FormMethod.Post, new { id = "gridForm" }))
         {
             <select disabled>
                 <option value="Edit">Edit Selected</option>
                 <option value="Move">Move Selected</option>
                 <option value="Delete">Delete Selected</option>
             </select>
-            <input type="button" name="Submit" value="Go" disabled />
+            <input type="button" name="Submit" value="Go" disabled onclick="checkGOH(null)" />
             <input type="button" name="Create" value="Create Folder" id="body-content-button-create" disabled />
             
             PAWA.Classes.AlbumGrid ag = new PAWA.Classes.AlbumGrid(new PAWA.DAL.PAWAContext());
