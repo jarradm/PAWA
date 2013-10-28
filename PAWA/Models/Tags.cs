@@ -9,12 +9,12 @@ namespace PAWA.Models
 {
     public enum Status
     {
-        Active, Inactive
+        Active, Inactive, Frozen
     }
 
     public enum UserSuggest
     {
-        User, Suggested
+        User, Suggested, Admin
     }
 
     public class Tags

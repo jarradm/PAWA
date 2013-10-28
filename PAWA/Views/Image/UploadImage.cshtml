@@ -1,5 +1,34 @@
-﻿@{
-    ViewBag.Title = "UploadImage";
+﻿@using (Html.BeginForm("UploadImage", "Image", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div id="background">
+    <h1>Image Upload/Resize API</h1>
+    <input type="file" name="file" />
+    <br />
+       
+        <label>Select Folder:</label>
+       @model IEnumerable<PAWA.Models.Folder>
+        @Html.DropDownListFor(m => m.First().FolderID, new SelectList(Model.AsEnumerable(), "FolderID", "FolderName"))
+    
+        <br />
+     <label>New file name: </label> 
+     <input type="text" style="width:250px" maxlength="15" name="newName" />
+     <label>(Leave blank for default)</label>
+    <br />
+        <label>Description:</label>
+        @Html.TextArea("description", null, new { cols = "5", rows = "10" })
+    <br />
+        <label>Add Tags:</label>
+        <input type="text" style="width:250px" name="tags" />
+    <br />
+       
+     <input type="submit" value="Upload" /> 
+        <br /> 
+     
+            <h3>@Html.Encode(ViewData["Uploaded"])</h3>
+    <br />
+        <footer>lol no css....</footer>
+    </div>
+
 }
 
-<h2>UploadImage</h2>
+

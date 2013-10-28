@@ -1,5 +1,60 @@
-﻿@{
-    ViewBag.Title = "TagManagement";
+﻿
+@using (Html.BeginForm("TagManagement", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div id="background">
+    <h1>Add Tag API</h1>
+  
+    <label>Add Tag:</label>
+    <br />
+    <input type="text" style="width:250px" name="newTag" /><input type="submit" value="Add" style="width:75px" /> 
+    <br />
+    <h3>@Html.Encode(ViewData["tagAdded"])</h3>
+    </div>
+    
 }
+@model IEnumerable<PAWA.Models.Tags>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TagName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstDateTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+         <th>
+            @Html.DisplayNameFor(model => model.UseCount)
+        </th>
+         <th>
+            @Html.DisplayNameFor(model => model.UserSuggest)
+        </th>
+        <th></th>
+    </tr>
 
-<h2>TagManagement</h2>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TagName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FirstDateTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UseCount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserSuggest)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.TagsID }) |
+            @Html.ActionLink("Freeze", "Freeze", new { id=item.TagsID })
+        </td>
+    </tr>
+}
+    </table>
+
