@@ -63,6 +63,7 @@ namespace PAWA.Classes
                         where f.UserID == UserID
                         select f;
 
+            /*
             var files1 = new List<File>
             {
                 new File { UserID = 1, TypeID = 1, FolderID = 2, Tags = "1,2", 
@@ -90,6 +91,7 @@ namespace PAWA.Classes
                     Description = "The invasion has begun.", 
                     SizeMB = 3478, SizeHeight = 680, SizeWidth = 1048 }
             };
+             */
 
             return files;
         }
