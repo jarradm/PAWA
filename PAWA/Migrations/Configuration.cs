@@ -75,27 +75,27 @@ namespace PAWA.Migrations
             var files = new List<File>
             {
                 new File { UserID = 1, TypeID = 1, FolderID = 2, Tags = "1,2", 
-                    Filename = "839782adf0f886f2a7cedee64ba05a71985279cf805756c072ec0c6cb4c8760f.jpg", UploadedDateTime = DateTime.Parse("2013/08/27 17:16:15"), 
+                    Filename = "39237a426ae7e39182ea4c286cb3c250bde66ccba0b9b9944e5a7818a1a0a49e.jpg", UploadedDateTime = DateTime.Parse("2013/08/27 17:16:15"), 
                     Description = "A killer koala, seen in its natural habit waiting for its prey.", 
                     SizeMB = 780, SizeHeight = 768, SizeWidth = 1024 },
 
                 new File { UserID = 1, TypeID = 1, FolderID = null, Tags = "1", 
-                    Filename = "2d80cf81124d5057a38050c895004da6a95fcfae9f3d86117fb9b782b04e1d4a.jpg", UploadedDateTime = DateTime.Parse("2013/08/27 17:16:25"), 
+                    Filename = "3ab28c4f18e4daee52ffa4587016ba491c45812d7d1051e24b191648b3d152e7.jpg", UploadedDateTime = DateTime.Parse("2013/08/27 17:16:25"), 
                     Description = "That flower that's hard to say and even harder to spell...but they make great tea.", 
                     SizeMB = 879, SizeHeight = 768, SizeWidth = 1024 },
 
                 new File { UserID = 1, TypeID = 1, FolderID = null, Tags = "1", 
-                    Filename = "5f3b380e8ed98f8b2125bc5112681ba5352a449554e66a78506290950d8b2946.jpg", UploadedDateTime = DateTime.Parse("2013/08/27 17:16:35"), 
+                    Filename = "1b3a3eb3fda1e33ae12a954a3e433557de17ea2bb04990a332b1015e7df638c8.jpg", UploadedDateTime = DateTime.Parse("2013/08/27 17:16:35"), 
                     Description = "Desert.", 
                     SizeMB = 845, SizeHeight = 768, SizeWidth = 1024 },
 
                 new File { UserID = 1, TypeID = 1, FolderID = null, Tags = "1", 
-                    Filename = "8477e434351ebcce936ab0a0cd9211cea9b9f47b44cca5785fe6558b8739508a.jpg", UploadedDateTime = DateTime.Parse("2013/08/27 17:16:45"), 
+                    Filename = "38ab90242284a5106e273e406efe84f533f652ca5fa51d30f11af581f2c032ad.jpg", UploadedDateTime = DateTime.Parse("2013/08/27 17:16:45"), 
                     Description = "Flower.", 
                     SizeMB = 595, SizeHeight = 768, SizeWidth = 1024 },
 
                 new File { UserID = 1, TypeID = 1, FolderID = null, Tags = "1", 
-                    Filename = "9cee7bfd4d41b11a35f9e62bd4cfd84fb55ed82c4c663c6456e2e5b295fd00b4.jpg", UploadedDateTime = DateTime.Parse("2013/08/27 17:16:55"), 
+                    Filename = "82579f271ca76ddae60732c761804e0a090e8dd6fd85e9d43dfab981cb881567.jpg", UploadedDateTime = DateTime.Parse("2013/08/27 17:16:55"), 
                     Description = "The invasion has begun.", 
                     SizeMB = 775, SizeHeight = 768, SizeWidth = 1024 }
             };
