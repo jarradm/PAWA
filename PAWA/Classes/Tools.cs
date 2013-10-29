@@ -5,7 +5,7 @@ using System.Web;
 using System.Drawing;
 using PAWA.DAL;
 
-namespace PAWA.Controllers
+namespace PAWA.Classes
 {
     public class Tools
     {

@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using PAWA.DAL;
 using PAWA.Models;
 using System.Drawing;
+using PAWA.Classes;
+
 
 namespace PAWA.Controllers
 {

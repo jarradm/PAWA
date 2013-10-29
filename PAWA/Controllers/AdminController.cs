@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PAWA.DAL;
+using PAWA.Classes;
 
 namespace PAWA.Controllers
 {
