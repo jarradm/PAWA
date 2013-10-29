@@ -21,8 +21,10 @@ namespace PAWA.Controllers
         //
         // GET: /Home/AlbumTree
 
-        public ActionResult Album()
+        public ActionResult Album(int? folderID = null)
         {
+            ViewBag.FolderID = folderID;
+
             return View();
         }
     }

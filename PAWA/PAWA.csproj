@@ -232,7 +232,6 @@
     <Content Include="Images\PAWACP Logo2.jpg" />
     <Content Include="Images\Rabbit Profile.jpg" />
     <None Include="Scripts\jquery-1.6.4-vsdoc.js" />
-    <Content Include="Images\User\Chrysanthemum.jpg" />
     <Content Include="Scripts\jquery-1.6.4.js" />
     <Content Include="Scripts\jquery-1.6.4.min.js" />
     <Content Include="Scripts\jquery-ui-1.10.3.js" />

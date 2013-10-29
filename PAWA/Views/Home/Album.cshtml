@@ -17,7 +17,7 @@
             <input type="button" name="Create" value="Create Folder" id="body-content-button-create" disabled />
             
             PAWA.Classes.AlbumGrid ag = new PAWA.Classes.AlbumGrid(new PAWA.DAL.PAWAContext());
-            @Html.Raw(ag.CreateTable());
+            @Html.Raw(ag.CreateTable((int?)ViewBag.FolderID));
             
             <input type="button" name="Next" value="Next Page" id="body-content-button-next" disabled /> 
             <input type="button" name="Top" value="Go To Top" id="body-content-button-top" disabled />

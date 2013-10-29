@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using PAWA.Models;
 using PAWA.DAL;
+using System.Data;
 
 namespace PAWA.Classes
 {
@@ -22,76 +23,18 @@ namespace PAWA.Classes
 
             var folders = from f in dbContext.Folders
                           where f.UserID == UserID
-                          select f;
-            
-            var folders1 = new List<Folder>
-            {
-                new Folder { UserID = 1, InFolderID = null, 
-                    CreateDateTime = DateTime.Parse("2013/08/28 13:21:50"), 
-                    FolderName = "Australian Holiday" },
+                          select f;             
 
-                new Folder { UserID = 1, InFolderID = 1, 
-                    CreateDateTime = DateTime.Parse("2013/08/29 17:16:15"), 
-                    FolderName = "Sydney" },
-
-                new Folder { UserID = 1, InFolderID = 1, 
-                    CreateDateTime = DateTime.Parse("2013/08/29 17:16:15"), 
-                    FolderName = "Melbourne" },
-
-                new Folder { UserID = 1, InFolderID = 1, 
-                    CreateDateTime = DateTime.Parse("2013/08/29 17:16:15"), 
-                    FolderName = "Perth" },
-
-                new Folder { UserID = 1, InFolderID = 1, 
-                    CreateDateTime = DateTime.Parse("2013/08/29 17:16:15"), 
-                    FolderName = "Canberra" },
-
-                new Folder { UserID = 1, InFolderID = 1, 
-                    CreateDateTime = DateTime.Parse("2013/08/29 17:16:15"), 
-                    FolderName = "Darwin" }
-            };
-             
-
-            return folders1;
+            return folders;
         }
 
-        public IEnumerable<File> GetFiles()
+        public IEnumerable<File> GetFiles(int? folderID)
         {
             var UserID = 1;
 
             var files = from f in dbContext.Files
-                        where f.UserID == UserID
-                        select f;
-
-            /*
-            var files1 = new List<File>
-            {
-                new File { UserID = 1, TypeID = 1, FolderID = 2, Tags = "1,2", 
-                    Filename = "Koala.jpg", UploadedDateTime = DateTime.Parse("2013/08/27 17:16:15"), 
-                    Description = "A killer koala, seen in its natural habit waiting for its prey.", 
-                    SizeMB = 3500, SizeHeight = 680, SizeWidth = 1048 },
-
-                new File { UserID = 1, TypeID = 1, FolderID = null, Tags = "1", 
-                    Filename = "Chrysanthemum.jpg", UploadedDateTime = DateTime.Parse("2013/08/27 17:16:19"), 
-                    Description = "That flower that's hard to say and even harder to spell...but they make great tea.", 
-                    SizeMB = 3478, SizeHeight = 680, SizeWidth = 1048 },
-
-                new File { UserID = 1, TypeID = 1, FolderID = null, Tags = "1", 
-                    Filename = "Desert.jpg", UploadedDateTime = DateTime.Parse("2013/08/27 17:16:19"), 
-                    Description = "Desert.", 
-                    SizeMB = 3478, SizeHeight = 680, SizeWidth = 1048 },
-
-                new File { UserID = 1, TypeID = 1, FolderID = null, Tags = "1", 
-                    Filename = "Hydrangeas.jpg", UploadedDateTime = DateTime.Parse("2013/08/27 17:16:19"), 
-                    Description = "Flower.", 
-                    SizeMB = 3478, SizeHeight = 680, SizeWidth = 1048 },
-
-                new File { UserID = 1, TypeID = 1, FolderID = null, Tags = "1", 
-                    Filename = "Jellyfish.jpg", UploadedDateTime = DateTime.Parse("2013/08/27 17:16:19"), 
-                    Description = "The invasion has begun.", 
-                    SizeMB = 3478, SizeHeight = 680, SizeWidth = 1048 }
-            };
-             */
+                        where f.UserID == UserID && (f.FolderID == folderID || (f.FolderID == null && folderID == null))
+                        select f;            
 
             return files;
         }
@@ -101,10 +44,10 @@ namespace PAWA.Classes
          * 
          * Returns a string containing the html content to display on page.
         */
-        public string CreateTable()
+        public string CreateTable(int? folderID)
         {
             IEnumerable<Folder> folders = GetFolders();
-            IEnumerable<File> files = GetFiles();
+            IEnumerable<File> files = GetFiles(folderID);
             string htmlOutput;
             int i, foldersIndex = 0, filesIndex = 0;
             bool exitFiles = false, exitFolders = false;
