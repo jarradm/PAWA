@@ -57,18 +57,18 @@ namespace PAWA.Controllers
                     SizeMB = 3478, SizeHeight = 680, SizeWidth = 1048 }
             };
 
-            
+            /*
             var files = from f in dbContext.Files
                         where f.UserID == UserID &&
                               f.Filename == filename
                         select f;
-             
-            /*
+            */
+            
             var files = from f in files1
                         where f.UserID == UserID &&
                               f.Filename == filename
                         select f;
-             */
+             
 
             var file = new File
             {
@@ -207,6 +207,22 @@ namespace PAWA.Controllers
 
 
             return RedirectToAction("UploadImage");
+        }
+        [HttpPost]
+        public ActionResult DisplayImage(string fileName, string editImage, string deleteImage)
+        {
+            //If they want to delete
+            if (deleteImage != null)
+            {
+                //Delete from the database
+                System.Diagnostics.Debug.WriteLine("DELETING!");
+                return RedirectToAction("./../Home/Album");
+            }
+            else
+            {
+                return DisplayImage(fileName);
+            }
+
         }
     }
 }

@@ -6,6 +6,8 @@
 
 <link rel="stylesheet" href="~/App_Themes/DisplayImage.css" type="text/css" />
 
+@using (Html.BeginForm("DisplayImage", "Image", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
 <div id="body-area">
     <div id="body-content-image-area">
         <img src="../../Images/User/@Model.Filename" id="body-content-image"/>
@@ -23,10 +25,20 @@
         </div>
     </div>
     <div id="body-content-button-area">
-        <input type="button" name="edit" value="Edit Image" id="body-content-button-edit" disabled />
-        <input type="button" name="delete" value ="Delete Image" id="body-content-button-delete" disabled />
+        <input type="hidden" name="fileName" value="@Model.Filename" />
+        <input type="submit" name="editImage" value="Edit Image" id="body-content-button-edit" disabled />
+        <input type="submit" name="deleteImage" value ="Delete Image" id="body-content-button-delete" />
     </div>
 </div>
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("input[name='deleteImage']").click(function () {
+            return confirm('Delete the selected photo?');
+        });
+    });
+</script>
 
 <script>
     // position after image loads
