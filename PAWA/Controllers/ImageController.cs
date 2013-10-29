@@ -57,17 +57,18 @@ namespace PAWA.Controllers
                     SizeMB = 3478, SizeHeight = 680, SizeWidth = 1048 }
             };
 
-            /*
-            IEnumerable<File> files = from f in dbContext.Files
+            
+            var files = from f in dbContext.Files
                         where f.UserID == UserID &&
                               f.Filename == filename
                         select f;
-             */
-
+             
+            /*
             var files = from f in files1
                         where f.UserID == UserID &&
                               f.Filename == filename
                         select f;
+             */
 
             var file = new File
             {
@@ -142,9 +143,10 @@ namespace PAWA.Controllers
 
                 //Find filetype
                 fileExtension = funcs.checkExtension(fileName);
+                fileName = funcs.CreateFilename(Tools.UserID, fileName); 
 
                 //Path is directory  and filename
-                path = System.IO.Path.Combine(Server.MapPath("~/App_Data/Uploads/"), fileName);
+                path = System.IO.Path.Combine(Server.MapPath("~/Images/User/"), fileName);
 
                 //save uploaded picture via path
                 file.SaveAs(path);
@@ -177,7 +179,7 @@ namespace PAWA.Controllers
                 tempImage = funcs.ImageResize(tempImage, newSize); //resize tempimage using resize method in tools
 
                 //save tempimage to server
-                tempImage.Save(Server.MapPath("~/App_Data/Uploads/" + fileName.Split('.')[0] + "_thumb." + fileExtension.ToString()), fileExtension); //save temp image
+                tempImage.Save(Server.MapPath("~/Images/User/" + fileName.Split('.')[0] + "_thumb." + fileName.Split('.')[1]), fileExtension); //save temp image
 
                 //.jpg .png .bmp
                 //Clear connection to image

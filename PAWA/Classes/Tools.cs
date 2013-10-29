@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Drawing;
 using PAWA.DAL;
+using System.Security.Cryptography;
 
 namespace PAWA.Classes
 {
@@ -168,6 +169,34 @@ namespace PAWA.Classes
                 }
             }
             return list;
+        }
+
+        public string CreateFilename(int userid, string filename)
+        {
+            string stringToHash = DateTime.UtcNow.ToString() + "_" + userid.ToString() + "_" + filename;
+            byte[] byteToHash = new byte[stringToHash.Length];
+            byte[] hashValueBytes;
+            string[] fileExtension = filename.Split('.');
+
+            SHA256 sha = SHA256Managed.Create();
+            
+            System.Buffer.BlockCopy(stringToHash.ToCharArray(), 0, byteToHash, 0, stringToHash.Length);
+
+            hashValueBytes = sha.ComputeHash(byteToHash);
+
+            return HexByteArrayToHexString(hashValueBytes, fileExtension[fileExtension.Length-1]);
+        }
+
+        private string HexByteArrayToHexString(byte[] hexValues, string fileExtension)
+        {
+            System.Text.StringBuilder hexString = new System.Text.StringBuilder(hexValues.Length * 2);
+
+            foreach(var hexByte in hexValues)
+            {
+                hexString.AppendFormat("{0:x2}", hexByte);
+            }
+
+            return hexString.ToString() + "." + fileExtension;
         }
 
     }
