@@ -91,11 +91,13 @@ namespace PAWA.Classes
                     SizeMB = 3478, SizeHeight = 680, SizeWidth = 1048 }
             };
 
-            return files1;
+            return files;
         }
 
         /* 
-           Builds a table based on the amount of files and folders of the user
+         * Builds a table based on the amount of files and folders of the user.
+         * 
+         * Returns a string containing the html content to display on page.
         */
         public string CreateTable()
         {
@@ -148,8 +150,11 @@ namespace PAWA.Classes
                         }
                         else
                         {
+                            string[] fileExtension = files.ElementAt(filesIndex).Filename.Split('.');
+
                             htmlOutput += "<td>\n<a href=\"../../Image/DisplayImage?filename=" + files.ElementAt(filesIndex).Filename + 
-                            "\"><img src=\"../../Images/User/" + files.ElementAt(filesIndex).Filename + "\" class=\"body-content-table-image\"/>\n" +
+                            "\"><img src=\"../../Images/User/" + fileExtension[0] + "_thumb." + fileExtension[1] + 
+                            "\" class=\"body-content-table-image\"/>\n" +                      
                             "<input type=\"checkbox\" class=\"body-content-table-checkbox\" name=\"selectedBoxes\" id=\"" +
                             files.ElementAt(filesIndex).FileID.ToString() + "_folder\" /></a>\n</td>";
 
