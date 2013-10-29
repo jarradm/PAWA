@@ -15,7 +15,7 @@ namespace PAWA.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("Album");
         }
 
         //
