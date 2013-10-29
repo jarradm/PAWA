@@ -17,17 +17,25 @@ namespace PAWA.Classes
             dbContext = dbc;
         }
 
-        public IEnumerable<Folder> GetFolders()
+        /*
+         * Returns a collection of Folder objects of a single user,
+         * based on current folder level
+        */
+        public IEnumerable<Folder> GetFolders(int? folderID)
         {
             var UserID = 1;
 
             var folders = from f in dbContext.Folders
-                          where f.UserID == UserID
+                          where f.UserID == UserID && (f.InFolderID == folderID || (f.InFolderID == null && folderID == null))
                           select f;             
 
             return folders;
         }
 
+        /*
+         * Returns a collection of File objects of a single user,
+         * based on the current folder level
+        */
         public IEnumerable<File> GetFiles(int? folderID)
         {
             var UserID = 1;
@@ -46,7 +54,7 @@ namespace PAWA.Classes
         */
         public string CreateTable(int? folderID)
         {
-            IEnumerable<Folder> folders = GetFolders();
+            IEnumerable<Folder> folders = GetFolders(folderID);
             IEnumerable<File> files = GetFiles(folderID);
             string htmlOutput;
             int i, foldersIndex = 0, filesIndex = 0;
@@ -62,6 +70,7 @@ namespace PAWA.Classes
                     // Add folders to table
                     if (!exitFolders)
                     {
+                        // no more folders at current level
                         if (foldersIndex >= folders.Count())
                         {
                             exitFolders = true;
@@ -69,11 +78,12 @@ namespace PAWA.Classes
 
                         if(!exitFolders)
                         {
-                            htmlOutput += "<td>\n<img src=\"../../Images/folder.png\" class=\"body-content-table-image\"/>\n" +
+                            htmlOutput += "<td>\n<a href=\"./Album?folderID=" + folders.ElementAt(foldersIndex).FolderID + "\">" +
+                            "<img src=\"../../Images/folder.png\" class=\"body-content-table-image\"/>\n" +
                             "<input type=\"checkbox\" class=\"body-content-table-checkbox\" id=\"" +
                             folders.ElementAt(foldersIndex).FolderID.ToString() + "_folder\" />\n" +
                             "<div class=\"body-content-table-folder-text\">" + folders.ElementAt(foldersIndex).FolderName +
-                            "</div></td>";
+                            "</div></a></td>";
 
                             foldersIndex++;
                         }
@@ -101,7 +111,7 @@ namespace PAWA.Classes
                             "\"><img src=\"../../Images/User/" + fileExtension[0] + "_thumb." + fileExtension[1] + 
                             "\" class=\"body-content-table-image\"/>\n" +                      
                             "<input type=\"checkbox\" class=\"body-content-table-checkbox\" name=\"selectedBoxes\" id=\"" +
-                            files.ElementAt(filesIndex).FileID.ToString() + "_folder\" /></a>\n</td>";
+                            files.ElementAt(filesIndex).FileID.ToString() + "_file\" /></a>\n</td>";
 
                             filesIndex++;
                         }
