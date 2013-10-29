@@ -158,6 +158,7 @@
     <Content Include="App_Themes\SiteLayout_Footer.css" />
     <Content Include="App_Themes\SiteLayout_Header.css" />
     <Content Include="App_Themes\SiteLayout.css" />
+    <Content Include="App_Themes\UploadImage.css" />
     <Content Include="App_Themes\Zain\ZainCSS3.css" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
