@@ -115,34 +115,29 @@ namespace PAWA.Controllers
         [HttpPost]
         public ActionResult UploadImage(HttpPostedFileBase file, string FolderID, string newName, string description, string tags)
         {
-            PAWAContext db = new PAWAContext();
             Tools funcs = new Tools();         //funcs contains resize/rename method
-            Tools.UserID = 1;
             Size newSize = new Size(181, 100); //global size for all thumbnails
             System.Drawing.Imaging.ImageFormat fileExtension;
 
-
-            //Start upload
-            if (file != null)
+            
+            //Check file is valid
+            if (funcs.PhotoValidation(file) == true)
             {
+
                 //Declare filename and path
                 var fileName = System.IO.Path.GetFileName(file.FileName);
                 var path = "";
 
                 //rename file?
-                if (newName != "")
-                {
-                    fileName = funcs.Rename(fileName, newName);
-                }
+                if (newName != ""){ fileName = funcs.Rename(fileName, newName);}
 
                 //split tags
-                if (tags.Contains(','))
-                {
-                    tags = funcs.seperateTags(tags);
-                }
+                if (tags.Contains(',')) { tags = funcs.seperateTags(tags);}
 
                 //Find filetype
                 fileExtension = funcs.checkExtension(fileName);
+
+                //Create encrypted fileName
                 fileName = funcs.CreateFilename(Tools.UserID, fileName); 
 
                 //Path is directory  and filename
@@ -155,25 +150,7 @@ namespace PAWA.Controllers
                 Image tempImage = System.Drawing.Image.FromFile(path);
 
                 //Create new database file using tempimage properties
-                var ImageFile = new PAWA.Models.File
-                {
-                    UploadedDateTime = System.DateTime.Now,
-                    SizeHeight = (int)tempImage.Height,
-                    SizeWidth = (int)tempImage.Width,
-                    SizeMB = (int)(new System.IO.FileInfo(path).Length / 1000),
-                    Filename = fileName,
-                    Tags = tags,
-                    Description = description,
-
-                    //Required
-                    TypeID = 1,
-                    UserID = Tools.UserID,
-                    FolderID = Convert.ToInt16(FolderID)
-
-                };
-                //Insert file into database
-                db.Files.Add(ImageFile);
-                db.SaveChanges();
+                funcs.insertImageToDB(tempImage.Height, tempImage.Width, (int)(new System.IO.FileInfo(path).Length / 1000), fileName, tags, description, Convert.ToInt16(FolderID));
 
                 //call resize on tempimage
                 tempImage = funcs.ImageResize(tempImage, newSize); //resize tempimage using resize method in tools
@@ -181,27 +158,12 @@ namespace PAWA.Controllers
                 //save tempimage to server
                 tempImage.Save(Server.MapPath("~/Images/User/" + fileName.Split('.')[0] + "_thumb." + fileName.Split('.')[1]), fileExtension); //save temp image
 
-                //.jpg .png .bmp
                 //Clear connection to image
                 tempImage.Dispose();
 
-                /*  Testing
-                //ImageFile Properties
-                System.Diagnostics.Debug.WriteLine(ImageFile.Filename);
-                System.Diagnostics.Debug.WriteLine(ImageFile.Tags);
-                System.Diagnostics.Debug.WriteLine(ImageFile.Description);
-                System.Diagnostics.Debug.WriteLine(ImageFile.UploadedDateTime);
-                System.Diagnostics.Debug.WriteLine(ImageFile.SizeHeight);
-                System.Diagnostics.Debug.WriteLine(ImageFile.SizeWidth);
-                System.Diagnostics.Debug.WriteLine(ImageFile.SizeMB);
-                System.Diagnostics.Debug.WriteLine("Type ID: " + ImageFile.TypeID);
-                System.Diagnostics.Debug.WriteLine("Folder ID: " +ImageFile.FolderID);
-                System.Diagnostics.Debug.WriteLine("User ID:" + ImageFile.UserID);
-                */
-                //Return sucessfull upload view
                 Tools.uploaded = true;
             }
-            //Error, couldnt upload for w/e reason...
+            //Error
             else { Tools.uploaded = false; }
 
 
