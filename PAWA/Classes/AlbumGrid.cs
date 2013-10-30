@@ -4,7 +4,11 @@ using System.Linq;
 using System.Web;
 using PAWA.Models;
 using PAWA.DAL;
+<<<<<<< HEAD
 //struct config { int _MaxColumns = 5;}
+=======
+using System.Data;
+>>>>>>> a0f07748cb30e63e267b4884ee9db50854e3a288
 
 namespace PAWA.Classes
 {
@@ -18,9 +22,14 @@ namespace PAWA.Classes
             dbContext = dbc;
         }
 
-        public IEnumerable<Folder> GetFolders()
+        /*
+         * Returns a collection of Folder objects of a single user,
+         * based on current folder level
+        */
+        public IEnumerable<Folder> GetFolders(int? folderID)
         {
             var UserID = 1;
+<<<<<<< HEAD
             try
             {
                 var folders = from f in dbContext.Folders
@@ -48,23 +57,24 @@ namespace PAWA.Classes
                 new Folder { UserID = 1, InFolderID = 1, 
                     CreateDateTime = DateTime.Parse("2013/08/29 17:16:15"), 
                     FolderName = "Perth" },
+=======
 
-                new Folder { UserID = 1, InFolderID = 1, 
-                    CreateDateTime = DateTime.Parse("2013/08/29 17:16:15"), 
-                    FolderName = "Canberra" },
+            var folders = from f in dbContext.Folders
+                          where f.UserID == UserID && (f.InFolderID == folderID || (f.InFolderID == null && folderID == null))
+                          select f;             
+>>>>>>> a0f07748cb30e63e267b4884ee9db50854e3a288
 
-                new Folder { UserID = 1, InFolderID = 1, 
-                    CreateDateTime = DateTime.Parse("2013/08/29 17:16:15"), 
-                    FolderName = "Darwin" }
-            };
-             
-
-            return folders1;
+            return folders;
         }
 
-        public IEnumerable<File> GetFiles()
+        /*
+         * Returns a collection of File objects of a single user,
+         * based on the current folder level
+        */
+        public IEnumerable<File> GetFiles(int? folderID)
         {
             var UserID = 1;
+<<<<<<< HEAD
             try
             {
                 var files = from f in dbContext.Files
@@ -75,45 +85,25 @@ namespace PAWA.Classes
             {
                 Console.WriteLine(e.InnerException);
             }
+=======
 
-            var files1 = new List<File>
-            {
-                new File { UserID = 1, TypeID = 1, FolderID = 2, Tags = "1,2", 
-                    Filename = "Koala.jpg", UploadedDateTime = DateTime.Parse("2013/08/27 17:16:15"), 
-                    Description = "A killer koala, seen in its natural habit waiting for its prey.", 
-                    SizeMB = 3500, SizeHeight = 680, SizeWidth = 1048 },
+            var files = from f in dbContext.Files
+                        where f.UserID == UserID && (f.FolderID == folderID || (f.FolderID == null && folderID == null))
+                        select f;            
+>>>>>>> a0f07748cb30e63e267b4884ee9db50854e3a288
 
-                new File { UserID = 1, TypeID = 1, FolderID = null, Tags = "1", 
-                    Filename = "Chrysanthemum.jpg", UploadedDateTime = DateTime.Parse("2013/08/27 17:16:19"), 
-                    Description = "That flower that's hard to say and even harder to spell...but they make great tea.", 
-                    SizeMB = 3478, SizeHeight = 680, SizeWidth = 1048 },
-
-                new File { UserID = 1, TypeID = 1, FolderID = null, Tags = "1", 
-                    Filename = "Desert.jpg", UploadedDateTime = DateTime.Parse("2013/08/27 17:16:19"), 
-                    Description = "Desert.", 
-                    SizeMB = 3478, SizeHeight = 680, SizeWidth = 1048 },
-
-                new File { UserID = 1, TypeID = 1, FolderID = null, Tags = "1", 
-                    Filename = "Hydrangeas.jpg", UploadedDateTime = DateTime.Parse("2013/08/27 17:16:19"), 
-                    Description = "Flower.", 
-                    SizeMB = 3478, SizeHeight = 680, SizeWidth = 1048 },
-
-                new File { UserID = 1, TypeID = 1, FolderID = null, Tags = "1", 
-                    Filename = "Jellyfish.jpg", UploadedDateTime = DateTime.Parse("2013/08/27 17:16:19"), 
-                    Description = "The invasion has begun.", 
-                    SizeMB = 3478, SizeHeight = 680, SizeWidth = 1048 }
-            };
-
-            return files1;
+            return files;
         }
 
         /* 
-           Builds a table based on the amount of files and folders of the user
+         * Builds a table based on the amount of files and folders of the user.
+         * 
+         * Returns a string containing the html content to display on page.
         */
-        public string CreateTable()
+        public string CreateTable(int? folderID)
         {
-            IEnumerable<Folder> folders = GetFolders();
-            IEnumerable<File> files = GetFiles();
+            IEnumerable<Folder> folders = GetFolders(folderID);
+            IEnumerable<File> files = GetFiles(folderID);
             string htmlOutput;
             int i, foldersIndex = 0, filesIndex = 0;
             bool exitFiles = false, exitFolders = false;
@@ -128,6 +118,7 @@ namespace PAWA.Classes
                     // Add folders to table
                     if (!exitFolders)
                     {
+                        // no more folders at current level
                         if (foldersIndex >= folders.Count())
                         {
                             exitFolders = true;
@@ -135,11 +126,12 @@ namespace PAWA.Classes
 
                         if(!exitFolders)
                         {
-                            htmlOutput += "<td>\n<img src=\"../../Images/folder.png\" class=\"body-content-table-image\"/>\n" +
+                            htmlOutput += "<td>\n<a href=\"./Album?folderID=" + folders.ElementAt(foldersIndex).FolderID + "\">" +
+                            "<img src=\"../../Images/folder.png\" class=\"body-content-table-image\"/>\n" +
                             "<input type=\"checkbox\" class=\"body-content-table-checkbox\" id=\"" +
                             folders.ElementAt(foldersIndex).FolderID.ToString() + "_folder\" />\n" +
                             "<div class=\"body-content-table-folder-text\">" + folders.ElementAt(foldersIndex).FolderName +
-                            "</div></td>";
+                            "</div></a></td>";
 
                             foldersIndex++;
                         }
@@ -161,10 +153,13 @@ namespace PAWA.Classes
                         }
                         else
                         {
+                            string[] fileExtension = files.ElementAt(filesIndex).Filename.Split('.');
+
                             htmlOutput += "<td>\n<a href=\"../../Image/DisplayImage?filename=" + files.ElementAt(filesIndex).Filename + 
-                            "\"><img src=\"../../Images/User/" + files.ElementAt(filesIndex).Filename + "\" class=\"body-content-table-image\"/>\n" +
+                            "\"><img src=\"../../Images/User/" + fileExtension[0] + "_thumb." + fileExtension[1] + 
+                            "\" class=\"body-content-table-image\"/>\n" +                      
                             "<input type=\"checkbox\" class=\"body-content-table-checkbox\" name=\"selectedBoxes\" id=\"" +
-                            files.ElementAt(filesIndex).FileID.ToString() + "_folder\" /></a>\n</td>";
+                            files.ElementAt(filesIndex).FileID.ToString() + "_file\" /></a>\n</td>";
 
                             filesIndex++;
                         }

@@ -15,14 +15,16 @@ namespace PAWA.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("Album");
         }
 
         //
         // GET: /Home/AlbumTree
 
-        public ActionResult Album()
+        public ActionResult Album(int? folderID = null)
         {
+            ViewBag.FolderID = folderID;
+
             return View();
         }
     }

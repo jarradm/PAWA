@@ -1,34 +1,42 @@
-﻿@using (Html.BeginForm("UploadImage", "Image", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    <div id="background">
-    <h1>Image Upload/Resize API</h1>
-    <input type="file" name="file" />
-    <br />
-       
-        <label>Select Folder:</label>
-       @model IEnumerable<PAWA.Models.Folder>
-        @Html.DropDownListFor(m => m.First().FolderID, new SelectList(Model.AsEnumerable(), "FolderID", "FolderName"))
-    
-        <br />
-     <label>New file name: </label> 
-     <input type="text" style="width:250px" maxlength="15" name="newName" />
-     <label>(Leave blank for default)</label>
-    <br />
-        <label>Description:</label>
-        @Html.TextArea("description", null, new { cols = "5", rows = "10" })
-    <br />
-        <label>Add Tags:</label>
-        <input type="text" style="width:250px" name="tags" />
-    <br />
-       
-     <input type="submit" value="Upload" /> 
-        <br /> 
-     
-            <h3>@Html.Encode(ViewData["Uploaded"])</h3>
-    <br />
-        <footer>lol no css....</footer>
+﻿<link rel="stylesheet" href="~/App_Themes/Album.css" type="text/css" />
+<link rel="stylesheet" href="~/App_Themes/UploadImage.css" type="text/css" />
+<h1 style="text-align: center">Upload an Image</h1>
+<div id="body-area">
+    <div id="body-content-area">
+        <div id="body-content-table">
+            <div id="maindiv">
+                @using (Html.BeginForm("UploadImage", "Image", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <br />
+                    <label>Select Photo:&nbsp </label>
+                    <input type="file" name="file" /> <br />
+                    <label>Select Folder: </label>
+                    @model IEnumerable<PAWA.Models.Folder>
+                    @Html.DropDownListFor(m => m.First().FolderID, new SelectList(Model.AsEnumerable(), "FolderID", "FolderName"))
+                    <br /> 
+                    <label>Image Name:&nbsp </label> 
+                    <input type="text" style="width: 250px" maxlength="15" name="newName" />
+                    <br />
+                    <label>Description: </label>
+                    <br />
+                    @Html.TextArea("description", null, new { cols = "50", rows = "5", style = "resize:none" })
+                    <br />
+                    <label>Add Tags: </label>
+                    <input type="text" style="width: 250px" name="tags" />
+                    <br />
+                    <div id="buttons">
+                        <input type="submit" value="Upload" />
+                        <a href="javascript:history.go(-1);">
+                            <input type="button" value="Cancel" />
+                        </a>
+
+                    </div>
+                }
+            </div>
+        </div>
     </div>
-
-}
-
-
+</div>
+<center><h3>@Html.Encode(ViewData["Uploaded"])</h3></center>
+<script>
+    $("#body-content-area").position({ my: "center top", at: "center top", of: "#body-area" });
+</script>
