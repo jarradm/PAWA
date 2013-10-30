@@ -27,7 +27,11 @@ local.properties
 
 # PDT-specific
 .buildpath
+#######################
+## PAWA Project related
+#######################
 
+## TODO: Add files where nessicary
 
 #################
 ## Visual Studio
@@ -42,13 +46,19 @@ local.properties
 *.sln.docstates
 
 # Build results
-
 [Dd]ebug/
 [Rr]elease/
 x64/
 build/
 [Bb]in/
 [Oo]bj/
+# Deeper working directorys
+*/[Dd]ebug/
+*/[Rr]elease/
+*/x64/
+*/build/
+*/[Bb]in/
+*/[Oo]bj/
 
 # MSTest test Results
 [Tt]est[Rr]esult*/
@@ -130,7 +140,16 @@ publish/
 
 # NuGet Packages Directory
 ## TODO: If you have NuGet Package Restore enabled, uncomment the next line
+#Packages were uncommented for NuGet
 packages/
+
+# JQuery and JQuery-UI
+ui-icons*.png
+ui-bg*.png
+[jJ][qQ]uery*ui*.css
+[jJ][qQ]uery*.js
+*/Content/themes/base/images/animated-overlay.gif
+*/Content/themes/base/minified/images/animated-overlay.gif
 
 # Windows Azure Build Output
 csx
@@ -151,6 +170,7 @@ ClientBin/
 *.pfx
 *.publishsettings
 
+
 # RIA/Silverlight projects
 Generated_Code/
 
@@ -163,7 +183,9 @@ UpgradeLog*.htm
 
 # SQL Server files
 App_Data/*.mdf
+*/App_Data/*.mdf
 App_Data/*.ldf
+*/App_Data/*.ldf
 
 #############
 ## Windows detritus
