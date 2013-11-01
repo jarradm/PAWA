@@ -31,11 +31,6 @@
 <script>
     // position after image loads
     $(window).load(function () {
-        $("#body-content-image-area").position({ my: "center top", at: "center top", of: "#body-area", collision: "none" });
-        $("#body-content-description-area").position({ my: "center top", at: "center bottom+5", of: "#body-content-image-area", collision: "none" });
-        $("#body-content-tags-area").position({ my: "center top", at: "center bottom+5", of: "#body-content-description-area", collision: "none" });
-        $("#body-content-text-area").position({ my: "center top", at: "center bottom+10", of: "#body-content-image-area", collision: "none" });
-        $("#body-content-button-area").position({ my: "center top", at: "center bottom+5", of: "#body-content-tags-area", collision: "none" });
         $("#body-content-button-edit").position({ my: "left top", at: "left top", of: "#body-content-button-area", collision: "none" });
         $("#body-content-button-delete").position({ my: "right top", at: "right top", of: "#body-content-button-area", collision: "none" });
     });

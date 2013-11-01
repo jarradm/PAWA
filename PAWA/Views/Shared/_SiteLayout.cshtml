@@ -19,7 +19,9 @@
         @Html.Partial("FooterView")
     </div>
     <script>
-        $("#footer").position({ my: "bottom", at: "bottom-10", of: document });
+        $(window).load(function () {
+            $("#footer").position({ my: "bottom", at: "bottom", of: document, collision: "none" });
+        });
     </script>
 </body>
 
