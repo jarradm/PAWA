@@ -170,6 +170,54 @@ namespace PAWA.Classes
             }
             return list;
         }
+        /*
+         *  InsertImagetoDB(int,int,int,string,string,string,int)
+         * 
+         *  Uses all passed parimeters to create a new db 
+         *  image object, then pushes it into the db and saves  
+         */
+        public void insertImageToDB(int Height,int Width, int FileSize, string FileName, string Tags, string Description, int FolderID )
+        {
+            PAWAContext db = new PAWAContext();
+            Tools.UserID = 1;
+
+            var ImageFile = new PAWA.Models.File
+            {
+                UploadedDateTime = System.DateTime.Now,
+                SizeHeight = Height,
+                SizeWidth = Width,
+                SizeMB = FileSize,
+                Filename = FileName,
+                Tags = Tags,
+                Description = Description,
+
+                //Required
+                TypeID = 1,
+                UserID = Tools.UserID,
+                FolderID = FolderID
+            };
+            
+            db.Files.Add(ImageFile);
+            db.SaveChanges();
+        }
+        /*
+         * PhotoValidation(HttpPostedFileBase) 
+         * 
+         * Confirms that the file uploaded is
+         * not null and is a image of the required
+         * type.
+         */
+        public Boolean PhotoValidation(HttpPostedFileBase image)
+        {
+            if (image != null)
+            {
+                if (image.FileName.Contains(".jpg") || image.FileName.Contains(".png") || image.FileName.Contains(".bmp"))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
 
         public string CreateFilename(int userid, string filename)
         {
