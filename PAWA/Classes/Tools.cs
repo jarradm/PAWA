@@ -88,22 +88,111 @@ namespace PAWA.Classes
          * Seperate the string via ','
          * 
          * Replace , with space
+         * cut up string via spaces and 
+         * store into array.
+         * return array.
          */
-        public string seperateTags(string s)
+        public string[] seperateTags(string s)
         {
+            string[] TagArr;
             string temp = s;
+
             if (temp.Contains(','))
             {
                temp = temp.Replace(',', ' ');
             }
+            TagArr = temp.Split(' ');
+
+           return TagArr;
+        }
+        /*
+         * checkIfTagExists(string[]) 
+         * 
+         * Will used the passed array to compare
+         * against the DB, if the tag doesnt exist
+         * it will create it. returning all of the
+         * images tags IDs in a List<int>
+        */
+        public List<int> checkIfTagExists(string[] TagArr)
+        {
+            PAWAContext db = new PAWAContext();
+
+            //All of the images tag's Ids in a list
+            List<int> ImageTagsIDs = new List<int>();
+
+            foreach (string s in TagArr)
+            {
+                //results == any rows in the db that match 's'
+                var results = db.Tags.Where(t => t.TagName.Contains(s));
+                //If tag does exist
+                if (results != null && results.Count() >= 1)
+                {
+                    System.Diagnostics.Debug.WriteLine(s +"Is in DB ");
+                    ImageTagsIDs.Add(getTagID(s));
+                }
+                //If tag doesnt exist
+                else
+                {
+                    System.Diagnostics.Debug.WriteLine("Is not in DB\nAdding new tag '" + s + "'...");
+                    createTag(s);
+                    System.Diagnostics.Debug.WriteLine("Tag  '" + s + "' added sucessfully.");
+                    ImageTagsIDs.Add(getTagID(s));
+                }
+            } 
+            return ImageTagsIDs;    
+        }
+
+        public string convertTagsToString(List<int> TagIDs)
+        {
+            string temp = string.Join(",", TagIDs);
             return temp;
         }
-        
         /*
-         * DeselectFile(int) 
-         * removes a file from the list of files
-         * set totalcount - 1
+         * CreateTag(String) -- Users
+         * 
+         * Used to insert tags into the DB
         */
+        public void createTag(string name)
+        {
+            PAWAContext db = new PAWAContext();
+            var newTag = new PAWA.Models.Tags
+            {
+                FirstDateTime = System.DateTime.Now,
+                Status = Models.Status.Active,
+                TagName = name,
+                UseCount = 1,
+                UserSuggest = Models.UserSuggest.User
+            };
+            db.Tags.Add(newTag);
+            db.SaveChanges();
+        }
+       /*
+        * getTagID(string)
+        * 
+        * Used to get the tags id via
+        * passed tag name
+       */
+        public int getTagID(string tag)
+        {
+            PAWAContext db = new PAWAContext();
+
+            var test =
+                from x in db.Tags
+                where x.TagName == tag
+                select x.TagsID;
+            
+            foreach (var TagsID in test)
+            {
+                return TagsID;
+            }
+
+            return 0;
+        }
+        /*
+        * DeselectFile(int) 
+        * removes a file from the list of files
+        * set totalcount - 1
+       */
         public void deselectFile(int id)
         {
             if (selectedfile.Contains(id))
@@ -218,7 +307,7 @@ namespace PAWA.Classes
             }
             return false;
         }
-
+     
         public string CreateFilename(int userid, string filename)
         {
             string stringToHash = DateTime.UtcNow.ToString() + "_" + userid.ToString() + "_" + filename;
@@ -246,6 +335,19 @@ namespace PAWA.Classes
 
             return hexString.ToString() + "." + fileExtension;
         }
+       /* public int[] getTagIDs(string[] tags)
+        {
+            PAWAContext db = new PAWAContext();
+            int[] tagIDS;
+            
+            List<Models.Tags> TagDB;
+            var results = TagDB.Where(nc => nc.TagName.ToLower().StartsWith());
+
+           
+           
+
+            return
+        }*/
 
     }
 }
