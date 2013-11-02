@@ -35,10 +35,10 @@ namespace PAWA.Controllers
         [HttpPost]
         public ActionResult Album(string DropDownList, string Submit)
         {
-            System.Diagnostics.Debug.WriteLine(DropDownList);
             if (Submit != null && DropDownList.Equals("Delete"))
             {
 
+                dbContext = new PAWA.DAL.PAWAContext();
                 IEnumerable<File> files = GetFiles();
                 int filesIndex = 0;
                 string selectedValue;
@@ -47,25 +47,15 @@ namespace PAWA.Controllers
                 {
 
                     selectedValue = Request.Form[files.ElementAt(filesIndex).FileID.ToString()];
+               
                     int fileId = files.ElementAt(filesIndex).FileID;
 
                     if (selectedValue != null && selectedValue.Equals("on"))
                     {
-                        System.Diagnostics.Debug.WriteLine("DEL");
-                        
-                        var dbContext = new PAWA.DAL.PAWAContext();
-                        var deleteSelectedImages =
-                            from File in dbContext.Files
-                            where File.FileID == fileId
-                            select File;
-                        System.Diagnostics.Debug.WriteLine(deleteSelectedImages.Count());
-                        if (deleteSelectedImages.Count() > 0)
-                        {
 
-                            System.Diagnostics.Debug.WriteLine("REMOVED");
+                        File delFile = files.ElementAt(filesIndex);
 
-                            dbContext.Files.Remove(deleteSelectedImages.First());
-                        }
+                        dbContext.Files.Remove(delFile);
 
                         dbContext.SaveChanges();
                     }
@@ -84,7 +74,6 @@ namespace PAWA.Controllers
         */
         public IEnumerable<File> GetFiles()
         {
-            var dbContext = new PAWA.DAL.PAWAContext();
 
             var UserID = 1;
 
