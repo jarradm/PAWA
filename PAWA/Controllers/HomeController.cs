@@ -59,8 +59,11 @@ namespace PAWA.Controllers
 
                         dbContext.SaveChanges();
                     }
+                    else
+                    {
 
-                    filesIndex++;
+                        filesIndex++;
+                    }
                 }
 
             }

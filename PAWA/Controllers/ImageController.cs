@@ -7,12 +7,15 @@ using PAWA.DAL;
 using PAWA.Models;
 using System.Drawing;
 using PAWA.Classes;
+using System.IO;
 
 
 namespace PAWA.Controllers
 {
     public class ImageController : Controller
     {
+        PAWAContext dbContext;
+
         //
         // GET: /Image/
 
@@ -27,8 +30,8 @@ namespace PAWA.Controllers
         public ActionResult DisplayImage(string filename)
         {
             int UserID = 1;
-            PAWAContext dbContext = new PAWAContext();
-
+            dbContext = new PAWAContext();
+            /*
             var files1 = new List<File>
             {
                 new File { UserID = 1, TypeID = 1, FolderID = 2, Tags = "1,2", 
@@ -57,12 +60,12 @@ namespace PAWA.Controllers
                     SizeMB = 775, SizeHeight = 768, SizeWidth = 1024 }
             };
 
-            /*
+            */
             var files = from f in dbContext.Files
                         where f.UserID == UserID &&
                               f.Filename == filename
                         select f;
-            */
+            /*
             
             var files = from f in files1
                         where f.UserID == UserID &&
@@ -83,8 +86,8 @@ namespace PAWA.Controllers
                 SizeHeight = 680,
                 SizeWidth = 1048
             };
-
-            return View(files.SingleOrDefault());
+            */
+            return View(files.First());
         }
 
         //
@@ -183,11 +186,20 @@ namespace PAWA.Controllers
         [HttpPost]
         public ActionResult DisplayImage(string fileName, string editImage, string deleteImage)
         {
+            dbContext = new PAWAContext();
             //If they want to delete
             if (deleteImage != null)
             {
                 //Delete from the database
-                System.Diagnostics.Debug.WriteLine("DELETING!");
+                PAWA.Models.File deleteFile = GetFile(fileName);
+
+                System.IO.File.Delete(Server.MapPath("~/Images/User/" + fileName));
+
+                dbContext.Files.Remove(deleteFile);
+
+                dbContext.SaveChanges();
+
+                
                 return RedirectToAction("./../Home/Album");
             }
             else
@@ -195,6 +207,23 @@ namespace PAWA.Controllers
                 return DisplayImage(fileName);
             }
 
+        }
+
+        /*
+         * Returns a collection of File objects of a single user,
+         * based on the current folder level
+        */
+        public PAWA.Models.File GetFile(string filename)
+        {
+
+            var UserID = 1;
+
+            var files = from f in dbContext.Files
+                        where f.UserID == UserID &&
+                              f.Filename == filename
+                        select f;
+
+            return files.First();
         }
     }
 }
