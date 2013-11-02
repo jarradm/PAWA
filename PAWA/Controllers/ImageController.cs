@@ -117,6 +117,10 @@ namespace PAWA.Controllers
         {
             Tools funcs = new Tools();         //funcs contains resize/rename method
             Size newSize = new Size(181, 100); //global size for all thumbnails
+            string[] TagArr;
+            List<int> TagIDs;
+            string finalTags;
+
             System.Drawing.Imaging.ImageFormat fileExtension;
 
             
@@ -132,7 +136,13 @@ namespace PAWA.Controllers
                 if (newName != ""){ fileName = funcs.Rename(fileName, newName);}
 
                 //split tags
-                if (tags.Contains(',')) { tags = funcs.seperateTags(tags);}
+                TagArr = funcs.seperateTags(tags);
+
+                //Checks if tag exists, if not adds it.
+                TagIDs = funcs.checkIfTagExists(TagArr);
+
+                //Converts the list array to a string and puts in ','
+                finalTags = funcs.convertTagsToString(TagIDs);
 
                 //Find filetype
                 fileExtension = funcs.checkExtension(fileName);
@@ -150,7 +160,7 @@ namespace PAWA.Controllers
                 Image tempImage = System.Drawing.Image.FromFile(path);
 
                 //Create new database file using tempimage properties
-                funcs.insertImageToDB(tempImage.Height, tempImage.Width, (int)(new System.IO.FileInfo(path).Length / 1000), fileName, tags, description, Convert.ToInt16(FolderID));
+                funcs.insertImageToDB(tempImage.Height, tempImage.Width, (int)(new System.IO.FileInfo(path).Length / 1000), fileName, finalTags, description, Convert.ToInt16(FolderID));
 
                 //call resize on tempimage
                 tempImage = funcs.ImageResize(tempImage, newSize); //resize tempimage using resize method in tools

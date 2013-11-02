@@ -1,6 +1,6 @@
 ﻿<link rel="stylesheet" href="~/App_Themes/Album.css" type="text/css" />
 <link rel="stylesheet" href="~/App_Themes/UploadImage.css" type="text/css" />
-<h1 style="text-align: center">Upload an Image</h1>
+<BR />
 <div id="body-area">
     <div id="body-content-area">
         <div id="body-content-table">
@@ -22,7 +22,7 @@
                     @Html.TextArea("description", null, new { cols = "50", rows = "5", style = "resize:none" })
                     <br />
                     <label>Add Tags: </label>
-                    <input type="text" style="width: 250px" name="tags" />
+                    <input type="text" style="width: 250px" name="tags" /><input type="button" onclick="TagHelp()" value="?" />
                     <br />
                     <div id="buttons">
                         <input type="submit" value="Upload" />
@@ -37,6 +37,10 @@
     </div>
 </div>
 <center><h3>@Html.Encode(ViewData["Uploaded"])</h3></center>
+
 <script>
-    $("#body-content-area").position({ my: "center top", at: "center top", of: "#body-area" });
+    function TagHelp()
+    {
+        alert("Tags are used to quickly find an Image\nThe correct format for tagging: 'Ocean,Holiday,2013'\n Seperated using commas and no spacing.");
+    }
 </script>
