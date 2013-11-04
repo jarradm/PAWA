@@ -7,12 +7,15 @@ using PAWA.DAL;
 using PAWA.Models;
 using System.Drawing;
 using PAWA.Classes;
+using System.IO;
 
 
 namespace PAWA.Controllers
 {
     public class ImageController : Controller
     {
+        PAWAContext dbContext;
+
         //
         // GET: /Image/
 
@@ -27,8 +30,8 @@ namespace PAWA.Controllers
         public ActionResult DisplayImage(string filename)
         {
             int UserID = 1;
-            PAWAContext dbContext = new PAWAContext();
-
+            dbContext = new PAWAContext();
+            /*
             var files1 = new List<File>
             {
                 new File { UserID = 1, TypeID = 1, FolderID = 2, Tags = "1,2", 
@@ -57,18 +60,18 @@ namespace PAWA.Controllers
                     SizeMB = 775, SizeHeight = 768, SizeWidth = 1024 }
             };
 
-            
+            */
             var files = from f in dbContext.Files
                         where f.UserID == UserID &&
                               f.Filename == filename
                         select f;
-             
             /*
+            
             var files = from f in files1
                         where f.UserID == UserID &&
                               f.Filename == filename
                         select f;
-             */
+             
 
             var file = new File
             {
@@ -83,8 +86,8 @@ namespace PAWA.Controllers
                 SizeHeight = 680,
                 SizeWidth = 1048
             };
-
-            return View(files.SingleOrDefault());
+            */
+            return View(files.First());
         }
 
         //
@@ -179,6 +182,31 @@ namespace PAWA.Controllers
 
 
             return RedirectToAction("UploadImage");
+        }
+
+
+
+        [HttpPost]
+        public ActionResult DisplayImage(string fileName, string editImage, string deleteImage)
+        {
+
+            //If they want to delete
+            if (deleteImage != null)
+            {
+
+                //Call Delete Method
+                DeleteImage delImage = new DeleteImage();
+                delImage.deleteSingleImage(Request, Server, fileName);
+
+                //Navigate to album
+                return RedirectToAction("./../Home/Album");
+            }
+            else
+            {
+                //Not deleting, do nothing
+                return DisplayImage(fileName);
+            }
+
         }
     }
 }

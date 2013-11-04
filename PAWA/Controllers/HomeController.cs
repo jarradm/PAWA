@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using PAWA.Classes;
+using PAWA.Models;
 using PAWA.DAL;
+using PAWA.Classes;
+using System.Drawing;
+using System.Data;
 
 namespace PAWA.Controllers
 {
@@ -25,6 +28,22 @@ namespace PAWA.Controllers
         {
             ViewBag.FolderID = folderID;
 
+            return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult Album(string DropDownList, string Submit)
+        {
+            //If the go button was pushed and the dropdown was delete
+            if (Submit != null && DropDownList.Equals("Delete"))
+            {
+                //Call Delete Method
+                DeleteImage deleteImage = new DeleteImage();
+                deleteImage.deleteMultipleImages(Request, Server);
+            }
+
+            //Re-load the view
             return View();
         }
     }
