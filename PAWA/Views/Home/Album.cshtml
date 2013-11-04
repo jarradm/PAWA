@@ -27,13 +27,44 @@
 </div>
 
 <script type="text/javascript">
+
     $(document).ready(function () {
-        $("input[name='Go']").click(function () {
-            if ($('#Action').val() == "Delete") {
-                return confirm('Delete the selected photos?');
+        $("input[name='Submit']").click(function () {
+            if ($('#DropDownList').val() == "Delete") {
+
+                //check if anything was selected
+                if (!hasChecked()) {
+                    //Nothing was so show a message.
+                    alert("You have not selected any images to delete.");
+                    return;
+                }
+
+                return confirm('These images will be permanently deleted. Do you wish to continue?');
             }
         });
     });
+</script>
+
+<script type="text/javascript">
+    function hasChecked() {
+        //Get input elements
+        var inputs = document.getElementsByTagName("input"); //or document.forms[0].elements;  
+
+        //For all elements
+        for (var i = 0; i < inputs.length; i++) {
+            //If it is a checkbox
+            if (inputs[i].type == "checkbox") 
+            {
+                //That is selected
+                if (inputs[i].checked) {
+                    //Then something was
+                    return true;
+                }
+            }
+        }
+        //Nothing was selected
+        return false;
+    };
 </script>
 
 <script>
