@@ -153,6 +153,8 @@ namespace PAWA.Classes
                 where x.TagName == tagName
                 select x;
 
+          
+
             foreach (var selectedTag in tag)
             {
                 selectedTag.UseCount ++; 
@@ -241,8 +243,11 @@ namespace PAWA.Classes
            
             //create new list for files,
             //will be used to generate DDL options
-            IList<Models.Folder> list = new List<Models.Folder>(); 
-            
+            IList<Models.Folder> list = new List<Models.Folder>();
+           
+            //Add Root directory
+            list.Add(new Models.Folder {FolderID = -1, FolderName = "Root"});
+
             //Foreach folder in the database
             foreach (var f in db.Folders)
             {
@@ -252,6 +257,7 @@ namespace PAWA.Classes
                     //add folder to List
                     list.Add(new Models.Folder { FolderID = f.FolderID, FolderName = f.FolderName });
                 }
+                
             }
             return list;
         }
@@ -259,11 +265,16 @@ namespace PAWA.Classes
          ///  Uses all passed parimeters to create a new db 
          ///  image object, then pushes it into the db and saves  
         ///</summary>
-        public void insertImageToDB(int Height,int Width, int FileSize, string FileName, string Tags, string Description, int FolderID )
+        public void insertImageToDB(int Height,int Width, int FileSize, string FileName, string Tags, string Description, int? FolderID )
         {
             PAWAContext db = new PAWAContext();
             Tools.UserID = 1;
 
+            if(FolderID == -1)
+            {
+                FolderID = null;
+            }
+          
             var ImageFile = new PAWA.Models.File
             {
                 UploadedDateTime = System.DateTime.Now,
