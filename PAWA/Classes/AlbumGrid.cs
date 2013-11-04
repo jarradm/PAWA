@@ -30,16 +30,19 @@ namespace PAWA.Classes
         {
             var UserID = 1;
             //<<<<<<< HEAD
+            IEnumerable<Folder> returnValue;
             try
             {
-                var folders = from f in dbContext.Folders
+                returnValue = from f in dbContext.Folders
                               where f.UserID == UserID && (f.InFolderID == folderID || (f.InFolderID == null && folderID == null))
                               select f;
             }
             catch (Exception e)
             {
+                returnValue = (new HashSet<Folder> {  }) ;
                 Console.WriteLine(e.InnerException);
             }
+
             var folders1 = new List<Folder>
             {
                 new Folder { UserID = 1, InFolderID = null, 
@@ -61,7 +64,7 @@ namespace PAWA.Classes
             };
             //>>>>>>> a0f07748cb30e63e267b4884ee9db50854e3a288
 
-            return folders;
+            return returnValue;
         }
 
         /*
@@ -72,25 +75,26 @@ namespace PAWA.Classes
         {
             var UserID = 1;
             //<<<<<<< HEAD
-            
-            IEnumerable<File> temp;
-            var returnValue = UserID;
+
+            IEnumerable<File> returnValue;
             try
             {
                 returnValue = from f in dbContext.Files
-                            where f.UserID == UserID && (f.FolderID == folderID || (f.FolderID == null && folderID == null))
-                            select f;
+                              where f.UserID == UserID && (f.FolderID == folderID || (f.FolderID == null && folderID == null))
+                              select f;
             }
             catch (Exception e)
             {
+                HashSet<File> temp = new HashSet<File> {  };
+                returnValue = temp;//from f in dbContext.Files select f;
                 Console.WriteLine(e.InnerException);
             }
+            return returnValue;
             //=======
 
-           
+
             //>>>>>>> a0f07748cb30e63e267b4884ee9db50854e3a288
 
-            return returnValue;
         }
 
         /* 
@@ -151,8 +155,11 @@ namespace PAWA.Classes
                         }
                         else
                         {
-                            string[] fileExtension = files.ElementAt(filesIndex).Filename.Split('.');
-
+                            string[] fileExtension = {"void","file"};
+                            if (files.ElementAt(filesIndex).Filename.Contains('.'))
+                            {
+                                fileExtension = files.ElementAt(filesIndex).Filename.Split('.');
+                            }
                             htmlOutput += "<td>\n<a href=\"../../Image/DisplayImage?filename=" + files.ElementAt(filesIndex).Filename +
                             "\"><img src=\"../../Images/User/" + fileExtension[0] + "_thumb." + fileExtension[1] +
                             "\" class=\"body-content-table-image\"/>\n" +

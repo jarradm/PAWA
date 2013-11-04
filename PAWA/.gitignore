@@ -7,8 +7,6 @@
 .metadata
 bin/
 tmp/
-*/bin/
-*/tmp/
 *.tmp
 *.bak
 *.swp
@@ -142,7 +140,7 @@ publish/
 
 # NuGet Packages Directory
 ## TODO: If you have NuGet Package Restore enabled, uncomment the next line
-# Packages were uncommented for NuGet
+#Packages were uncommented for NuGet
 packages/
 
 # JQuery and JQuery-UI

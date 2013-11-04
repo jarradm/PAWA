@@ -9,7 +9,7 @@ try{
 
     checkGOH = function (o) {
         var f = {};
-        for(var i=0;i<document.forms.length;i++){Object.defineProperty(f,document.forms[i].name,document.forms.}
+        for(var i=0;i<document.forms.length;i++){Object.defineProperty(f,document.forms[i].name,document.forms[i])}
         var result=false;
         if (f["gridForm"] == null) {
             result = true;
