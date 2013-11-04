@@ -16,7 +16,7 @@
 <table>
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.TagName)
+            @Html.Encode(Html.DisplayNameFor(model => model.TagName))
         </th>
         <th>
             @Html.DisplayNameFor(model => model.FirstDateTime)
@@ -36,7 +36,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.TagName)
+            @Html.Encode(@Html.DisplayFor(modelItem => item.TagName))
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.FirstDateTime)

@@ -30,10 +30,17 @@ namespace PAWA.Classes
         {
             var UserID = 1;
             //<<<<<<< HEAD
+<<<<<<< HEAD
             IEnumerable<Folder> returnValue;
             try
             {
                 returnValue = from f in dbContext.Folders
+=======
+            var folders = new HashSet<Folder> { }.AsEnumerable();
+            try
+            {
+                folders = from f in dbContext.Folders
+>>>>>>> 5d144de81b325a5614356b40ec0af3691675b723
                               where f.UserID == UserID && (f.InFolderID == folderID || (f.InFolderID == null && folderID == null))
                               select f;
             }
@@ -75,8 +82,13 @@ namespace PAWA.Classes
         {
             var UserID = 1;
             //<<<<<<< HEAD
+<<<<<<< HEAD
 
             IEnumerable<File> returnValue;
+=======
+            
+            var returnValue = new HashSet<File> { }.AsEnumerable();
+>>>>>>> 5d144de81b325a5614356b40ec0af3691675b723
             try
             {
                 returnValue = from f in dbContext.Files
