@@ -189,23 +189,14 @@ namespace PAWA.Controllers
         [HttpPost]
         public ActionResult DisplayImage(string fileName, string editImage, string deleteImage)
         {
-            //Get a connection to the database
-            dbContext = new PAWAContext();
 
             //If they want to delete
             if (deleteImage != null)
             {
-                //Get the file to delete from database
-                PAWA.Models.File deleteFile = GetFile(fileName);
 
-                //Delete the image file from server
-                string[] fileExtension = deleteFile.Filename.Split('.');
-                System.IO.File.Delete(Server.MapPath("~/Images/User/" + fileExtension[0] + ".jpg"));
-                System.IO.File.Delete(Server.MapPath("~/Images/User/" + fileExtension[0] + "_thumb.jpg"));
-
-                //Delete record from database
-                dbContext.Files.Remove(deleteFile);
-                dbContext.SaveChanges();
+                //Call Delete Method
+                DeleteImage delImage = new DeleteImage();
+                delImage.deleteSingleImage(Request, Server, fileName);
 
                 //Navigate to album
                 return RedirectToAction("./../Home/Album");
@@ -216,25 +207,6 @@ namespace PAWA.Controllers
                 return DisplayImage(fileName);
             }
 
-        }
-
-        /*
-         * Returns a collection of File objects of a single user,
-         * based on the current folder level
-        */
-        public PAWA.Models.File GetFile(string filename)
-        {
-
-            var UserID = 1;
-
-            //Search database for file
-            var files = from f in dbContext.Files
-                        where f.UserID == UserID &&
-                              f.Filename == filename
-                        select f;
-
-            //return first found
-            return files.First();
         }
     }
 }
