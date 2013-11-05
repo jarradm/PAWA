@@ -8,8 +8,18 @@ using PAWA.Models;
 
 namespace PAWA.DAL
 {
-    public class PAWAContext : DbContext, IPAWAContext
+    public class TestPAWAContext : IPAWAContext
     {
+        public TestPAWAContext()
+        {
+            this.Users = new TestDbContext<User>();
+            this.Folders = new TestDbContext<Folder>();
+            this.Types = new TestDbContext<PAWA.Models.Type>();
+            this.Tags = new TestDbContext<Tags>();
+            this.Files = new TestDbContext<File>();
+            this.DailyStatistics = new TestDbContext<DailyStatistics>();
+        }
+
         public IDbSet<User> Users { get; set; }
         public IDbSet<Folder> Folders { get; set; }
         public IDbSet<PAWA.Models.Type> Types { get; set; }
@@ -17,9 +27,9 @@ namespace PAWA.DAL
         public IDbSet<File> Files { get; set; }
         public IDbSet<DailyStatistics> DailyStatistics { get; set; }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        public int SaveChanges()
         {
-            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            return 0;
         }
     }
 }

@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PAWA", "PAWA\PAWA.csproj", "{99FECA64-0464-485C-B872-D4BCF663C053}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PAWA.Tests", "PAWA.Tests\PAWA.Tests.csproj", "{C37EDD17-4800-4491-84C8-BE0A366A9C52}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{99FECA64-0464-485C-B872-D4BCF663C053}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{99FECA64-0464-485C-B872-D4BCF663C053}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{99FECA64-0464-485C-B872-D4BCF663C053}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C37EDD17-4800-4491-84C8-BE0A366A9C52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C37EDD17-4800-4491-84C8-BE0A366A9C52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C37EDD17-4800-4491-84C8-BE0A366A9C52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C37EDD17-4800-4491-84C8-BE0A366A9C52}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
