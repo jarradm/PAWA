@@ -9,9 +9,8 @@ namespace PAWA.Classes
 {
     public class DisplayImage
     {
-        public static string GetTags(string tagInput)
+        public static string GetTags(IPAWAContext dbContext, string tagInput)
         {
-            PAWAContext dbContext = new PAWAContext();
             string[] tags;
             string tagOutput = null;
             int tagId;
