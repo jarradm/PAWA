@@ -120,6 +120,7 @@
     <Compile Include="DAL\IPAWAContext.cs" />
     <Compile Include="DAL\PAWAContext.cs" />
     <Compile Include="DAL\TestDbContext.cs" />
+    <Compile Include="DAL\TestPAWAContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
