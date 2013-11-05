@@ -110,7 +110,7 @@ namespace PAWA.Classes
                             string[] fileExtension = files.ElementAt(filesIndex).Filename.Split('.');
 
                             htmlOutput += "<td>\n<a href=\"../../Image/DisplayImage?filename=" + files.ElementAt(filesIndex).Filename + 
-                            "\"><img src=\"../../Images/User/" + fileExtension[0] + "_thumb." + "jpg" + 
+                            "\"><img src=\"../../Images/User/" + fileExtension[0] + "_thumb." + fileExtension[fileExtension.Length-1] + 
                             "\" class=\"body-content-table-image\"/>\n" +                      
                             "<input type=\"checkbox\" class=\"body-content-table-checkbox\" name=\"" +
                             files.ElementAt(filesIndex).FileID.ToString() + "\" id=\"" +
