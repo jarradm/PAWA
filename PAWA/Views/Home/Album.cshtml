@@ -15,7 +15,7 @@
             </select>
             
             <input type="submit" name="Submit" value="Go" />
-            <input type="button" name="Create" value="Create Folder" id="body-content-button-create" disabled />
+            <input type="button" name="Create" value="Create Folder" id="body-content-button-create" onclick="func()" />
             
             PAWA.Classes.AlbumGrid ag = new PAWA.Classes.AlbumGrid(new PAWA.DAL.PAWAContext());
             @Html.Raw(ag.CreateTable((int?)ViewBag.FolderID));

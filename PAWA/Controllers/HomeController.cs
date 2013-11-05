@@ -32,6 +32,16 @@ namespace PAWA.Controllers
         }
 
 
+        public ActionResult CreateFolder(int? folderID = null)
+        {
+            int userId = 1;
+            ViewBag.FolderID = folderID;
+
+            return View();
+        }
+
+        
+        
         [HttpPost]
         public ActionResult Album(string DropDownList, string Submit)
         {
