@@ -250,6 +250,7 @@
     <Content Include="Views\Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Views\Home\CreateFolder.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
