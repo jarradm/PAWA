@@ -2,17 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using PAWA.Models;
 using PAWA.DAL;
-//<<<<<<< HEAD
-//struct config { int _MaxColumns = 5;}
-//=======
 using System.Data;
-//>>>>>>> a0f07748cb30e63e267b4884ee9db50854e3a288
+using System.Drawing;
 
 namespace PAWA.Classes
 {
-    public class AlbumGrid
+    public class AlbumGrid : Controller
     {
         PAWAContext dbContext;
         int _MaxColumns = 5;
@@ -29,18 +27,10 @@ namespace PAWA.Classes
         public IEnumerable<Folder> GetFolders(int? folderID)
         {
             var UserID = 1;
-            //<<<<<<< HEAD
-<<<<<<< HEAD
             IEnumerable<Folder> returnValue;
             try
             {
                 returnValue = from f in dbContext.Folders
-=======
-            var folders = new HashSet<Folder> { }.AsEnumerable();
-            try
-            {
-                folders = from f in dbContext.Folders
->>>>>>> 5d144de81b325a5614356b40ec0af3691675b723
                               where f.UserID == UserID && (f.InFolderID == folderID || (f.InFolderID == null && folderID == null))
                               select f;
             }
@@ -69,7 +59,6 @@ namespace PAWA.Classes
                     FolderName = "Perth" },
 
             };
-            //>>>>>>> a0f07748cb30e63e267b4884ee9db50854e3a288
 
             return returnValue;
         }
@@ -81,14 +70,9 @@ namespace PAWA.Classes
         public IEnumerable<File> GetFiles(int? folderID)
         {
             var UserID = 1;
-            //<<<<<<< HEAD
-<<<<<<< HEAD
 
             IEnumerable<File> returnValue;
-=======
             
-            var returnValue = new HashSet<File> { }.AsEnumerable();
->>>>>>> 5d144de81b325a5614356b40ec0af3691675b723
             try
             {
                 returnValue = from f in dbContext.Files
@@ -97,15 +81,10 @@ namespace PAWA.Classes
             }
             catch (Exception e)
             {
-                HashSet<File> temp = new HashSet<File> {  };
-                returnValue = temp;//from f in dbContext.Files select f;
+                returnValue = new HashSet<File> {  };
                 Console.WriteLine(e.InnerException);
             }
             return returnValue;
-            //=======
-
-
-            //>>>>>>> a0f07748cb30e63e267b4884ee9db50854e3a288
 
         }
 

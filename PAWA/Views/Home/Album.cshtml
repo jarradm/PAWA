@@ -7,24 +7,46 @@
 
 <div id="body-area">
     <div id="body-content-area">
+<<<<<<< HEAD
         @using (Html.BeginForm("gridViewForm", "Home", FormMethod.Post, new { id = "gridForm" }))
         {
             <select disabled>
+=======
+ 
+            @using (Html.BeginForm("Album", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+            <select name="Action" id="Action">
+>>>>>>> DeleteImage
                 <option value="Edit">Edit Selected</option>
                 <option value="Move">Move Selected</option>
                 <option value="Delete">Delete Selected</option>
             </select>
+<<<<<<< HEAD
             <input type="button" name="Submit" value="Go" disabled onclick="checkGOH(null)" />
             <input type="button" name="Create" value="Create Folder" id="body-content-button-create" disabled />
+=======
+            <input type="submit" name="Go" value="Go" />
+            <input type="submit" name="CreateFolder" value="Create Folder" id="body-content-button-create" disabled />
+>>>>>>> DeleteImage
             
             PAWA.Classes.AlbumGrid ag = new PAWA.Classes.AlbumGrid(new PAWA.DAL.PAWAContext());
             @Html.Raw(ag.CreateTable((int?)ViewBag.FolderID));
             
-            <input type="button" name="Next" value="Next Page" id="body-content-button-next" disabled /> 
-            <input type="button" name="Top" value="Go To Top" id="body-content-button-top" disabled />
+            <input type="submit" name="NextPae" value="Next Page" id="body-content-button-next" disabled /> 
+            <input type="submit" name="GoToTop" value="Go To Top" id="body-content-button-top" disabled />
         }
     </div>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("input[name='Go']").click(function () {
+            if ($('#Action').val() == "Delete") {
+                return confirm('Delete the selected photos?');
+            }
+        });
+    });
+</script>
 
 <script>
     $("#body-content-area").position({ my: "center top", at: "center top", of: "#body-area" });

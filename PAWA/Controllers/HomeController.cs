@@ -27,5 +27,18 @@ namespace PAWA.Controllers
 
             return View();
         }
+
+
+        [HttpPost]
+        public ActionResult Album(string Action, string Go)
+        {
+            if (Go != null && Action.Equals("Delete"))
+            {
+                //Delete from the database
+                System.Diagnostics.Debug.WriteLine("DELETING!");
+            }
+
+            return View();
+        }
     }
 }
