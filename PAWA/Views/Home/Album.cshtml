@@ -7,56 +7,75 @@
 
 <div id="body-area">
     <div id="body-content-area">
-<<<<<<< HEAD
-        @using (Html.BeginForm("gridViewForm", "Home", FormMethod.Post, new { id = "gridForm" }))
+        @using (Html.BeginForm("Album", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
-            <select disabled>
-=======
- 
-            @using (Html.BeginForm("Album", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
-            {
-            <select name="Action" id="Action">
->>>>>>> DeleteImage
+            <select name="DropDownList" id="DropDownList">
                 <option value="Edit">Edit Selected</option>
                 <option value="Move">Move Selected</option>
                 <option value="Delete">Delete Selected</option>
             </select>
-<<<<<<< HEAD
-            <input type="button" name="Submit" value="Go" disabled onclick="checkGOH(null)" />
-            <input type="button" name="Create" value="Create Folder" id="body-content-button-create" disabled />
-=======
-            <input type="submit" name="Go" value="Go" />
-            <input type="submit" name="CreateFolder" value="Create Folder" id="body-content-button-create" disabled />
->>>>>>> DeleteImage
             
+            <input type="submit" name="Submit" value="Go" />
+            <input type="button" name="Create" value="Create Folder" id="body-content-button-create" disabled />
             PAWA.Classes.AlbumGrid ag = new PAWA.Classes.AlbumGrid(new PAWA.DAL.PAWAContext());
             @Html.Raw(ag.CreateTable((int?)ViewBag.FolderID));
             
             <input type="submit" name="NextPae" value="Next Page" id="body-content-button-next" disabled /> 
             <input type="submit" name="GoToTop" value="Go To Top" id="body-content-button-top" disabled />
         }
+
     </div>
 </div>
 
 <script type="text/javascript">
+
     $(document).ready(function () {
-        $("input[name='Go']").click(function () {
-            if ($('#Action').val() == "Delete") {
-                return confirm('Delete the selected photos?');
+        $("input[name='Submit']").click(function () {
+            if ($('#DropDownList').val() == "Delete") {
+
+                //check if anything was selected
+                if (!hasChecked()) {
+                    //Nothing was so show a message.
+                    alert("You have not selected any images to delete.");
+                    return;
+                }
+
+                return confirm('These images will be permanently deleted. Do you wish to continue?');
             }
         });
     });
 </script>
 
+<script type="text/javascript">
+    function hasChecked() {
+        //Get input elements
+        var inputs = document.getElementsByTagName("input"); //or document.forms[0].elements;  
+
+        //For all elements
+        for (var i = 0; i < inputs.length; i++) {
+            //If it is a checkbox
+            if (inputs[i].type == "checkbox") 
+            {
+                //That is selected
+                if (inputs[i].checked) {
+                    //Then something was
+                    return true;
+                }
+            }
+        }
+        //Nothing was selected
+        return false;
+    };
+</script>
+
 <script>
-    $("#body-content-area").position({ my: "center top", at: "center top", of: "#body-area" });
-    $("#body-content-button-create").position({ my: "right top", at: "right-4 top+2", of: "#body-content-area" });
-    $("#body-content-button-next").position({ my: "center bottom", at: "center bottom-2", of: "#body-content-area" });
-    $("#body-content-button-top").position({ my: "right bottom", at: "right-4 bottom-2", of: "#body-content-area" });
+    $("#body-content-button-create").position({ my: "right top", at: "right-4 top+2", of: "#body-content-area", collision: "none" });
+    $("#body-content-button-next").position({ my: "center bottom", at: "center bottom-2", of: "#body-content-area", collision: "none" });
+    $("#body-content-button-top").position({ my: "right bottom", at: "right-4 bottom-2", of: "#body-content-area", collision: "none" });
     $(".body-content-table-checkbox").each(function () {
-        $(this).position({ my: "right bottom", at: "right-5 bottom-5", of: $(this).parent().children("img") });
+        $(this).position({ my: "right bottom", at: "right-5 bottom-5", of: $(this).parent().children("img"), collision: "none" });
     });
     $(".body-content-table-folder-text").each(function () {
-        $(this).position({ my: "center", at: "center center+10", of: $(this).parent().children("img") });
+        $(this).position({ my: "center", at: "center center+10", of: $(this).parent().children("img"), collision: "none" });
     });
 </script>

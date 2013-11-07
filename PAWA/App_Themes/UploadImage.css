@@ -1,7 +1,7 @@
 ﻿#maindiv {
     width:900px;
     padding-left: 25%;
-
+    margin: auto;
     text-align:justify;
 }
 #buttons {

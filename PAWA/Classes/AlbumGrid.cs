@@ -7,6 +7,7 @@ using PAWA.Models;
 using PAWA.DAL;
 using System.Data;
 using System.Drawing;
+using System.Data;
 
 namespace PAWA.Classes
 {
@@ -151,12 +152,13 @@ namespace PAWA.Classes
                             {
                                 fileExtension = files.ElementAt(filesIndex).Filename.Split('.');
                             }
-                            htmlOutput += "<td>\n<a href=\"../../Image/DisplayImage?filename=" + files.ElementAt(filesIndex).Filename +
-                            "\"><img src=\"../../Images/User/" + fileExtension[0] + "_thumb." + fileExtension[1] +
+                            htmlOutput += "<td>\n<a href=\"../../Image/DisplayImage?filename=" + files.ElementAt(filesIndex).Filename + 
+                            "\"><img src=\"../../Images/User/" + fileExtension[0] + "_thumb." + fileExtension[1] + 
                             "\" class=\"body-content-table-image\"/>\n" +
-                            "<input type=\"checkbox\" class=\"body-content-table-checkbox\" name=\"selectedBoxes\" id=\"" +
-                            files.ElementAt(filesIndex).FileID.ToString() + "_file\" /></a>\n</td>";
-
+                            "<input type=\"checkbox\" class=\"body-content-table-checkbox\" name=\"" + /* Input Checkbox with fileID as name and id */
+                            files.ElementAt(filesIndex).FileID.ToString() + "\" id=\"" +
+                            files.ElementAt(filesIndex).FileID.ToString() + "\" /></a>\n</td>";
+                            
                             filesIndex++;
                         }
                     }

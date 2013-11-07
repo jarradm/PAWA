@@ -1,6 +1,7 @@
 ﻿#body-content-description-area, #body-content-tags-area {
-    width: 420px;
+    width: 421px;
     font-size: 16px;
+    margin: auto;
 }
 
 #body-content-description, #body-content-tags {
@@ -11,15 +12,17 @@
 }
 
 #body-content-image {
-    max-width: 940px;
+    max-width: 941px;
 }
 
 #body-content-image-area {
-    width: 940px;
+    width: 941px;
+    margin: auto;
 }
 
 #body-content-button-area {
-    width: 420px;
+    width: 421px;
+    margin: auto;
 }
 
 #body-area {
