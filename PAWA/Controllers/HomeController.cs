@@ -42,7 +42,10 @@ namespace PAWA.Controllers
                 DeleteImage deleteImage = new DeleteImage();
                 deleteImage.deleteMultipleImages(Request, Server);
             }
+            if (Submit != null && DropDownList.Equals("Move")) 
+            { 
 
+            }
             //Re-load the view
             return View();
         }

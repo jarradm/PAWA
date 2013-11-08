@@ -42,12 +42,19 @@
 
                 return confirm('These images will be permanently deleted. Do you wish to continue?');
             }
+            if ($("#DropDownList").val() == "Move") {
+                hasChecked();
+            }
         });
     });
 </script>
 
 <script type="text/javascript">
     function hasChecked() {
+
+        //Quickly get list and number
+        var iinputs = $("input[type='checkbox'");
+        window.alert(iinputs.length());
         //Get input elements
         var inputs = document.getElementsByTagName("input"); //or document.forms[0].elements;  
 
@@ -59,6 +66,7 @@
                 //That is selected
                 if (inputs[i].checked) {
                     //Then something was
+                    window.alert(inputs[i].checked);
                     return true;
                 }
             }
