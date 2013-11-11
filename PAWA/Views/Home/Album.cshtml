@@ -15,7 +15,7 @@
                 <option value="Delete">Delete Selected</option>
             </select>
             
-            <input type="submit" name="Submit" value="Go" />
+            <input id="optionSubmit" type="button" name="dropDownSubmit" value="Go" />
             <input type="button" name="Create" value="Create Folder" id="body-content-button-create" disabled />
             PAWA.Classes.AlbumGrid ag = new PAWA.Classes.AlbumGrid(new PAWA.DAL.PAWAContext());
             @Html.Raw(ag.CreateTable((int?)ViewBag.FolderID));
@@ -26,11 +26,15 @@
 
     </div>
 </div>
+<div id="resultPopup"></div>
 
 <script type="text/javascript">
 
     $(document).ready(function () {
-        $("input[name='Submit']").click(function () {
+
+        $("#resultPopup").dialog({ autoOpen: false });
+        //window.alert("running");
+        $("#optionSubmit").click(function (data) {
             if ($('#DropDownList').val() == "Delete") {
 
                 //check if anything was selected
@@ -38,12 +42,29 @@
                     //Nothing was so show a message.
                     alert("You have not selected any images to delete.");
                     return;
+                } else {
+                    if (window.confirm('These images will be permanently deleted. Do you wish to continue?')) {
+                        $("form:first").submit();
+                    }
                 }
-
-                return confirm('These images will be permanently deleted. Do you wish to continue?');
             }
             if ($("#DropDownList").val() == "Move") {
-                hasChecked();
+                
+                if (hasChecked()) {
+                    window.alert("boo");
+                    var albumPost = $post("../../Home/GetAlbumList");
+
+                    // Put the results in a div
+                    /*albumPost.done(function (data) {
+                        var result = $(data);
+                        $("#resultPopup").empty().append(content);
+                        $("#resultPopup").dialog("open");
+
+                    });
+                    //*/
+                    $("#resultPopup").dialog("open");
+                    window.alert("after post")
+                }
             }
         });
     });
@@ -51,24 +72,17 @@
 
 <script type="text/javascript">
     function hasChecked() {
-
-        //Quickly get list and number
-        var iinputs = $("input[type='checkbox'");
-        window.alert(iinputs.length());
+        window.alert("hasChecked");
         //Get input elements
-        var inputs = document.getElementsByTagName("input"); //or document.forms[0].elements;  
+        var inputs = $("input[type='checkbox']");
+        //window.alert(printList());
 
         //For all elements
         for (var i = 0; i < inputs.length; i++) {
-            //If it is a checkbox
-            if (inputs[i].type == "checkbox") 
-            {
-                //That is selected
-                if (inputs[i].checked) {
-                    //Then something was
-                    window.alert(inputs[i].checked);
-                    return true;
-                }
+            //If any are checked
+            window.alert(inputs[i].checked);
+            if (inputs[i].checked) {
+                return true;
             }
         }
         //Nothing was selected

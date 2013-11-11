@@ -22,6 +22,5 @@ try{
             window.alert(alertString);
         }
         return result;
-
     }
 }catch(e){apop("Uncaught error:\n")}

@@ -31,6 +31,18 @@ namespace PAWA.Controllers
             return View();
         }
 
+        public string GetAlbumList() {
+            int UserID = 1;
+            String returnValue;
+
+            PAWAContext dbContext = new PAWAContext();
+            var folders = from f in dbContext.Files
+                          where f.UserID == UserID
+                          select f.Folder;
+            returnValue = folders.ToString();
+            return returnValue;
+        }
+
 
         [HttpPost]
         public ActionResult Album(string DropDownList, string Submit)
