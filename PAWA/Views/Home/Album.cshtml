@@ -15,7 +15,8 @@
                 <option value="Delete">Delete Selected</option>
             </select>
             
-            <input type="submit" name="Submit" value="Go" />
+            <input id="optionSubmit" type="button" name="dropDownSubmit" value="Go" />
+            <div id="moveButton"></div>
             <input type="button" name="Create" value="Create Folder" id="body-content-button-create" disabled />
             PAWA.Classes.AlbumGrid ag = new PAWA.Classes.AlbumGrid(new PAWA.DAL.PAWAContext());
             @Html.Raw(ag.CreateTable((int?)ViewBag.FolderID));
@@ -36,6 +37,7 @@
         //window.alert("running");
         $("form:first").submit(function (data) {
             this.submitAllow = false;
+        $("#optionSubmit").click(function (data) {
             if ($('#DropDownList').val() == "Delete") {
 
                 //check if anything was selected
@@ -43,9 +45,12 @@
                     //Nothing was so show a message.
                     alert("You have not selected any images to delete.");
                     return;
+                } else {
+                    if (window.confirm('These images will be permanently deleted. Do you wish to continue?')) {
+                        $('#DropDownList').val() = "Delete"
+                        $("form:first").submit();
+                    }
                 }
-
-                return confirm('These images will be permanently deleted. Do you wish to continue?');
             }
             if ($("#DropDownList").val() == "Move") {
                 

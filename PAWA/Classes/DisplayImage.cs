@@ -27,14 +27,19 @@ namespace PAWA.Classes
                                   where t.TagsID == tagId
                                   select t.TagName;
 
-                    if (tagOutput == null)
+                    if (tagName.Count() == 1)
                     {
-                        tagOutput = tagName.SingleOrDefault().ToString();
+                        if (tagOutput == null)
+                        {
+                            tagOutput = tagName.SingleOrDefault().ToString();
+                        }
+                        else
+                        {
+                            tagOutput += ", " + tagName.SingleOrDefault().ToString();
+                        }
                     }
-                    else
-                    {
-                        tagOutput += ", " + tagName.SingleOrDefault().ToString();
-                    }
+                    //*/
+                    //tagOutput = 
                 }
             }
 
