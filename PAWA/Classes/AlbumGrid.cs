@@ -40,26 +40,7 @@ namespace PAWA.Classes
                 returnValue = (new HashSet<Folder> {  }) ;
                 Console.WriteLine(e.InnerException);
             }
-
-            var folders1 = new List<Folder>
-            {
-                new Folder { UserID = 1, InFolderID = null, 
-                    CreateDateTime = DateTime.Parse("2013/08/28 13:21:50"), 
-                    FolderName = "Australian Holiday" },
-
-                new Folder { UserID = 1, InFolderID = 1, 
-                    CreateDateTime = DateTime.Parse("2013/08/29 17:16:15"), 
-                    FolderName = "Sydney" },
-
-                new Folder { UserID = 1, InFolderID = 1, 
-                    CreateDateTime = DateTime.Parse("2013/08/29 17:16:15"), 
-                    FolderName = "Melbourne" },
-
-                new Folder { UserID = 1, InFolderID = 1, 
-                    CreateDateTime = DateTime.Parse("2013/08/29 17:16:15"), 
-                    FolderName = "Perth" },
-
-            };
+            Console.WriteLine(returnValue.ElementAt(0).FolderName);
 
             return returnValue;
         }
@@ -85,6 +66,8 @@ namespace PAWA.Classes
                 returnValue = new HashSet<File> {  };
                 Console.WriteLine(e.InnerException);
             }
+
+            Console.WriteLine(returnValue.ElementAt(0).Filename);
             return returnValue;
 
         }
