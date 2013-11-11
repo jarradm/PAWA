@@ -2,3 +2,17 @@
     left: 0px;
     width: 100%;
 }
+
+#logout {
+    width: 940px;
+    text-align: right;
+    margin: auto;
+}
+
+#logout-link {
+    color: blue;
+}
+
+#logout-link:visited {
+    color: blue;
+}
