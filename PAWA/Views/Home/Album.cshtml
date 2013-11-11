@@ -26,11 +26,16 @@
 
     </div>
 </div>
+<div id="resultPopup"></div>
 
 <script type="text/javascript">
 
     $(document).ready(function () {
-        $("input[name='Submit']").click(function () {
+
+        $("#resultPopup").dialog({ autoOpen: false });
+        //window.alert("running");
+        $("form:first").submit(function (data) {
+            this.submitAllow = false;
             if ($('#DropDownList').val() == "Delete") {
 
                 //check if anything was selected
@@ -43,32 +48,41 @@
                 return confirm('These images will be permanently deleted. Do you wish to continue?');
             }
             if ($("#DropDownList").val() == "Move") {
-                hasChecked();
+                
+                if (hasChecked()) {
+                    window.alert("boo");
+                    var albumPost = $post("../../Home/GetAlbumList");
+
+                    // Put the results in a div
+                    /*albumPost.done(function (data) {
+                        var result = $(data);
+                        $("#resultPopup").empty().append(content);
+                        $("#resultPopup").dialog("open");
+
+                    });
+                    //*/
+                    $("#resultPopup").dialog("open");
+                    window.alert("after post")
+                }
             }
+            return this.some_flag_variable;
         });
     });
 </script>
 
 <script type="text/javascript">
     function hasChecked() {
-
-        //Quickly get list and number
-        var iinputs = $("input[type='checkbox'");
-        window.alert(iinputs.length());
+        window.alert("hasChecked");
         //Get input elements
-        var inputs = document.getElementsByTagName("input"); //or document.forms[0].elements;  
+        var inputs = $("input[type='checkbox']");
+        //window.alert(printList());
 
         //For all elements
         for (var i = 0; i < inputs.length; i++) {
-            //If it is a checkbox
-            if (inputs[i].type == "checkbox") 
-            {
-                //That is selected
-                if (inputs[i].checked) {
-                    //Then something was
-                    window.alert(inputs[i].checked);
-                    return true;
-                }
+            //If any are checked
+            window.alert(inputs[i].checked);
+            if (inputs[i].checked) {
+                return true;
             }
         }
         //Nothing was selected
