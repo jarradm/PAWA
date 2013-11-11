@@ -11,6 +11,7 @@ using System.Data;
 
 namespace PAWA.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         //
