@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "HeaderView";
+    
+}
+
+<link href="@Url.Content("~/App_Themes/SiteLayout_Header.css")" rel="stylesheet" type="text/css" />
+
+
+<div id="header-area">
+    <div id="header-content-area">
+        <img id="header-logo-image" src="~/Images/PAWACP Logo2.jpg" />
+
+        <div id="header-navbar-area">
+            <a href="~/" class="header-navbar-links">
+                <span id="header-navbar-home" class="navbar">
+                    Album Home
+                </span>
+            </a>
+
+            <a href="~/Image/UploadImage" class="header-navbar-links">
+                <span id="header-navbar-upload" class="navbar">
+                    Upload Image
+                </span>
+            </a>
+            <a href="~/" class="header-navbar-links">
+                <span id="header-navbar-user" class="navbar">
+                    User Details
+                </span>
+            </a>
+
+            <a href="#" class="header-navbar-links">
+                <span id="header-navbar-options" class="navbar">
+                    Options
+                </span>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Position navbar elements from right to left
+        $(window).ready(function () {
+            $("#header-navbar-options").position({ my: "right bottom", at: "right bottom", of: "#header-content-area", collision: "none" });
+            $("#header-navbar-user").position({ my: "right bottom", at: "left bottom", of: "#header-navbar-options", collision: "none" });
+            $("#header-navbar-upload").position({ my: "right bottom", at: "left bottom", of: "#header-navbar-user", collision: "none" });
+            $("#header-navbar-home").position({ my: "right bottom", at: "left bottom", of: "#header-navbar-upload", collision: "none" });
+        });
+    </script>
+</div>
