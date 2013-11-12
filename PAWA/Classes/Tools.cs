@@ -5,6 +5,7 @@ using System.Web;
 using System.Drawing;
 using PAWA.DAL;
 using System.Security.Cryptography;
+using WebMatrix.WebData;
 
 namespace PAWA.Classes
 {
@@ -268,7 +269,7 @@ namespace PAWA.Classes
         public void insertImageToDB(int Height,int Width, int FileSize, string FileName, string Tags, string Description, int? FolderID )
         {
             PAWAContext db = new PAWAContext();
-            Tools.UserID = 1;
+            Tools.UserID = WebSecurity.CurrentUserId;
 
             if(FolderID == -1)
             {

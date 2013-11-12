@@ -8,6 +8,7 @@ using PAWA.Models;
 using System.Drawing;
 using PAWA.Classes;
 using System.IO;
+using WebMatrix.WebData;
 
 
 namespace PAWA.Controllers
@@ -30,7 +31,8 @@ namespace PAWA.Controllers
 
         public ActionResult DisplayImage(string filename)
         {
-            int UserID = 1;
+            int UserID = WebSecurity.CurrentUserId;
+
             dbContext = new PAWAContext();
 
             var files = from f in dbContext.Files
@@ -52,7 +54,7 @@ namespace PAWA.Controllers
             Tools funcs = new Tools();
 
             //temp user for authentication testing
-            Tools.UserID = 1;
+            Tools.UserID = WebSecurity.CurrentUserId;
 
             //list used to generate DDL
             IList<Models.Folder> list = funcs.getFolders(Tools.UserID);

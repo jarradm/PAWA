@@ -7,6 +7,7 @@ using PAWA.Models;
 using PAWA.DAL;
 using System.Drawing;
 using System.Data;
+using WebMatrix.WebData;
 
 namespace PAWA.Classes
 {
@@ -25,7 +26,7 @@ namespace PAWA.Classes
         */
         public IEnumerable<Folder> GetFolders(int? folderID)
         {
-            var UserID = 1;
+            var UserID = WebSecurity.CurrentUserId;
 
             var folders = from f in dbContext.Folders
                           where f.UserID == UserID && (f.InFolderID == folderID || (f.InFolderID == null && folderID == null))
@@ -40,7 +41,7 @@ namespace PAWA.Classes
         */
         public IEnumerable<File> GetFiles(int? folderID)
         {
-            var UserID = 1;
+            var UserID = WebSecurity.CurrentUserId;
 
             var files = from f in dbContext.Files
                         where f.UserID == UserID && (f.FolderID == folderID || (f.FolderID == null && folderID == null))

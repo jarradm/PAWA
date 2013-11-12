@@ -35,7 +35,9 @@ namespace PAWA.Controllers
         [AllowAnonymous]
         public ActionResult CreateUser(FormCollection form)
         {
-            
+            /* 
+             *  Test Stub 
+             */
             WebSecurity.CreateUserAndAccount(form["username"], form["password"], new { Email = "a@a.com", Country="USA", JoinDateTime = DateTime.Now, Status=1, DateOfBirth="12/12/2012", Gender=1, Password="A"});
             Response.Redirect("~/Account/Login");
             return View();
