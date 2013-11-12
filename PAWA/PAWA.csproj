@@ -259,6 +259,7 @@
     <Content Include="Views\Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="_AppStart.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

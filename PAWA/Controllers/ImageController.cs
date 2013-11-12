@@ -12,6 +12,7 @@ using System.IO;
 
 namespace PAWA.Controllers
 {
+    [Authorize(Roles = "User")]
     public class ImageController : Controller
     {
         PAWAContext dbContext;

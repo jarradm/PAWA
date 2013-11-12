@@ -21,6 +21,7 @@ namespace PAWA.Controllers
         //
         // GET: /Account/CreateUser
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult CreateUser()
         {
             if (!WebSecurity.Initialized)
@@ -31,6 +32,7 @@ namespace PAWA.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public ActionResult CreateUser(FormCollection form)
         {
             
@@ -42,6 +44,7 @@ namespace PAWA.Controllers
         //
         // GET: /Account/Login
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult Login()
         {
             if(!WebSecurity.Initialized)
@@ -53,6 +56,7 @@ namespace PAWA.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public ActionResult Login(FormCollection form)
         {
             bool success = WebSecurity.Login(form["username"], form["password"], false);
@@ -75,12 +79,13 @@ namespace PAWA.Controllers
 
         //
         // GET: /Account/AccountManagement
-
+        [Authorize(Roles="User")]
         public ActionResult AccountManagement()
         {
             return View();
         }
 
+        [Authorize]
         public ActionResult Logout()
         {
             WebSecurity.Logout();

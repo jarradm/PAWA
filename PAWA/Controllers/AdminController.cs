@@ -8,6 +8,7 @@ using PAWA.Classes;
 
 namespace PAWA.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class AdminController : Controller
     {
         PAWAContext db = new PAWAContext();
@@ -41,6 +42,7 @@ namespace PAWA.Controllers
 
             return View(db.Tags.ToList());
         }
+
         [HttpPost]
         public ActionResult TagManagement(string newTag)
         {
@@ -72,6 +74,7 @@ namespace PAWA.Controllers
 
             return RedirectToAction("TagManagement");
         }
+
         //
         // GET: /Admin/UserManagement
 
