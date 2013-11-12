@@ -234,6 +234,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
     <Content Include="Global.asax" />
+    <Content Include="Images\bg.bmp" />
     <Content Include="Images\BlueGreenGradient1.jpg" />
     <Content Include="Images\BlueGreenGradient2.jpg" />
     <Content Include="Images\BlueGreenGradient3.jpg" />

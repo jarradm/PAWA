@@ -28,13 +28,15 @@
 }
 
 .header-navbar-links {
-    padding: 0px 0px 10px 5px;
-    font-size: 18px;
+    padding: 0px 0px 0px 0px;
+    font-size: 0px;
     color: white;
+    width: 150px;
 }
 
 .navbar {
     display: inline-block;
     width: 150px;
     text-align: center;
+    font-size: 18px;
 }
