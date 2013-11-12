@@ -23,6 +23,7 @@ namespace PAWA.Classes
          * Returns a collection of Folder objects of a single user,
          * based on current folder level
         */
+        
         public IEnumerable<Folder> GetFolders(int? folderID)
         {
             var UserID = 1;
@@ -33,6 +34,7 @@ namespace PAWA.Classes
 
             return folders;
         }
+         
 
         /*
          * Returns a collection of File objects of a single user,
