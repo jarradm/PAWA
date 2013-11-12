@@ -287,7 +287,7 @@ namespace PAWA.Classes
                 Description = Description,
 
                 //Required
-                TypeID = 1,
+                TypeID = 7,
                 UserID = Tools.UserID,
                 FolderID = FolderID
             };

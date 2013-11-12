@@ -3,13 +3,25 @@
     margin: auto;
 }
 
-#body-content-table {
+.body-content-table {
     border: 1px solid black;
-    width: 938px;
+    width: 940px;
     padding-bottom: 3px;
+    display: none;
+    margin-bottom: 30px;
 }
 
-#body-content-table tr td {
+#table-0 {
+    display: inline-table;
+}
+
+#table-header-page-count {
+    font-size: 20px;
+    font-family: Arial;
+    border-bottom: 1px solid black;
+}
+
+.body-content-table tr td {
     font-size: 0px;
     margin: 0px;
     padding: 0px;
