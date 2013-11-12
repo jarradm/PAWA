@@ -59,7 +59,15 @@ namespace PAWA.Controllers
 
             if (success)
             {
-                Response.Redirect("~/Home/Album");
+                string returnUrl = Request.QueryString["ReturnUrl"];
+                if (returnUrl == null)
+                {
+                    Response.Redirect("~/Home/Album");
+                }
+                else
+                {
+                    Response.Redirect(returnUrl);
+                }
             }
 
             return View();
@@ -70,6 +78,13 @@ namespace PAWA.Controllers
 
         public ActionResult AccountManagement()
         {
+            return View();
+        }
+
+        public ActionResult Logout()
+        {
+            WebSecurity.Logout();
+            Response.Redirect("~/Account/Login");
             return View();
         }
     }

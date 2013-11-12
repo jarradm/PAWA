@@ -7,6 +7,8 @@ namespace PAWA.Migrations
     using System.Collections.Generic;
     using PAWA.Models;
     using PAWA.DAL;
+    using System.Web.Security;
+    using WebMatrix.WebData;
 
     internal sealed class Configuration : DbMigrationsConfiguration<PAWA.DAL.PAWAContext>
     {
@@ -17,6 +19,36 @@ namespace PAWA.Migrations
 
         protected override void Seed(PAWA.DAL.PAWAContext context)
         {
+            if (!WebSecurity.Initialized)
+            {
+                WebSecurity.InitializeDatabaseConnection("PAWAContext", "User", "UserID", "Username", autoCreateTables: true);
+            }
+
+            // This will setup the roles for SimpleMembershipProvider
+            if (!Roles.RoleExists("Administrator"))
+            {
+                Roles.CreateRole("Administrator");
+            }
+
+            if (!Roles.RoleExists("User"))
+            {
+                Roles.CreateRole("User");
+            }
+            
+            /*
+            if (WebSecurity.ConfirmAccount("1"))
+            {
+                WebSecurity.CreateUserAndAccount("admin", "123456");
+            }
+             */
+            if (!Roles.GetRolesForUser("1").Contains("Administrator"))
+            {
+                Roles.AddUsersToRoles(new[] { "1" }, new[] { "Administrator" });
+            } 
+             
+
+            //base.Seed(context);
+
             //  This method will be called after migrating to the latest version.
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 

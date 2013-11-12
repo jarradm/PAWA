@@ -10,7 +10,7 @@
         <div id="header-logo-area">
             <div id="header-logo-username-area">
                 @{string name;
-                      name = "Peter Rabbit";
+                      name = WebMatrix.WebData.WebSecurity.CurrentUserName;
                 }
                 <a id="header-logo-username-user" href="#">@name</a>.
             </div>
