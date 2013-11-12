@@ -24,8 +24,8 @@ namespace PAWA.Classes
 
             //Delete the image file from server
             string[] fileExtension = deleteFile.Filename.Split('.');
-            System.IO.File.Delete(Server.MapPath("~/Images/User/" + fileExtension[0] + ".jpg"));
-            System.IO.File.Delete(Server.MapPath("~/Images/User/" + fileExtension[0] + "_thumb.jpg"));
+            System.IO.File.Delete(Server.MapPath("~/Images/User/" + fileExtension[0] + "." + fileExtension[1]));
+            System.IO.File.Delete(Server.MapPath("~/Images/User/" + fileExtension[0] + "_thumb." + fileExtension[1]));
 
             //Delete record from database
             dbContext.Files.Remove(deleteFile);
@@ -58,8 +58,8 @@ namespace PAWA.Classes
 
                     //Delete the image file from server
                     string[] fileExtension = files.ElementAt(filesIndex).Filename.Split('.');
-                    System.IO.File.Delete(Server.MapPath("~/Images/User/" + fileExtension[0] + ".jpg"));
-                    System.IO.File.Delete(Server.MapPath("~/Images/User/" + fileExtension[0] + "_thumb.jpg"));
+                    System.IO.File.Delete(Server.MapPath("~/Images/User/" + fileExtension[0] + "." + fileExtension[1]));
+                    System.IO.File.Delete(Server.MapPath("~/Images/User/" + fileExtension[0] + "_thumb." + fileExtension[1]));
 
                     //Delete it from the database
                     dbContext.Files.Remove(delFile);
