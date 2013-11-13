@@ -18,14 +18,16 @@
 }
 
 body {
+    /*
     background-image: url("../Images/bg_lite.png");
     background-size: 2px 100%;
     background-repeat: repeat-x;
     background-attachment: fixed;
+        */
 }
 
 #header {
-    position: fixed;
+    //position: fixed;
     width: 100%;
     padding: 0px;
     margin: 0px;
