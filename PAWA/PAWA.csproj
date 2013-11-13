@@ -261,6 +261,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="_AppStart.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

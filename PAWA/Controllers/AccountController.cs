@@ -15,6 +15,15 @@ namespace PAWA.Controllers
 
         public ActionResult Index()
         {
+            if(Roles.IsUserInRole("User"))
+            {
+                Response.Redirect("/Home/Album");
+            }
+            else
+            {
+                Response.Redirect("/Admin/Index");
+            }
+
             return View();
         }
 
@@ -64,16 +73,8 @@ namespace PAWA.Controllers
             bool success = WebSecurity.Login(form["username"], form["password"], false);
 
             if (success)
-            {
-                string returnUrl = Request.QueryString["ReturnUrl"];
-                if (returnUrl == null)
-                {
-                    Response.Redirect("~/Home/Album");
-                }
-                else
-                {
-                    Response.Redirect(returnUrl);
-                }
+            {                       
+                Response.Redirect("~/Account/Index");
             }
 
             return View();
