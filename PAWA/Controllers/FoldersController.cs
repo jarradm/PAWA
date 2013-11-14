@@ -38,9 +38,13 @@ namespace PAWA.Controllers
             string uri = Url.Link("DefaultApi", new { id = item.FolderID });
             response.Headers.Location = new Uri(uri);
             return response;
+        }
+        public ActionResult Create()
+        {
+            //return PartialView(new FolderInput());
         }*/
         [HttpPost]
-        public ActionResult CreateFolder(string FolderName, int InFolderID)
+        public ActionResult Create(string FolderName, int InFolderID)
         {
             Folder newFolder = new Folder();
             newFolder.UserID = 1;
@@ -48,8 +52,26 @@ namespace PAWA.Controllers
             newFolder.InFolderID = InFolderID;
             newFolder.CreateDateTime = DateTime.Now;
 
-            return View();
+            return PartialView();
         }
+
+        public void createFolder(string FolderName, int InFolderID)
+        {
+            PAWAContext db = new PAWAContext();
+            var newFolder = new PAWA.Models.Folder
+            {
+                CreateDateTime = System.DateTime.Now,
+                FolderName = FolderName,
+                InFolderID = InFolderID,
+                UserID = 1,
+
+                //FolderID auto?
+                
+            };
+            db.Folders.Add(newFolder);
+            db.SaveChanges();
+        }
+         
         /*
         public void PutFolder(int id, Folder folder)
         {

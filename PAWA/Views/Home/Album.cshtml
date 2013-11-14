@@ -27,6 +27,10 @@
 
             <input type="button" name="Create" value="Create Folder" id="body-content-button-create" />
             
+            <input type="button" name="CreateFolderNOW" value="NOW Create a damn Folder" id="CreateFolderNOW" />
+                      
+            
+            
             PAWA.Classes.AlbumGrid ag = new PAWA.Classes.AlbumGrid(new PAWA.DAL.PAWAContext());
            @Html.Raw(ag.CreateTable((int?)ViewBag.FolderID));
             
@@ -49,12 +53,22 @@
                             <!--<input type="text" name="InFolderID" id="InFolderID" />-->
                          
                             <p>
-                               <input type="submit" value="Create" data-bind="click : create" />
+                               <input type="button" value="Create" onclick="create()" />
                             </p>
 
                         </fieldset>
                     </div>
                 }
+
+                <div id="Stupid-folder-create" title="Create a damn Folder you Idiot thing">
+                    <label>Folder Name Here:</label>
+                    <input type="text" id="FolderName" />
+                    <label>ID of Folder Here:</label>
+                    <input type="text" id="InFolderID" />
+
+                    <p><input type="button" value="Create a stupid folder" onclick="folderAlert();" /></p>
+
+                </div>
 
             </div>
         }
@@ -62,8 +76,8 @@
 </div>
 
 
-<!--
 
+<!--
 <script type="text/javascript">
     self.create = function () {
 
@@ -88,7 +102,7 @@
     }
 
 
-</script>-->
+</script> -->
 
 
 <script type="text/javascript">
