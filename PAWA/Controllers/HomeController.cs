@@ -30,15 +30,24 @@ namespace PAWA.Controllers
 
             return View();
         }
-
-
-        public ActionResult CreateFolder(int? folderID = null)
+        /*
+        [HttpPost]
+        public ActionResult CreateFolder(string folderName, int parentFolder)
         {
-            int userId = 1;
-            ViewBag.FolderID = folderID;
+            Tools funcs = new Tools();
+            Tools.UserID = 1;
 
-            return View();
-        }
+            Folder newFolder = new Folder();
+            newFolder.UserID = 1;
+            newFolder.FolderName = folderName;
+            newFolder.InFolderID = parentFolder;
+            newFolder.CreateDateTime = DateTime.Now;
+
+            UpdateModel(newFolder);
+            
+            
+            return PartialView();
+        }*/
 
         
         
