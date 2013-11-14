@@ -4,7 +4,13 @@
 <<<<<<< HEAD
     <ProjectView>ShowAllFiles</ProjectView>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <ProjectView>ShowAllFiles</ProjectView>
+=======
+=======
+    <ProjectView>ProjectFiles</ProjectView>
+>>>>>>> Popup created ; action not working
+>>>>>>> 9511303e7f1407e82d76ce3a3739a92f43f0c817
 =======
 =======
     <ProjectView>ProjectFiles</ProjectView>
