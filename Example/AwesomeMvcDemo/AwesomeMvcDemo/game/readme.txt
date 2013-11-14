@@ -1,0 +1,1 @@
+player has to keep the cursor in the arena (red box ) and avoid the banelings (green things)

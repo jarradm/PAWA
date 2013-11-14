@@ -1,0 +1,141 @@
+﻿<%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage" %>
+<%@ Import Namespace="System.Threading" %>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        <asp:ContentPlaceHolder ID="TitleContent" runat="server" />
+    </title>
+    <link rel="shortcut icon" href="<%:Url.Content("~/f.ico") %>" type="image/x-icon" />
+    <%
+        var theme = Html.Action("GetTheme", "ChangeTheme").ToString();
+        var jqTheme = Html.Action("GetJqTheme", "ChangeTheme").ToString();
+    %>
+    <link href="<%=Url.Content("~/Content/Common.css") %>?v=2" rel="stylesheet" type="text/css" />
+    <link href="<%=Url.Content("~") %>Content/themes/<%=theme %>/Site.css" rel="stylesheet"
+        type="text/css" id="demoStyle" />
+
+    <link href="http://code.jquery.com/ui/1.10.2/themes/<%=jqTheme %>/jquery-ui.css"
+        rel="stylesheet" id="jqStyle" />
+    <link href="<%=Url.Content("~") %>Content/themes/<%=theme %>/AwesomeMvc.css" rel="stylesheet"
+        type="text/css" id="aweStyle" />
+
+    <link href="<%=Url.Content("~/Content/prettify.css") %>" rel="stylesheet" type="text/css" />
+
+    <script src="<%=Url.Content("~/Scripts/JSON2.js") %>" type="text/javascript"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.js"></script>
+
+    <script src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script>
+    <%--jquery-migrate needed for ie8 when using jquery.validate.unobtrusive with jquery 1.9 and higher--%>
+
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.js" type="text/javascript"></script>
+    <script src="<%=Url.Content("~") %>Scripts/jquery.validate.unobtrusive.js" type="text/javascript"></script>
+    <script src="<%=Url.Content("~/Scripts/AwesomeMvc.js") %>?v=1" type="text/javascript"></script>
+    <script src="<%=Url.Content("~/Scripts/prettify/prettify.js") %>" type="text/javascript"></script>
+    <script src="<%=Url.Content("~/Scripts/Site.js") %>?v=1" type="text/javascript"></script>
+    <script type="text/javascript">
+        // used in Site.js
+        var root = '<%:Url.Content("~") %>';
+
+        awe.err = function (xhr, textStatus, errorThrown) {
+            var msg = "unexpected error occured";
+            if (xhr) {
+                msg = xhr.responseText;
+            }
+            msg += "<hr/> you see this message because in Site.Master awe.err is set to a function that shows this popup";
+            $('<div/>').dialog(
+                {
+                    title: 'unexpected error',
+                    width: 570,
+                    height: 200,
+                    position: ["left", "bottom"],
+                    dialogClass: "errPopup"
+                }).html(msg);
+        };
+
+        //setting the correct date format for jquery.validate
+        jQuery.validator.addMethod(
+       'date',
+       function (value, element, params) {
+           if (this.optional(element)) {
+               return true;
+           };
+           var result = false;
+           try {
+               $.datepicker.parseDate('<%:JQueryDate.ConvertDateFormat(Thread.CurrentThread.CurrentCulture.DateTimeFormat.ShortDatePattern)%>', value);
+               result = true;
+           } catch (err) {
+               result = false;
+           }
+           return result;
+       },
+        ''
+    );
+    </script>
+</head>
+<body>
+    <div class="page">
+        <div id="header">
+            <ul class="menu">
+                <li>
+                    <a href="<%:Url.Action("Index","Home") %>">
+                        <img src="<%:Url.Content("~/Content/so.png") %>" />
+                    </a>
+                </li>
+                <li><a href="<%:Url.Action("Index","Home") %>">Home</a></li>
+                <li><a href="<%:Url.Action("About","Home") %>">About</a></li>
+            </ul>
+            <div id="share">
+                <% Html.RenderPartial("sharebox"); %>
+            </div>
+        </div>
+        <div id="main" style="clear: both;">
+            <div style="float: right">
+                Theme:
+                <%:Html.Action("Index","ChangeTheme") %>
+                &nbsp;
+            </div>
+            <div id="demoMenu">
+                <%
+                    var action = ViewContext.Controller.ValueProvider.GetValue("action").RawValue;
+                    var controller = ViewContext.Controller.ValueProvider.GetValue("controller").RawValue;
+                        
+                %>
+                <%=Html.Awe().Grid("Menu")
+                            .Persistence(Persistence.Local)
+                            .CollapseOnHeaderClick(true)
+                            .ShowGroupBar(false)
+                            .ShowHeader(false)
+                            .ShowFooter(false)
+                            .ShowGroupedColumn(false)
+                            .Parameter("controller", controller)
+                            .Parameter("action", action)
+                            .RowClassClientFormat(".Selected")
+                            .Columns(new[]
+                            {
+                                new Column{ Name="GroupId", Group = true},
+                                new Column{ ClientFormat = "<td class='.Selected'><a href='"+Url.Action(".Action", ".Controller")+"'>.Title</a></td>"} 
+                            })%>
+            </div>
+            <div id="demoPage">
+                <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+                <br style="clear: both;" />
+            </div>
+            <br style="clear: both;" />
+        </div>
+        <div id="footer">
+            <a href="http://aspnetawesome.com/ContactUs">Feedback</a> | 
+            <a href="<%:Url.Action("index","Sitemap") %>">Sitemap</a> |
+            <a href="http://aspnetawesome.com/learn/mvc/VideoTutorials">Video Tutorials</a> |
+            <a href="http://prodinner.codeplex.com">ProDinner Demo</a> |
+
+            <a href="http://aspnetawesome.com/Buy">Purchase</a> | 
+            <a href="http://awesome.codeplex.com">Download</a>
+            <br />
+            <br />
+        </div>
+    </div>
+</body>
+</html>

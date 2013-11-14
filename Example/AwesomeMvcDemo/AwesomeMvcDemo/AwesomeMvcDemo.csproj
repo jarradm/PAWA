@@ -1,0 +1,453 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7E5DDCEE-3A86-424D-A78C-024DA5B853AE}</ProjectGuid>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AwesomeMvcDemo</RootNamespace>
+    <AssemblyName>AwesomeMvcDemo</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI">
+      <HintPath>..\libs\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="Omu.AwesomeMvc">
+      <HintPath>..\libs\Omu.AwesomeMvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Omu.ValueInjecter">
+      <HintPath>..\libs\Omu.ValueInjecter.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\System.Web.WebPages.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Area1\Area1AreaRegistration.cs" />
+    <Compile Include="Areas\Area1\Controllers\HomesController.cs" />
+    <Compile Include="Areas\Test\Controllers\CategoriesErrorAjaxCheckboxListController.cs" />
+    <Compile Include="Areas\Test\Controllers\LunchErrorGridController.cs" />
+    <Compile Include="Areas\Test\Controllers\MealAutocompleteController.cs" />
+    <Compile Include="Areas\Test\Controllers\MealErrorAjaxDropdownController.cs" />
+    <Compile Include="Areas\Test\Controllers\MealErrorAjaxRadioListController.cs" />
+    <Compile Include="Areas\Test\Controllers\MealErrorLookupController.cs" />
+    <Compile Include="Areas\Test\Controllers\MealsErrorAjaxListController.cs" />
+    <Compile Include="Areas\Test\Controllers\MealsErrorMultiLookupController.cs" />
+    <Compile Include="Areas\Test\Controllers\PopupErrorController.cs" />
+    <Compile Include="Areas\Test\TestAreaRegistration.cs" />
+    <Compile Include="Controllers\AjaxCheckboxListDemoController.cs" />
+    <Compile Include="Controllers\AjaxDropdownDemoController.cs" />
+    <Compile Include="Controllers\ApiController.cs" />
+    <Compile Include="Controllers\ApiDemoController.cs" />
+    <Compile Include="Controllers\ApiMealAjaxDropdownController.cs" />
+    <Compile Include="Controllers\AttributesDemoController.cs" />
+    <Compile Include="Controllers\AutocompleteDemoController.cs" />
+    <Compile Include="Controllers\CascadingGridDemoController.cs" />
+    <Compile Include="Controllers\CategoryFoAjaxDropdownController.cs" />
+    <Compile Include="Controllers\CustomFormatGridController.cs" />
+    <Compile Include="Controllers\CustomQueryingGridController.cs" />
+    <Compile Include="Controllers\ErrorHandlingDemoController.cs" />
+    <Compile Include="Controllers\ExpController.cs" />
+    <Compile Include="Controllers\FormDemoController.cs" />
+    <Compile Include="Controllers\AjaxListDemoController.cs" />
+    <Compile Include="Controllers\AjaxRadioListDemoController.cs" />
+    <Compile Include="Controllers\CategoriesAjaxCheckboxListController.cs" />
+    <Compile Include="Controllers\CategoryAjaxDropdownController.cs" />
+    <Compile Include="Controllers\CategoryAjaxRadioListController.cs" />
+    <Compile Include="Controllers\ChangeStyleController.cs" />
+    <Compile Include="Controllers\DatePickerDemoController.cs" />
+    <Compile Include="Controllers\GridChooseColumnsDemoController.cs" />
+    <Compile Include="Controllers\GridExportToExcelDemoController.cs" />
+    <Compile Include="Controllers\GridShowHideColumnsDemoController.cs" />
+    <Compile Include="Controllers\GridSpreadsheetDemoController.cs" />
+    <Compile Include="Controllers\LunchCustomItemAjaxListController.cs" />
+    <Compile Include="Controllers\LunchGridController.cs" />
+    <Compile Include="Controllers\GridDemoController.cs" />
+    <Compile Include="Controllers\GroupingGridController.cs" />
+    <Compile Include="Controllers\ListBindingController.cs" />
+    <Compile Include="Controllers\LookupDemoController.cs" />
+    <Compile Include="Controllers\GridMantainSelectionDemoController.cs" />
+    <Compile Include="Controllers\MasterDetailCrudDemoController.cs" />
+    <Compile Include="Controllers\MealAjaxDropdownController.cs" />
+    <Compile Include="Controllers\MealAutocompleteController.cs" />
+    <Compile Include="Controllers\MealBoundToManyController.cs" />
+    <Compile Include="Controllers\MealCustomSearchLookupController.cs" />
+    <Compile Include="Controllers\MealLookupController.cs" />
+    <Compile Include="Controllers\MealOfManyController.cs" />
+    <Compile Include="Controllers\MealsAjaxCheckboxListController.cs" />
+    <Compile Include="Controllers\MealsAjaxListController.cs" />
+    <Compile Include="Controllers\MealsApiDemoAjaxListController.cs" />
+    <Compile Include="Controllers\MealsCustomItemAjaxListController.cs" />
+    <Compile Include="Controllers\MealsCustomSearchMultiLookupController.cs" />
+    <Compile Include="Controllers\MealsMultiLookupController.cs" />
+    <Compile Include="Controllers\FoosMultiLookupController.cs" />
+    <Compile Include="Controllers\MealsTableLayoutAjaxListController.cs" />
+    <Compile Include="Controllers\MenuGridController.cs" />
+    <Compile Include="Controllers\MySiteMap.cs" />
+    <Compile Include="Controllers\SitemapController.cs" />
+    <Compile Include="Controllers\SiteMapItem.cs" />
+    <Compile Include="Controllers\MailboxDemoController.cs" />
+    <Compile Include="Controllers\MessagesGridController.cs" />
+    <Compile Include="Controllers\MultiLookupDemoController.cs" />
+    <Compile Include="Controllers\PagerDemoController.cs" />
+    <Compile Include="Controllers\PopupDemoController.cs" />
+    <Compile Include="Controllers\PopupFormDemoController.cs" />
+    <Compile Include="Controllers\PrimesAutocompleteController.cs" />
+    <Compile Include="Controllers\PurchasesCrudDemoController.cs" />
+    <Compile Include="Controllers\PurchasesGridController.cs" />
+    <Compile Include="Controllers\SelectionTypeAjaxDropdown.cs" />
+    <Compile Include="Controllers\SimpleMealsController.cs" />
+    <Compile Include="Controllers\SortAjaxDropdownController.cs" />
+    <Compile Include="Controllers\TextBoxDemoController.cs" />
+    <Compile Include="Controllers\UnobtrusiveController.cs" />
+    <Compile Include="Controllers\WickedGridController.cs" />
+    <Compile Include="Controllers\WizardDemoController.cs" />
+    <Compile Include="CustomHelpers.cs" />
+    <Compile Include="Controllers\AjaxCheckboxListControllers.cs" />
+    <Compile Include="Controllers\AjaxDropdownControllers.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\DinnersController.cs" />
+    <Compile Include="Models\AwesomeDemoException.cs" />
+    <Compile Include="Models\EnumerableExtensions.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\AutocompleteControllers.cs" />
+    <Compile Include="Controllers\LookupControllers.cs" />
+    <Compile Include="Controllers\AjaxListControllers.cs" />
+    <Compile Include="Controllers\MealsController.cs" />
+    <Compile Include="Controllers\MultiLookupControllers.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\CrudInLookupController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities.cs" />
+    <Compile Include="Models\Db.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\AttributesDemoInput.cs" />
+    <Compile Include="ViewModels\Inputs.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\error-lolcat-problemz.jpg" />
+    <Content Include="Content\o.png" />
+    <Content Include="Content\prettify.css" />
+    <Content Include="Content\themes\compact\AwesomeMvc.css" />
+    <Content Include="Content\themes\compact\awe_icons.png" />
+    <Content Include="Content\themes\compact\editdel_black.png" />
+    <Content Include="Content\themes\compact\loading.gif" />
+    <Content Include="Content\themes\compact\pm.png" />
+    <Content Include="Content\themes\compact\Site.css" />
+    <Content Include="Content\themes\black-tie\AwesomeMvc.css" />
+    <Content Include="Content\themes\black-tie\awe_icons.png" />
+    <Content Include="Content\themes\black-tie\editdel_white.png" />
+    <Content Include="Content\themes\black-tie\loading.gif" />
+    <Content Include="Content\themes\black-tie\pm.png" />
+    <Content Include="Content\themes\black-tie\Site.css" />
+    <Content Include="Content\themes\bui\AwesomeMvc.css" />
+    <Content Include="Content\themes\bui\awe_icons.png" />
+    <Content Include="Content\themes\bui\editdel_black.png" />
+    <Content Include="Content\themes\bui\loading.gif" />
+    <Content Include="Content\themes\bui\pm.png" />
+    <Content Include="Content\themes\bui\Site.css" />
+    <Content Include="Content\themes\met\AwesomeMvc.css" />
+    <Content Include="Content\themes\met\awe_icons.png" />
+    <Content Include="Content\themes\met\loading.gif" />
+    <Content Include="Content\themes\met\pm.png" />
+    <Content Include="Content\themes\met\Site.css" />
+    <Content Include="Content\themes\gui\AwesomeMvc.css" />
+    <Content Include="Content\themes\gui\awe_icons.png" />
+    <Content Include="Content\themes\start\AwesomeMvc.css" />
+    <Content Include="Content\themes\start\awe_icons.png" />
+    <Content Include="Content\themes\start\editdel_white.png" />
+    <Content Include="Content\themes\start\loading.gif" />
+    <Content Include="Content\themes\start\pm.png" />
+    <Content Include="Content\themes\start\Site.css" />
+    <Content Include="Content\themes\gui3\AwesomeMvc.css" />
+    <Content Include="Content\themes\gui3\awe_icons.png" />
+    <Content Include="Content\themes\gui3\editdel_white.png" />
+    <Content Include="Content\themes\gui3\loading.gif" />
+    <Content Include="Content\themes\gui3\pm.png" />
+    <Content Include="Content\themes\gui3\Site.css" />
+    <Content Include="Content\themes\gui2\AwesomeMvc.css" />
+    <Content Include="Content\themes\gui2\awe_icons.png" />
+    <Content Include="Content\themes\gui2\editdel_black.png" />
+    <Content Include="Content\themes\gui2\loading.gif" />
+    <Content Include="Content\themes\gui2\pm.png" />
+    <Content Include="Content\themes\gui2\Site.css" />
+    <Content Include="Content\themes\gui\editdel_black.png" />
+    <Content Include="Content\themes\gui\loading.gif" />
+    <Content Include="Content\themes\gui\pm.png" />
+    <Content Include="Content\themes\gui\Site.css" />
+    <Content Include="f.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="Scripts\AwesomeMvc.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\JSON2.js" />
+    <Content Include="Scripts\prettify\lang-apollo.js" />
+    <Content Include="Scripts\prettify\lang-clj.js" />
+    <Content Include="Scripts\prettify\lang-css.js" />
+    <Content Include="Scripts\prettify\lang-go.js" />
+    <Content Include="Scripts\prettify\lang-hs.js" />
+    <Content Include="Scripts\prettify\lang-lisp.js" />
+    <Content Include="Scripts\prettify\lang-lua.js" />
+    <Content Include="Scripts\prettify\lang-ml.js" />
+    <Content Include="Scripts\prettify\lang-n.js" />
+    <Content Include="Scripts\prettify\lang-proto.js" />
+    <Content Include="Scripts\prettify\lang-scala.js" />
+    <Content Include="Scripts\prettify\lang-sql.js" />
+    <Content Include="Scripts\prettify\lang-tex.js" />
+    <Content Include="Scripts\prettify\lang-vb.js" />
+    <Content Include="Scripts\prettify\lang-vhdl.js" />
+    <Content Include="Scripts\prettify\lang-wiki.js" />
+    <Content Include="Scripts\prettify\lang-xq.js" />
+    <Content Include="Scripts\prettify\lang-yaml.js" />
+    <Content Include="Scripts\prettify\prettify.js" />
+    <Content Include="Scripts\Site.js" />
+    <Content Include="Views\AjaxCheckboxListDemo\Index.aspx" />
+    <Content Include="Views\AjaxDropdownDemo\Index.aspx" />
+    <Content Include="Views\ApiDemo\Index.aspx" />
+    <Content Include="Views\CascadingGridDemo\Index.aspx" />
+    <Content Include="Views\ErrorHandlingDemo\Index.aspx" />
+    <Content Include="Views\Exp\GridClientFunc.aspx" />
+    <Content Include="Views\Exp\Index.aspx" />
+    <Content Include="Views\Exp\MultiTest.aspx" />
+    <Content Include="Views\Exp\TestUnobtrusive.aspx" />
+    <Content Include="Views\GridChooseColumnsDemo\Index.aspx" />
+    <Content Include="Views\GridExportToExcelDemo\Index.aspx" />
+    <Content Include="Views\Exp\Test4.aspx" />
+    <Content Include="Views\FormDemo\AskName.ascx" />
+    <Content Include="Views\FormDemo\Index.aspx" />
+    <Content Include="Views\FormDemo\FillForm.ascx" />
+    <Content Include="Views\AjaxListDemo\ClientSideApi.aspx" />
+    <Content Include="Views\AjaxListDemo\CustomItemTemplate.aspx" />
+    <Content Include="Views\AjaxListDemo\Index.aspx" />
+    <Content Include="Views\AjaxListDemo\TableLayout.aspx" />
+    <Content Include="Views\AjaxRadioListDemo\Index.aspx" />
+    <Content Include="Views\AttributesDemo\Index.aspx" />
+    <Content Include="Views\AutocompleteDemo\Index.aspx" />
+    <Content Include="Views\Category\Create.ascx" />
+    <Content Include="Views\ChangeTheme\Index.ascx" />
+    <Content Include="Views\CrudInLookup\Index.aspx" />
+    <Content Include="Views\DatePickerDemo\Index.aspx" />
+    <Content Include="Views\DinnerLookup\SearchForm.ascx" />
+    <Content Include="Views\Dinners\Create.ascx" />
+    <Content Include="Views\Dinners\Index.aspx" />
+    <Content Include="Views\Error\errorp.ascx" />
+    <Content Include="Views\Error\Expected.aspx" />
+    <Content Include="Views\Error\Expectedp.ascx" />
+    <Content Include="Views\Error\HttpError404.aspx" />
+    <Content Include="Views\Error\HttpError505.aspx" />
+    <Content Include="Views\GridDemo\ClientSideApi.aspx" />
+    <Content Include="Views\GridDemo\ClientSideApiContent.ascx" />
+    <Content Include="Views\GridDemo\RTLSupport.aspx" />
+    <Content Include="Views\GridDemo\Selection.aspx" />
+    <Content Include="Views\GridDemo\CustomFormat.aspx" />
+    <Content Include="Views\GridDemo\CustomQuerying.aspx" />
+    <Content Include="Views\GridDemo\SortingContent.ascx" />
+    <Content Include="Views\GridDemo\Sorting.aspx" />
+    <Content Include="Views\GridDemo\Grouping.aspx" />
+    <Content Include="Views\GridDemo\GroupingContent.ascx" />
+    <Content Include="Views\GridDemo\Index.aspx" />
+    <Content Include="Views\GridDemo\IndexContent.ascx" />
+    <Content Include="Views\GridShowHideColumnsDemo\Index.aspx" />
+    <Content Include="Views\GridShowHideColumnsDemo\GridContent.ascx" />
+    <Content Include="Views\GridMantainSelectionDemo\Index.aspx" />
+    <Content Include="Views\GridSpreadsheetDemo\Index.aspx" />
+    <Content Include="Views\Home\About.aspx" />
+    <Content Include="Views\Exp\Cios.aspx" />
+    <Content Include="Views\Exp\ev.ascx" />
+    <Content Include="Views\Exp\AddTask.ascx" />
+    <Content Include="Views\Exp\TestErrorHandling.aspx" />
+    <Content Include="Views\Exp\TestEmptyGrid.aspx" />
+    <Content Include="Views\Exp\TestWaitParentLoad.aspx" />
+    <Content Include="Views\Exp\Test3.aspx" />
+    <Content Include="Views\ListBinding\Index.aspx" />
+    <Content Include="Views\LookupDemo\CustomSearch.aspx" />
+    <Content Include="Views\LookupDemo\Index.aspx" />
+    <Content Include="Views\LookupDemo\IndexContent.ascx" />
+    <Content Include="Views\LookupDemo\Misc.aspx" />
+    <Content Include="Views\MasterDetailCrudDemo\AddAddress.ascx" />
+    <Content Include="Views\MasterDetailCrudDemo\Create.ascx" />
+    <Content Include="Views\MasterDetailCrudDemo\Index.aspx" />
+    <Content Include="Views\MealCustomItemLookup\Details.ascx" />
+    <Content Include="Views\MealCustomItemLookup\items.ascx" />
+    <Content Include="Views\MealCustomSearchLookup\SearchForm.ascx" />
+    <Content Include="Views\MealsCustomItemMultiLookup\Details.ascx" />
+    <Content Include="Views\MealsCustomItemMultiLookup\items.ascx" />
+    <Content Include="Views\MealsCustomItemAjaxList\CustomItem.ascx" />
+    <Content Include="Views\MealsCustomSearchMultiLookup\SearchForm.ascx" />
+    <Content Include="Areas\Area1\Views\Web.config" />
+    <Content Include="Areas\Area1\Views\Homes\Index.cshtml" />
+    <Content Include="Areas\Test\Views\Web.config" />
+    <None Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
+    <Content Include="Views\MealsTableLayoutAjaxList\CustomItems.ascx" />
+    <Content Include="Views\MealsTableLayoutAjaxList\TableHeader.ascx" />
+    <Content Include="Views\MailboxDemo\Index.aspx" />
+    <Content Include="Views\MailboxDemo\ReadMessage.ascx" />
+    <Content Include="Views\MultiLookupDemo\CustomSearch.aspx" />
+    <Content Include="Views\MultiLookupDemo\Index.aspx" />
+    <Content Include="Views\MultiLookupDemo\IndexContent.ascx" />
+    <Content Include="Views\PopupDemo\PopupWithParameters.ascx" />
+    <Content Include="Views\PopupFormDemo\PopupWithParameters.ascx" />
+    <Content Include="Views\PopupFormDemo\Test.ascx" />
+    <Content Include="Views\Shared\ListItems\LunchCustomItem.ascx" />
+    <Content Include="Views\Sitemap\Index.aspx" />
+    <Content Include="Views\WizardDemo\Index.aspx" />
+    <Content Include="Views\WizardDemo\WizardFinish.ascx" />
+    <Content Include="Views\WizardDemo\WizardStep1.ascx" />
+    <Content Include="Views\WizardDemo\WizardStep2.ascx" />
+    <Content Include="Views\PurchasesCrudDemo\Edit.ascx" />
+    <Content Include="Views\PurchasesCrudDemo\Index.aspx" />
+    <Content Include="Views\Shared\ListItems\MealCrud.ascx" />
+    <Content Include="Views\Meals\Create.ascx" />
+    <Content Include="Views\Meals\Index.aspx" />
+    <Content Include="Views\MultiLookupDemo\Misc.aspx" />
+    <Content Include="Views\PagerDemo\Index.aspx" />
+    <Content Include="Views\PopupDemo\Meals.ascx" />
+    <Content Include="Views\PopupDemo\Index.aspx" />
+    <Content Include="Views\PopupFormDemo\Index.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\AjaxDropdown.ascx" />
+    <Content Include="Views\Shared\EditorTemplates\AjaxRadioList.ascx" />
+    <Content Include="Views\Shared\EditorTemplates\AjaxCheckboxList.ascx" />
+    <Content Include="Views\Shared\EditorTemplates\Autocomplete.ascx" />
+    <Content Include="Views\Shared\EditorTemplates\MultiLookup.ascx" />
+    <Content Include="Views\Shared\EditorTemplates\Lookup.ascx" />
+    <Content Include="Views\Shared\EditorTemplates\DateTimex.ascx" />
+    <Content Include="Views\Shared\EditorTemplates\String.ascx" />
+    <Content Include="Views\Shared\ListItems\Dinner.ascx" />
+    <Content Include="Views\Shared\ListItems\DinnerThead.ascx" />
+    <Content Include="Views\Shared\ListItems\Meal.ascx" />
+    <Content Include="Views\Shared\ListItems\MealCrudThead.ascx" />
+    <Content Include="Views\Shared\ListItems\MealThead.ascx" />
+    <Content Include="Views\Shared\sharebox.ascx" />
+    <Content Include="Views\SimpleMeals\Create.ascx" />
+    <Content Include="Views\SimpleMeals\Index.aspx" />
+    <Content Include="Views\Exp\ParentNestedProp.aspx" />
+    <Content Include="Views\TextBoxDemo\Index.aspx" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Content\common.css" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Views\Unobtrusive\Index.aspx" />
+    <Content Include="Views\Home\Index.aspx" />
+    <Content Include="Views\Shared\Error.aspx" />
+    <Content Include="Views\Shared\Site.Master" />
+    <Content Include="Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Areas\Area1\Models\" />
+    <Folder Include="Areas\Area1\Views\Shared\" />
+    <Folder Include="Areas\Test\Models\" />
+    <Folder Include="Areas\Test\Views\Shared\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>52615</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:52615/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
