@@ -16,10 +16,7 @@
             </select>
             
             <input id="optionSubmit" type="button" name="dropDownSubmit" value="Go" />
-<<<<<<< HEAD
             <div id="moveButton"></div>
-=======
->>>>>>> 074d29d3c79e575e4bc35a77964eaaf88b425fec
             <input type="button" name="Create" value="Create Folder" id="body-content-button-create" disabled />
             PAWA.Classes.AlbumGrid ag = new PAWA.Classes.AlbumGrid(new PAWA.DAL.PAWAContext());
             @Html.Raw(ag.CreateTable((int?)ViewBag.FolderID));
@@ -38,16 +35,9 @@
 
         $("#resultPopup").dialog({ autoOpen: false });
         //window.alert("running");
-<<<<<<< HEAD
-        $("form:first").submit(function (data) {
-            this.submitAllow = false;
-<<<<<<< HEAD
+        //$("form:first").submit(function (data) {
+          //  this.submitAllow = false;
         $("#optionSubmit").click(function (data) {
-=======
-=======
-        $("#optionSubmit").click(function (data) {
->>>>>>> Commit half finished
->>>>>>> 074d29d3c79e575e4bc35a77964eaaf88b425fec
             if ($('#DropDownList').val() == "Delete") {
 
                 //check if anything was selected
@@ -57,10 +47,7 @@
                     return;
                 } else {
                     if (window.confirm('These images will be permanently deleted. Do you wish to continue?')) {
-<<<<<<< HEAD
-                        $('#DropDownList').val() = "Delete"
-=======
->>>>>>> 074d29d3c79e575e4bc35a77964eaaf88b425fec
+                        $('#DropDownList').val() = "Delete";
                         $("form:first").submit();
                     }
                 }
