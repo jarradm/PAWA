@@ -15,35 +15,52 @@
                 <option value="Delete">Delete Selected</option>
             </select>
             
-            <input id="optionSubmit" type="button" name="dropDownSubmit" value="Go" />
+            <input id="optionSubmit" type="submit" name="optionSubmit" value="Go" />
+            <div id="moveButton"></div>
             <input type="button" name="Create" value="Create Folder" id="body-content-button-create" disabled />
             PAWA.Classes.AlbumGrid ag = new PAWA.Classes.AlbumGrid(new PAWA.DAL.PAWAContext());
             @Html.Raw(ag.CreateTable((int?)ViewBag.FolderID));
             
-            <input type="submit" name="NextPae" value="Next Page" id="body-content-button-next" disabled /> 
+            <input type="submit" name="NextPage" value="Next Page" id="body-content-button-next" disabled /> 
             <input type="submit" name="GoToTop" value="Go To Top" id="body-content-button-top" disabled />
         }
 
     </div>
 </div>
-<div id="resultPopup"></div>
+<div id="resultPopup" title="A popup box"></div>
 
 <script type="text/javascript">
-
-    $(document).ready(function () {
+    var pop = window.alert;
+    
+    $(document).ready(function () {/*
+        var buildform = function (values) {
+            var returnValue = {};
+            if (values != null && Object.getOwnPropertyNames(values) != null) {
+                var elementIDList = Object.getOwnPropertyNames(values);
+                for (var elementID in elementIDList) {
+                    if ($("#" + elementID) != null) {
+                        $("#" + elementID).name;
+                    }
+                }
+            }
+            return returnValue;
+        }*/
 
         $("#resultPopup").dialog({ autoOpen: false });
         //window.alert("running");
-        $("#optionSubmit").click(function (data) {
+        $("form").first().submit(function (event) {
+          //  this.submitAllow = false;
+        //$("#optionSubmit").click(function (event) {
             if ($('#DropDownList').val() == "Delete") {
-
                 //check if anything was selected
-                if (!hasChecked()) {
+                if (hasChecked()==false) {
                     //Nothing was so show a message.
                     alert("You have not selected any images to delete.");
+                    event.preventDefault();
                     return;
                 } else {
                     if (window.confirm('These images will be permanently deleted. Do you wish to continue?')) {
+                        $('#DropDownList').val() = "Delete";
                         $("form:first").submit();
                     }
                 }
@@ -51,14 +68,18 @@
             if ($("#DropDownList").val() == "Move") {
                 
                 if (hasChecked()) {
-                    window.alert("boo");
-                    var albumPost = $post("../../Home/GetAlbumList");
+                    event.preventDefault();
+                    pop("before");
+                    var albumPost = $.post("../../Home/GetAlbumList", { userID: "1" }, function (data) {
+                        pop("The chidren are safe");
+                        $("#resultPopup").empty().append(data);
+                        $("#resultPopup").dialog("open");
+                    });
+                    pop("after");
 
                     // Put the results in a div
                     /*albumPost.done(function (data) {
                         var result = $(data);
-                        $("#resultPopup").empty().append(content);
-                        $("#resultPopup").dialog("open");
 
                     });
                     //*/

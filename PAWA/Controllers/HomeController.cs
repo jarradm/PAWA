@@ -31,16 +31,33 @@ namespace PAWA.Controllers
             return View();
         }
 
-        public string GetAlbumList() {
-            int UserID = 1;
-            String returnValue;
+        public ActionResult GetAlbumList(MoveFolder value) {
+            int UserID=1;
+            /*try
+            {
+                UserID = Convert.ToInt32(value.userID);
+            }
+            catch (Exception e)
+            {
+                System.Console.WriteLine("eror: " + e);
+                UserID = 1;
+            }
+            string returnValue = "";
+
+            returnValue += "{";
+            for (int i = 0; i < folderList.Count(); )
+            {
+                returnValue += i+":{FolderID:\""+i+"\",";
+                returnValue += "FolderName:\"" + i + "\"},";
+            }
+            returnValue += "length:" + folderList.Count() + "}";*/
 
             PAWAContext dbContext = new PAWAContext();
-            var folders = from f in dbContext.Files
-                          where f.UserID == UserID
-                          select f.Folder;
-            returnValue = folders.ToString();
-            return returnValue;
+            var folderList = from f in dbContext.Folders
+                             where f.UserID == UserID
+                             select f.Folders;
+
+            return View();
         }
 
 

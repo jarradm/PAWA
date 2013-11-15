@@ -144,6 +144,7 @@
     <Compile Include="Models\DailyStatistics.cs" />
     <Compile Include="Models\File.cs" />
     <Compile Include="Models\Folder.cs" />
+    <Compile Include="Classes\MoveFolder.cs" />
     <Compile Include="Models\Tags.cs" />
     <Compile Include="Models\Type.cs" />
     <Compile Include="Models\User.cs" />
@@ -253,6 +254,7 @@
     <Content Include="Views\Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Views\Home\GetAlbumList.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

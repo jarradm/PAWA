@@ -7,7 +7,6 @@ using PAWA.Models;
 using PAWA.DAL;
 using System.Data;
 using System.Drawing;
-using System.Data;
 
 namespace PAWA.Classes
 {
