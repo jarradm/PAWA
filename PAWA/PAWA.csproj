@@ -115,6 +115,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\AdminReports.cs" />
     <Compile Include="Classes\AlbumGrid.cs" />
     <Compile Include="Classes\DeleteImage.cs" />
     <Compile Include="Classes\DisplayImage.cs" />
@@ -147,7 +148,7 @@
       <DependentUpon>201310141524045_TableNullableUpdate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\AlbumViewModel.cs" />
+    <Compile Include="ViewModels\AlbumViewModel.cs" />
     <Compile Include="Models\DailyStatistics.cs" />
     <Compile Include="Models\File.cs" />
     <Compile Include="Models\Folder.cs" />
