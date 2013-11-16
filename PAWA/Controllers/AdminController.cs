@@ -17,7 +17,9 @@ namespace PAWA.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            AdminReports ar = new AdminReports(db);
+
+            return View(ar);
         }
 
         //

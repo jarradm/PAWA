@@ -1,5 +1,30 @@
-﻿@{
+﻿@model PAWA.Classes.AdminReports
+
+@{
     ViewBag.Title = "Index";
 }
+<h2>Most Used Tags</h2>
+@Html.Raw(Model.CreateTableForMostUsedTag())
 
-<h2>Index</h2>
+<br /><br /><br />
+
+<h2>Most Popular Tags</h2>
+@Html.Raw(Model.CreateTableForMostUsedTagPerDay())
+
+<h2>File Type Usage Report (Images)</h2>
+@Html.Raw(Model.CreateTableForImageUsage())
+
+<h2>File Type Usage Report (Videos)</h2>
+@Html.Raw(Model.CreateTableForVideoUsage())
+
+<h2>Daily Usage Report</h2>
+@Html.Raw(Model.CreateTableForDailyUsage())
+
+<h2>Application Image Report</h2>
+@Html.Raw(Model.CreateApplicationImageUsageReport())
+
+<h2>Application Video Report</h2>
+@Html.Raw(Model.CreateApplicationVideoUsageReport())
+
+<h2>Application Other Report</h2>
+@Html.Raw(Model.CreateApplicationOtherUsageReport())
