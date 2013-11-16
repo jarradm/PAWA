@@ -1,7 +1,28 @@
-﻿@
-
+﻿<div id="Inherit Box">
 <label>Choose Folder</label>
-
-            <select name="folderList" id="folderList">
-                @
-            </select>
+    <form id="folderSelectionForm">
+        <select name="folderList" id="folderList">
+            @{
+                PAWA.Classes.GetFolderFormSelectOptions pwa = new PAWA.Classes.GetFolderFormSelectOptions(ViewBag.userID);
+                @Html.Raw(pwa.returnHTML);
+            }
+        </select> 
+    </form>
+    <script>
+        $("#folderList").onchange = function () {
+            var getCheckboxIDArray = function(){
+                var inputsArray = [];
+                var inputs = $("input[type='checkbox']");
+                for (var i = 0; i < inputs.length; i++) {
+                    var checkedInputID = inputs[i].id;
+                    if (inputs[i].checked && checkedInputID.search('_folder') != -1) {
+                        inputsArray.push[checked];
+                    }
+                }
+                return inputsArray;
+            }
+            pop(getCheckboxIDArray().serialize());
+            //$.post("../../Home/MoveImageToAlbum",{destinationFolder:$("#folderList").val(),'moveable[]':getCheckboxIDArray()},function(data){pop("works");});
+        }
+    </script>
+</div>

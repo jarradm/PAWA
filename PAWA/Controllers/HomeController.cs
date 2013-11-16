@@ -33,7 +33,7 @@ namespace PAWA.Controllers
 
         public ActionResult GetAlbumList(MoveFolder value) {
             int UserID=1;
-            /*try
+            try
             {
                 UserID = Convert.ToInt32(value.userID);
             }
@@ -42,8 +42,9 @@ namespace PAWA.Controllers
                 System.Console.WriteLine("eror: " + e);
                 UserID = 1;
             }
-            string returnValue = "";
 
+            /*
+            string returnValue = "";
             returnValue += "{";
             for (int i = 0; i < folderList.Count(); )
             {
@@ -56,8 +57,8 @@ namespace PAWA.Controllers
             var folderList = from f in dbContext.Folders
                              where f.UserID == UserID
                              select f.Folders;
-
-            return View();
+            ViewBag.userID = UserID;
+            return PartialView();
         }
 
 

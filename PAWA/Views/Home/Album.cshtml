@@ -62,7 +62,7 @@
                     if (window.confirm('These images will be permanently deleted. Do you wish to continue?')) {
                         $('#DropDownList').val() = "Delete";
                         $("form:first").submit();
-                    }
+                    } else event.preventDefault();
                 }
             }
             if ($("#DropDownList").val() == "Move") {
@@ -74,6 +74,22 @@
                         pop("The chidren are safe");
                         $("#resultPopup").empty().append(data);
                         $("#resultPopup").dialog("open");
+
+                        $("#folderList").onclick = function () {
+                            var getCheckboxIDArray = function () {
+                                var inputsArray = [];
+                                var inputs = $("input[type='checkbox']");
+                                for (var i = 0; i < inputs.length; i++) {
+                                    var checkedInputID = inputs[i].id;
+                                    if (inputs[i].checked && checkedInputID.search('_folder') != -1) {
+                                        inputsArray.push[checked];
+                                    }
+                                }
+                                return inputsArray;
+                            }
+                            pop(getCheckboxIDArray().serialize());
+                            //$.post("../../Home/MoveImageToAlbum",{destinationFolder:$("#folderList").val(),'moveable[]':getCheckboxIDArray()},function(data){pop("works");});
+                        }
                     });
                     pop("after");
 
@@ -84,7 +100,7 @@
                     });
                     //*/
                     $("#resultPopup").dialog("open");
-                    window.alert("after post")
+                    pop("after post")
                 }
             }
         });
@@ -93,7 +109,7 @@
 
 <script type="text/javascript">
     function hasChecked() {
-        window.alert("hasChecked");
+        pop("hasChecked");
         //Get input elements
         var inputs = $("input[type='checkbox']");
         //window.alert(printList());
@@ -101,7 +117,7 @@
         //For all elements
         for (var i = 0; i < inputs.length; i++) {
             //If any are checked
-            window.alert(inputs[i].checked);
+            pop(inputs[i].checked);
             if (inputs[i].checked) {
                 return true;
             }
