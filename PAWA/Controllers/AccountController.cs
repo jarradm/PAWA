@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using WebMatrix.WebData;
+using PAWA.Models;
+using PAWA.DAL;
 
 namespace PAWA.Controllers
 {
@@ -12,7 +14,7 @@ namespace PAWA.Controllers
     {
         //
         // GET: /Account/
-
+        [Authorize]
         public ActionResult Index()
         {
             if(Roles.IsUserInRole("User"))
