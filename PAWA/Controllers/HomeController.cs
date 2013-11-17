@@ -8,6 +8,7 @@ using PAWA.DAL;
 using PAWA.Classes;
 using System.Drawing;
 using System.Data;
+using PAWA.ViewModels;
 
 namespace PAWA.Controllers
 {
