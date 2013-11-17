@@ -165,6 +165,7 @@
     <Content Include="App_Data\PAWADB_log.ldf">
       <DependentUpon>PAWADB.mdf</DependentUpon>
     </Content>
+    <Content Include="App_Themes\AdminReports.css" />
     <Content Include="App_Themes\Album.css" />
     <Content Include="App_Themes\DisplayImage.css" />
     <Content Include="App_Themes\SiteLayout_Footer.css" />
@@ -263,6 +264,12 @@
     </Content>
     <Content Include="_AppStart.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\MostUsedTagReport.cshtml" />
+    <Content Include="Views\Admin\MostPopularTagReport.cshtml" />
+    <Content Include="Views\Admin\ImageUsageReport.cshtml" />
+    <Content Include="Views\Admin\VideoUsageReport.cshtml" />
+    <Content Include="Views\Admin\DailyUsageReport.cshtml" />
+    <Content Include="Views\Admin\ApplicationUsageReport.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

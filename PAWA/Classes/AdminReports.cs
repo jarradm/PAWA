@@ -31,6 +31,7 @@ namespace PAWA.Classes
         private string CreateTable(int nColumns, string[] columnHeaders, List<List<string>> rows, string tableId = "", string headerClass = "")
         {
             string table = "<table id=\"" + tableId + "\">\n    <tr>";
+            int countRows = 0;
 
             // Add column headers
             foreach (var columnData in columnHeaders)
@@ -47,10 +48,19 @@ namespace PAWA.Classes
 
                 foreach (var columnData in row)
                 {
-                    table += "\n        <td>" + columnData + "</td>";
+                    table += "\n        <td";
+
+                    if (countRows % 2 != 0)
+                    {
+                        table += " id=\"row-background-color\"";
+                    }
+                    
+                    table += ">" + columnData + "</td>";
+
                 }
                 
                 table += "\n    </tr>";
+                countRows++;
             }
 
             table += "\n</table>";
@@ -77,7 +87,7 @@ namespace PAWA.Classes
                 rows.Add(columns);
             }
 
-            return CreateTable(4, columnHeaders, rows); 
+            return CreateTable(4, columnHeaders, rows, tableId, headerClass); 
         }
 
         public string CreateTableForMostUsedTagPerDay(string tableId = "", string headerClass = "")
@@ -86,24 +96,26 @@ namespace PAWA.Classes
             List<List<string>> rows = new List<List<string>>();
             List<string> columns;
             int index = 1;
-            int countPerDay;
 
             var tags = GetTags();
 
             foreach (var tag in tags)
             {
-                countPerDay = tag.UseCount / (DateTime.Now.Date - tag.FirstDateTime.Date).Days;
+                // tag created on same day as report is day 1 not day 0
+                double nDays = (double)(DateTime.Now.Date - tag.FirstDateTime.Date).Days + 1.0;
+                double countPerDay = (double)tag.UseCount / nDays;
+                countPerDay = Math.Round(countPerDay, 2);
 
                 columns = new List<string>();
                 columns.Add((index++).ToString());
                 columns.Add(tag.TagsID.ToString());
                 columns.Add(tag.TagName);
-                columns.Add("~"+countPerDay.ToString());
-                columns.Add(tag.FirstDateTime.ToString());
+                columns.Add(countPerDay.ToString());
+                columns.Add(tag.FirstDateTime.ToString("yyyy-MM-dd HH:mm:ss"));
                 rows.Add(columns);
             }
 
-            return CreateTable(5, columnHeaders, rows); 
+            return CreateTable(5, columnHeaders, rows, tableId, headerClass); 
         }
 
         private string CreateTableForFileUsage(FileType ft, string[] columnHeaders, string tableId = "", string headerClass = "")
@@ -176,21 +188,21 @@ namespace PAWA.Classes
                 rows.Add(columns);
             }
 
-            return CreateTable(5, columnHeaders, rows);
+            return CreateTable(5, columnHeaders, rows, tableId, headerClass);
         }
 
         public string CreateTableForImageUsage(string tableId = "", string headerClass = "")
         {
-            string[] columnHeaders = { "File Type", "Number Of Files", "Percentage Of Uploads", "Percentage Of Images", "Status" };
+            string[] columnHeaders = { "File Type", "Number Of Files", "% Of Uploads", "% Of Images", "Status" };
 
-            return CreateTableForFileUsage(FileType.Image, columnHeaders);
+            return CreateTableForFileUsage(FileType.Image, columnHeaders, tableId, headerClass);
         }
 
         public string CreateTableForVideoUsage(string tableId = "", string headerClass = "")
         {
-            string[] columnHeaders = { "File Type", "Number Of Files", "Percentage Of Uploads", "Percentage Of Videos", "Status" };
+            string[] columnHeaders = { "File Type", "Number Of Files", "% Of Uploads", "% Of Videos", "Status" };
 
-            return CreateTableForFileUsage(FileType.Video, columnHeaders);
+            return CreateTableForFileUsage(FileType.Video, columnHeaders, tableId, headerClass);
         }
 
         public string CreateTableForDailyUsage(string tableId = "", string headerClass = "")
@@ -237,10 +249,10 @@ namespace PAWA.Classes
                 rows.Add(columns);
             }
 
-            return CreateTable(5, columnHeaders, rows);
+            return CreateTable(5, columnHeaders, rows, tableId, headerClass);
         }
 
-        private string CreateApplicationFileReport(FileType ft)
+        private string CreateApplicationFileReport(FileType ft, string leftColumnClass = "", string rightColumnClass = "")
         {
             string report;
             int totalUploaded = 0;
@@ -307,33 +319,40 @@ namespace PAWA.Classes
                 averagePerUser = 0;
             }
 
-            report = "Total Uploaded " + totalUploaded.ToString();
-            report += "<br>Average Size(KB) " + averageSize.ToString();
-            report += "<br>Average Per Folder " + averagePerFolder.ToString();
-            report += "<br>Average Per User " + averagePerUser.ToString();
-            report += "<br>Most Images In One Account " + mostImagesInOneUserAccount.ToString();
+            report = "<span class=\"" + leftColumnClass + "\" id=\"row-background-color\">Total Uploaded</span><span class=\"" + rightColumnClass + "\" id=\"row-background-color\">" +
+                totalUploaded.ToString() + "</span>";
+            report += "<br><span class=\"" + leftColumnClass + "\">Average Size(KB)</span><span class=\"" + rightColumnClass + "\">" +
+                averageSize.ToString() + "</span>";
+            report += "<br><span class=\"" + leftColumnClass + "\" id=\"row-background-color\">Average Per Folder</span><span class=\"" + rightColumnClass + "\" id=\"row-background-color\">" +
+                averagePerFolder.ToString() + "</span>";
+            report += "<br><span class=\"" + leftColumnClass + "\" >Average Per User</span><span class=\"" + rightColumnClass + "\">" +
+                averagePerUser.ToString() + "</span>";
+            report += "<br><span class=\"" + leftColumnClass + "\" id=\"row-background-color\">Most Images In One Account</span><span class=\"" + rightColumnClass + "\" id=\"row-background-color\">" +
+                mostImagesInOneUserAccount.ToString() + "</span>";
 
             return report;
         }
 
-        public string CreateApplicationImageUsageReport()
+        public string CreateApplicationImageUsageReport(string leftColumnClass = "", string rightColumnClass = "")
         {
-            return CreateApplicationFileReport(FileType.Video);
+            return CreateApplicationFileReport(FileType.Image, leftColumnClass, rightColumnClass);
         }
 
-        public string CreateApplicationVideoUsageReport()
+        public string CreateApplicationVideoUsageReport(string leftColumnClass = "", string rightColumnClass = "")
         {
-            return CreateApplicationFileReport(FileType.Video);
+            return CreateApplicationFileReport(FileType.Video, leftColumnClass, rightColumnClass); 
         }
 
-        public string CreateApplicationOtherUsageReport()
+        public string CreateApplicationOtherUsageReport(string leftColumnClass="", string rightColumnClass="")
         {
             string report;
             int mostMBUsedInOneAccount = 0;
             int count;
 
-            report = "<br>Total Uploads " + dbContext.Files.Count();
-            report += "<br>Average Folders Per User " + dbContext.Folders.Count() / dbContext.Users.Count();
+            report = "<span class=\"" + leftColumnClass + "\" id=\"row-background-color\">Total Uploads</span><span class=\"" + rightColumnClass + "\" id=\"row-background-color\">" +
+                dbContext.Files.Count() + "</span>";
+            report += "<br><span class=\"" + leftColumnClass + "\">Average Folders Per User</span><span class=\"" + rightColumnClass + "\">" + 
+                dbContext.Folders.Count() / dbContext.Users.Count() + "</span>";
 
             var users = dbContext.Users.Select(s => s.UserID);
 
@@ -358,9 +377,15 @@ namespace PAWA.Classes
                     mostMBUsedInOneAccount = count;
                 }
             }
-            report += "<br>Most MB Used In One Account " + Math.Round(((double)mostMBUsedInOneAccount/1000.0), 2);
+            report += "<br><span class=\"" + leftColumnClass + "\" id=\"row-background-color\">Most MB Used In One Account</span><span class=\"" + rightColumnClass + "\" id=\"row-background-color\">" +
+                Math.Round(((double)mostMBUsedInOneAccount / 1000.0), 2) + "</span>";
 
             return report;
+        }
+
+        public string GetCurrentDateTime()
+        {
+            return "Report Generated: " + DateTime.Now.ToString("HH:mm:ss yyyy-MM-dd");
         }
     }
 }

@@ -3,28 +3,47 @@
 @{
     ViewBag.Title = "Index";
 }
-<h2>Most Used Tags</h2>
-@Html.Raw(Model.CreateTableForMostUsedTag())
 
-<br /><br /><br />
+<link rel="stylesheet" href="~/App_Themes/AdminReports.css" type="text/css" />
 
-<h2>Most Popular Tags</h2>
-@Html.Raw(Model.CreateTableForMostUsedTagPerDay())
-
-<h2>File Type Usage Report (Images)</h2>
-@Html.Raw(Model.CreateTableForImageUsage())
-
-<h2>File Type Usage Report (Videos)</h2>
-@Html.Raw(Model.CreateTableForVideoUsage())
-
-<h2>Daily Usage Report</h2>
-@Html.Raw(Model.CreateTableForDailyUsage())
-
-<h2>Application Image Report</h2>
-@Html.Raw(Model.CreateApplicationImageUsageReport())
-
-<h2>Application Video Report</h2>
-@Html.Raw(Model.CreateApplicationVideoUsageReport())
-
-<h2>Application Other Report</h2>
-@Html.Raw(Model.CreateApplicationOtherUsageReport())
+<div id="body-area">
+    <div id="body-content-area">
+        <div id="body-content-area-header">
+            Reports
+        </div>
+        <div id="body-content-area-links">
+            <div class="body-content-area-links-header">
+                Tag Usage Reports
+            </div>
+            <div class="body-content-area-links-area">
+                <a href="~/Admin/MostUsedTagReport">Most Used Tags</a><br />
+                <a href="~/Admin/MostPopularTagReport">Most Popular Tags</a><br />
+            </div>
+            
+            <br />
+            <div class="body-content-area-links-header">
+                File Type Usage Reports
+            </div>
+            <div class="body-content-area-links-area">
+                <a href="~/Admin/ImageUsageReport">Image Usage</a><br />
+                <a href="~/Admin/VideoUsageReport">Video Usage</a><br />
+            </div>
+            
+            <br />
+            <div class="body-content-area-links-header">
+                Daily Usage Report
+            </div>
+            <div class="body-content-area-links-area">
+                <a href="~/Admin/DailyUsageReport">Daily Usage</a><br />
+            </div>
+            
+            <br />
+            <div class="body-content-area-links-header">
+                Application Usage Report
+            </div>
+            <div class="body-content-area-links-area">
+                <a href="~/Admin/ApplicationUsageReport">Application Usage</a><br />
+            </div>
+        </div>
+    </div>
+</div>
