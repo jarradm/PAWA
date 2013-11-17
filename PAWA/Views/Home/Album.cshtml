@@ -75,21 +75,6 @@
                         $("#resultPopup").empty().append(data);
                         $("#resultPopup").dialog("open");
 
-                        $("#folderList").onclick = function () {
-                            var getCheckboxIDArray = function () {
-                                var inputsArray = [];
-                                var inputs = $("input[type='checkbox']");
-                                for (var i = 0; i < inputs.length; i++) {
-                                    var checkedInputID = inputs[i].id;
-                                    if (inputs[i].checked && checkedInputID.search('_folder') != -1) {
-                                        inputsArray.push[checked];
-                                    }
-                                }
-                                return inputsArray;
-                            }
-                            pop(getCheckboxIDArray().serialize());
-                            //$.post("../../Home/MoveImageToAlbum",{destinationFolder:$("#folderList").val(),'moveable[]':getCheckboxIDArray()},function(data){pop("works");});
-                        }
                     });
                     pop("after");
 
@@ -105,6 +90,20 @@
             }
         });
     });
+    var moveSubmitButton = function () {
+        var inputsArray = [];
+        var inputs = $("input[type='checkbox']");
+        for (var i = 0; i < inputs.length; i++) {
+            var checkedInputID = inputs[i].id;
+            pop("id : " + checkedInputID + "\nchecked : " + inputs[i].checked + "\nIs Folder : " + (checkedInputID.search('_folder') == -1));
+            if (inputs[i].checked && (checkedInputID.search('_folder') == -1)) {
+                pop("submit btn working");
+                inputsArray.push([checkedInputID]);
+            }
+        }
+        pop("Folder : "+$("#folderList").val()+"\nLength : "+inputsArray.length +"\nValues : "+inputsArray);
+        $.post("../../Home/MoveImageTo",{destinationFolder:$("#folderList").val(),'selected[]':inputsArray},function(data){pop("works"+data);});
+    };
 </script>
 
 <script type="text/javascript">

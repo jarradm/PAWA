@@ -255,6 +255,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Views\Home\GetAlbumList.cshtml" />
+    <Content Include="Views\Home\MoveImageTo.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

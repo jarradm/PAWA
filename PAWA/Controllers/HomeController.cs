@@ -31,7 +31,7 @@ namespace PAWA.Controllers
             return View();
         }
 
-        public ActionResult GetAlbumList(MoveFolder value) {
+        public ActionResult GetAlbumList(UserIDType value) {
             int UserID=1;
             try
             {
@@ -58,6 +58,31 @@ namespace PAWA.Controllers
                              where f.UserID == UserID
                              select f.Folders;
             ViewBag.userID = UserID;
+            return PartialView();
+        }
+
+        public ActionResult MoveImageTo(MoveItemList moveItemList)
+        {
+            PAWAContext dbContext = new PAWAContext();
+            for (int i = 0; i < dbContext.Folders.Count(); i++)
+            {
+                if (dbContext.Folders.ElementAt(i).FolderID == Convert.ToInt32(moveItemList.destinationFolder) ) // User not passed across
+                {
+
+                    for (int n = 0; n < dbContext.Files.Count(); n++)
+                    {
+                        for (int j = 0; j < moveItemList.selected.Length; j++)
+                        {
+                            if (dbContext.Files.ElementAt(n).FileID == Convert.ToInt32(moveItemList.selected[j]))
+                            {
+                                dbContext.Files.ElementAt(j).FolderID = Convert.ToInt32(moveItemList.destinationFolder);
+                                dbContext.SaveChanges();
+                            }
+                        }
+                    }
+                    return PartialView();
+                }
+            }
             return PartialView();
         }
 

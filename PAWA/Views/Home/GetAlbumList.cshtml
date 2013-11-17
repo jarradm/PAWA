@@ -7,22 +7,6 @@
                 @Html.Raw(pwa.returnHTML);
             }
         </select> 
+        <button id="moveFolderSubmit" type="button" value="Go" onclick="moveSubmitButton()">Go</button>
     </form>
-    <script>
-        $("#folderList").onchange = function () {
-            var getCheckboxIDArray = function(){
-                var inputsArray = [];
-                var inputs = $("input[type='checkbox']");
-                for (var i = 0; i < inputs.length; i++) {
-                    var checkedInputID = inputs[i].id;
-                    if (inputs[i].checked && checkedInputID.search('_folder') != -1) {
-                        inputsArray.push[checked];
-                    }
-                }
-                return inputsArray;
-            }
-            pop(getCheckboxIDArray().serialize());
-            //$.post("../../Home/MoveImageToAlbum",{destinationFolder:$("#folderList").val(),'moveable[]':getCheckboxIDArray()},function(data){pop("works");});
-        }
-    </script>
 </div>

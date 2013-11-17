@@ -7,9 +7,15 @@ using PAWA.Models;
 
 namespace PAWA.Classes
 {
-    public class MoveFolder
+    public class UserIDType
     {
         public string userID { get; set; }
+    }
+
+    public class MoveItemList
+    {
+        public string destinationFolder { get; set; }
+        public int[] selected { get; set; }
     }
 
     public class GetFolderFormSelectOptions
