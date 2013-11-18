@@ -37,15 +37,16 @@
             <div id="tagcloud-overlay-area">
                 <div id="tagcloud-overlay-area-header">
                     100 Most Used Tags
+                    <input type="button" id="tagcloud-overlay-close-button" value="X" onclick="CloseCloudOverlay()"/>
                 </div>
                 <div id="tagcloud-overlay-item-area">
-                    @Html.Raw(PAWA.Classes.Tools.CreateTable(PAWA.Classes.Tools.GetTop100Tags(new PAWA.DAL.PAWAContext())))
+                    @Html.Raw(PAWA.Classes.Tools.CreateTagCloudOverlayContents(PAWA.Classes.Tools.GetTop100Tags(new PAWA.DAL.PAWAContext())))
                 </div>
             </div>
         </div>
     </div>
 </div>
-<center><h3>@Html.Encode(ViewData["Uploaded"])</h3></center>
+<h3>@Html.Encode(ViewData["Uploaded"])</h3>
 
 <script>
     function TagHelp()
@@ -56,6 +57,8 @@
     $(document).ready(function () {
         $("#tagcloud-button").click(function () {
             $("#tagcloud-overlay-area").show();
+            $("#tagcloud-overlay-close-button").position({ my: "right top", at: "right-12 top+4", of: "#tagcloud-overlay-area-header", collision: "none" });
+            $("#tagcloud-overlay-area").position({ my: "center center", at: "center center", of: window, collision: "none" });
         });
     });
 
@@ -68,5 +71,12 @@
         {
             $("#textbox-tags").val($("#textbox-tags").val() + "," + $(button).attr("name"));
         }
+
+        $(button).attr("disabled", "disabled");
+    }
+
+    function CloseCloudOverlay()
+    {
+        $("#tagcloud-overlay-area").hide();
     }
 </script>

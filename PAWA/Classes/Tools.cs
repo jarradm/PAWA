@@ -379,21 +379,20 @@ namespace PAWA.Classes
             return top100Tags;
         }
 
-        public static string CreateTable(List<Tags> tags)
+        public static string CreateTagCloudOverlayContents(List<Tags> tags)
         {
             string tagcloud = "";
             int count = 0;
 
             foreach (var tag in tags)
             {
-                if (count % 5 == 0)
+                if (count % 5 == 0 && count != 0)
                 {
                     tagcloud += "<br>";
                 }
 
-                tagcloud += "<input type=\"button\" name=\"" + tag.TagName.ToString() +
-                    "\" value=\"+\" onclick=\"AddTagToTextBox(this)\"><span class=\"tagcloud-overlay-item\">" 
-                    + tag.TagName.ToString() + "</span>";
+                tagcloud += "<span class=\"tagcloud-overlay-item\"><input type=\"button\" name=\"" + tag.TagName.ToString() +
+                    "\" value=\"+\" onclick=\"AddTagToTextBox(this)\">" + tag.TagName.ToString() + "</span>";
                 count++;
             }
 
