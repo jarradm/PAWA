@@ -159,10 +159,12 @@
     </Content>
     <Content Include="App_Themes\Album.css" />
     <Content Include="App_Themes\DisplayImage.css" />
+    <Content Include="App_Themes\Login.css" />
     <Content Include="App_Themes\SiteLayout_Footer.css" />
     <Content Include="App_Themes\SiteLayout_Header.css" />
     <Content Include="App_Themes\SiteLayout.css" />
     <Content Include="App_Themes\UploadImage.css" />
+    <Content Include="App_Themes\ViewUser.css" />
     <Content Include="App_Themes\Zain\ZainCSS3.css" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -227,11 +229,18 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
     <Content Include="Global.asax" />
+    <Content Include="Images\background.bmp" />
+    <Content Include="Images\background2.bmp" />
     <Content Include="Images\BlueGreenGradient1.jpg" />
     <Content Include="Images\BlueGreenGradient2.jpg" />
     <Content Include="Images\BlueGreenGradient3.jpg" />
     <Content Include="Images\BlueGreenGradient4.jpg" />
+    <Content Include="Images\cloud2psd.png" />
+    <Content Include="Images\cloud3png.png" />
+    <Content Include="Images\cloudpng.png" />
     <Content Include="Images\folder.png" />
+    <Content Include="Images\logopng.png" />
+    <Content Include="Images\logotextpng.png" />
     <Content Include="Images\PAWACP Logo.jpg" />
     <Content Include="Images\PAWACP Logo2.jpg" />
     <Content Include="Images\Rabbit Profile.jpg" />
@@ -252,6 +261,12 @@
     <Content Include="Views\Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Views\Account\NewLogin.cshtml" />
+    <Content Include="Views\Admin\ViewUser.cshtml">
+      <BrowseToURL>~/Admin/ViewUser</BrowseToURL>
+    </Content>
+    <Content Include="Views\Admin\ViewUserDetails.cshtml" />
+    <Content Include="Views\Admin\EditTag.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
