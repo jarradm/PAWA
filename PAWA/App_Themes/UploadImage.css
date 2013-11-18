@@ -8,3 +8,23 @@
     padding-top: 10px;
     padding-left: 13%;
 }
+
+.tagcloud-overlay-item {
+    display: inline-block;
+    width: 150px;
+    padding: 10px;
+}
+
+#tagcloud-overlay-area {
+    display: none;
+    border: 1px solid black;
+    width: 770px;
+    margin: auto;
+}
+
+#tagcloud-overlay-area-header {
+    border-bottom: 1px solid black;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+}

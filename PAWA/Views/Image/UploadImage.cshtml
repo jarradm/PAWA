@@ -22,7 +22,8 @@
                     @Html.TextArea("description", null, new { cols = "50", rows = "5", style = "resize:none" })
                     <br />
                     <label>Add Tags: </label>
-                    <input type="text" style="width: 250px" name="tags" /><input type="button" onclick="TagHelp()" value="?" />
+                    <input type="text" style="width: 250px" name="tags" id="textbox-tags" /><input type="button" onclick="TagHelp()" value="?" />
+                    <input type="button" id="tagcloud-button" value="Tag Cloud" />
                     <br />
                     <div id="buttons">
                         <input type="submit" value="Upload" />
@@ -33,6 +34,14 @@
                     </div>
                 }
             </div>
+            <div id="tagcloud-overlay-area">
+                <div id="tagcloud-overlay-area-header">
+                    100 Most Used Tags
+                </div>
+                <div id="tagcloud-overlay-item-area">
+                    @Html.Raw(PAWA.Classes.Tools.CreateTable(PAWA.Classes.Tools.GetTop100Tags(new PAWA.DAL.PAWAContext())))
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -42,5 +51,22 @@
     function TagHelp()
     {
         alert("Tags are used to quickly find an Image\nThe correct format for tagging: 'Ocean,Holiday,2013'\n Seperated using commas and no spacing.");
+    }
+
+    $(document).ready(function () {
+        $("#tagcloud-button").click(function () {
+            $("#tagcloud-overlay-area").show();
+        });
+    });
+
+    function AddTagToTextBox(button)
+    {
+        if ($("#textbox-tags").val() == "") {
+            $("#textbox-tags").val($(button).attr("name"));
+        }
+        else
+        {
+            $("#textbox-tags").val($("#textbox-tags").val() + "," + $(button).attr("name"));
+        }
     }
 </script>

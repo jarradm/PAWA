@@ -229,7 +229,7 @@ namespace PAWA.Controllers
                     SizeMB = 775, SizeHeight = 768, SizeWidth = 1024 }
                 }
             };
-            AlbumViewModel avm = new AlbumViewModel(tpc);
+            AlbumViewModel avm = new AlbumViewModel(new PAWAContext());
             avm.FolderID = folderID;
             //ViewBag.FolderID = folderID;
 

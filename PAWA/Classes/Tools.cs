@@ -6,6 +6,7 @@ using System.Drawing;
 using PAWA.DAL;
 using System.Security.Cryptography;
 using WebMatrix.WebData;
+using PAWA.Models;
 
 namespace PAWA.Classes
 {
@@ -352,7 +353,51 @@ namespace PAWA.Classes
 
             return hexString.ToString() + "." + fileExtension;
         }
-     
 
+        /// <summary>
+        /// Gets the 100 most used tags from the database.
+        /// </summary>
+        /// <returns>List of tags</returns>
+        public static List<Tags> GetTop100Tags(IPAWAContext dbContext)
+        {
+            var tags = dbContext.Tags.OrderByDescending(t => t.UseCount);
+            int count = 0;
+            List<Tags> top100Tags = new List<Tags>();
+
+            foreach (var tag in tags)
+            {
+                // exit loop once we have 100 tags
+                if (count == 100)
+                {
+                    break;
+                }
+
+                top100Tags.Add(tag);
+                count++;
+            }
+
+            return top100Tags;
+        }
+
+        public static string CreateTable(List<Tags> tags)
+        {
+            string tagcloud = "";
+            int count = 0;
+
+            foreach (var tag in tags)
+            {
+                if (count % 5 == 0)
+                {
+                    tagcloud += "<br>";
+                }
+
+                tagcloud += "<input type=\"button\" name=\"" + tag.TagName.ToString() +
+                    "\" value=\"+\" onclick=\"AddTagToTextBox(this)\"><span class=\"tagcloud-overlay-item\">" 
+                    + tag.TagName.ToString() + "</span>";
+                count++;
+            }
+
+            return tagcloud;
+        }
     }
 }
