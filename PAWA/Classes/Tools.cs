@@ -312,6 +312,12 @@ namespace PAWA.Classes
             return false;
         }
      
+        /// <summary>
+        /// Creates a unique hash to be used as a filename.
+        /// </summary>
+        /// <param name="userid">ID of the user uploading file.</param>
+        /// <param name="filename">Filename of the file before</param>
+        /// <returns>Filename string</returns>
         public string CreateFilename(int userid, string filename)
         {
             string stringToHash = DateTime.UtcNow.ToString() + "_" + userid.ToString() + "_" + filename;
@@ -328,6 +334,13 @@ namespace PAWA.Classes
             return HexByteArrayToHexString(hashValueBytes, fileExtension[fileExtension.Length-1]);
         }
 
+        /// <summary>
+        /// Converts a hexadecimal byte array into a filename string representing the
+        /// hexadecimal bytes.
+        /// </summary>
+        /// <param name="hexValues">Byte array, representing hexadecimal values.</param>
+        /// <param name="fileExtension">File extension of the filename.</param>
+        /// <returns>Filename string</returns>
         private string HexByteArrayToHexString(byte[] hexValues, string fileExtension)
         {
             System.Text.StringBuilder hexString = new System.Text.StringBuilder(hexValues.Length * 2);
