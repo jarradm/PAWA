@@ -8,6 +8,7 @@ using PAWA.DAL;
 using PAWA.Classes;
 using System.Drawing;
 using System.Data;
+using System.Collections;
 
 namespace PAWA.Controllers
 {
@@ -55,10 +56,38 @@ namespace PAWA.Controllers
             return PartialView();
         }
 
-        public void createFolder(string FolderName, int InFolderID)
+
+        public int? getParentID(int? folderId)
+        {
+            int? returnValue = folderId;
+            PAWAContext db = new PAWAContext();
+            Tools toolBelt = new Tools();
+            IList<PAWA.Models.Folder> foldermonkey = toolBelt.getFolders(1);
+            if (folderId != null)
+            {
+                for (int i = 0; i < foldermonkey.Count; i++)
+                {
+                    if (foldermonkey.ElementAt(i).FolderID == folderId)
+                    {
+                        returnValue = foldermonkey.ElementAt(i).InFolderID;
+                    } 
+                }
+                    
+            }
+            return returnValue;
+        }
+
+
+        public void createFolder(string FolderName, int? InFolderID)
         {
             PAWAContext db = new PAWAContext();
-            var newFolder = new PAWA.Models.Folder
+ 
+            if (InFolderID == -1)
+            {
+                InFolderID = null;
+            }
+
+            var newFolder = new PAWA.Models.Folder           
             {
                 CreateDateTime = System.DateTime.Now,
                 FolderName = FolderName,

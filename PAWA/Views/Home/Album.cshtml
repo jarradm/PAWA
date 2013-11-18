@@ -26,51 +26,44 @@
             <input type="submit" name="Submit" value="Go" />
 
             <input type="button" name="Create" value="Create Folder" id="body-content-button-create" />
-            
-            <input type="button" name="CreateFolderNOW" value="NOW Create a damn Folder" id="CreateFolderNOW" />
+           
                       
-            
             
             PAWA.Classes.AlbumGrid ag = new PAWA.Classes.AlbumGrid(new PAWA.DAL.PAWAContext());
            @Html.Raw(ag.CreateTable((int?)ViewBag.FolderID));
             
             <input type="submit" name="NextPage" value="Next Page" id="body-content-button-next" disabled /> 
             <input type="button" name="GoToTop" value="Go To Top" id="body-content-button-top"  />
+            <input type="button" name="GoUpFolder" value="Previous Folder" id="body-content-button-previous" onclick="previousFolder();" />
             
-            <div class="folderPopUp" id="create-folder" title="Create a Folder">
-                @using (Ajax.BeginForm("CreateFolder", "Folders", new AjaxOptions { UpdateTargetId = "ID", OnSuccess = "onSuccess" }))
-                {
-                    <div>
-                        <fieldset>
-                            <legend>Create Folder</legend>
+            
 
-                            @Html.LabelFor(m => m.FolderName)
-                            @Html.TextBoxFor(m => m.FolderName)
-                            <!--<input type="text" name="FolderName" id="FolderName" /> -->
+                <div id="folder-create" title="Create a Folder">
+                    <label>Folder Name:</label>
+                    <input type="text" id="FolderName" style="position:relative;left:20px" />
+                    <br /><label>Location:</label>
+                    <select id="InFolderID" style="position:relative;left: 62px;width: 211px;">
+                        @{
+                            PAWA.Classes.Tools toolbox = new PAWA.Classes.Tools();
+                            IList<PAWA.Models.Folder> folderlist = toolbox.getFolders(1);
 
-                            @Html.LabelFor(m => m.InFolderID)
-                            @Html.TextBoxFor(m => m.InFolderID)
-                            <!--<input type="text" name="InFolderID" id="InFolderID" />-->
-                         
-                            <p>
-                               <input type="button" value="Create" onclick="create()" />
-                            </p>
+                            for (int i = 0; i < folderlist.Count;i++ ) {
+                                @:<option value="
+                                    @Html.Raw(folderlist.ElementAt(i).FolderID.ToString());
+                                        @:">
+                                        @Html.Raw(folderlist.ElementAt(i).FolderName);
+                                  @:</option>
 
-                        </fieldset>
+                            }   
+                        }
+                    </select>
+                    <br /><br /><div style="text-align:center">
+                        <input type="button" value="Create" onclick="folderAlert();" />
                     </div>
-                }
-
-                <div id="Stupid-folder-create" title="Create a damn Folder you Idiot thing">
-                    <label>Folder Name Here:</label>
-                    <input type="text" id="FolderName" />
-                    <label>ID of Folder Here:</label>
-                    <input type="text" id="InFolderID" />
-
-                    <p><input type="button" value="Create a stupid folder" onclick="folderAlert();" /></p>
 
                 </div>
 
-            </div>
+            
         }
     </div>
 </div>
@@ -106,8 +99,15 @@
 
 
 <script type="text/javascript">
-
+   
     $(document).ready(function () {
+
+        var address = window.location.toString();
+        address = address.substring(address.search("/Home/Album"), address.length);
+        if (address == "/Home/Album") {
+            //hide button
+            $("#body-content-button-previous").hide();
+        }
         $("input[name='Submit']").click(function () {
             if ($('#DropDownList').val() == "Delete") {
 
@@ -149,6 +149,7 @@
 <script>
     $("#body-content-button-create").position({ my: "right top", at: "right-4 top+2", of: "#body-content-area", collision: "none" });
     $("#body-content-button-next").position({ my: "center bottom", at: "center bottom-2", of: "#body-content-area", collision: "none" });
+    $("#body-content-button-previous").position({ my: "left bottom", at: "left bottom-2", of: "#body-content-area", collision: "none" });
     $("#body-content-button-top").position({ my: "right bottom", at: "right-4 bottom-2", of: "#body-content-area", collision: "none" });
     $(".body-content-table-checkbox").each(function () {
         $(this).position({ my: "right bottom", at: "right-5 bottom-5", of: $(this).parent().children("img"), collision: "none" });
