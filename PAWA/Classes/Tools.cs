@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Drawing;
 using PAWA.DAL;
+using PAWA.Models;
 using System.Security.Cryptography;
 
 namespace PAWA.Classes
@@ -17,6 +18,24 @@ namespace PAWA.Classes
        public static int totalImageCount {get; set;} //counter for index adding
        private static List<int> selectedfile { get; set; } //list containing ids
        public static int UserID { get; set; }
+
+       public IEnumerable<File> GetFilesFromFolder(int? folderID, int? userId)
+       {
+           PAWAContext db = new PAWAContext();
+           IEnumerable<File> files;
+           if (userId != null)
+           {
+               var UserID = userId;
+               files = from f in db.Files
+                       where f.UserID == UserID && (f.FolderID == folderID || (f.FolderID == null && folderID == null))
+                       select f;
+           }
+           else
+           {
+               files = new HashSet<File> { };
+           }
+           return files;
+       }
         /// <summary>
            ///  Take in image, create a new bitmap, bitmap size = newsize
            ///  Render and clean image
