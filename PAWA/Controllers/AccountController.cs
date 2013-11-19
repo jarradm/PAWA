@@ -39,11 +39,5 @@ namespace PAWA.Controllers
         {
             return View();
         }
-        
-        public ActionResult NewLogin()
-        {
-            return View();
-        }
-      
     }
 }
