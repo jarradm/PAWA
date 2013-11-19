@@ -39,8 +39,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
@@ -112,6 +111,7 @@
     <Compile Include="Classes\AlbumGrid.cs" />
     <Compile Include="Classes\DeleteImage.cs" />
     <Compile Include="Classes\DisplayImage.cs" />
+    <Compile Include="Classes\EditImage.cs" />
     <Compile Include="Classes\Tools.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
@@ -263,6 +263,7 @@
     </Content>
     <Content Include="Views\Admin\ViewUserDetails.cshtml" />
     <Content Include="Views\Admin\EditTag.cshtml" />
+    <Content Include="Views\Image\UpdateImage.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
