@@ -15,7 +15,7 @@ namespace PAWA.Models
     public class User
     {
         public int UserID { get; set; }
-        
+
         [StringLength(50)]
         [Required()]
         public string Username { get; set; }

@@ -33,14 +33,14 @@ namespace PAWA.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateUser(User user)
         {
-                if (ModelState.IsValid)
-                {
-                    user.JoinDateTime = DateTime.Now;
-                    db.Users.Add(user);
-                    db.SaveChanges();
-                    return RedirectToAction("../Home/Album");
-                }
-            
+            if (ModelState.IsValid)
+            {
+                user.JoinDateTime = DateTime.Now;
+                db.Users.Add(user);
+                db.SaveChanges();
+                return RedirectToAction("../Home/Album");
+            }
+
             return View(user);
         }
         //

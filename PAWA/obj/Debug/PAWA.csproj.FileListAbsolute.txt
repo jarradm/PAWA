@@ -1,34 +1,68 @@
-E:\Work\Project\PAWA-master\PAWA\bin\PAWA.dll
-E:\Work\Project\PAWA-master\PAWA\bin\PAWA.pdb
-E:\Work\Project\PAWA-master\PAWA\bin\EntityFramework.dll
-E:\Work\Project\PAWA-master\PAWA\bin\Microsoft.Web.Infrastructure.dll
-E:\Work\Project\PAWA-master\PAWA\bin\Newtonsoft.Json.dll
-E:\Work\Project\PAWA-master\PAWA\bin\System.Net.Http.Formatting.dll
-E:\Work\Project\PAWA-master\PAWA\bin\System.Web.Helpers.dll
-E:\Work\Project\PAWA-master\PAWA\bin\System.Web.Http.dll
-E:\Work\Project\PAWA-master\PAWA\bin\System.Web.Http.WebHost.dll
-E:\Work\Project\PAWA-master\PAWA\bin\System.Web.Mvc.dll
-E:\Work\Project\PAWA-master\PAWA\bin\System.Web.Razor.dll
-E:\Work\Project\PAWA-master\PAWA\bin\System.Web.WebPages.Deployment.dll
-E:\Work\Project\PAWA-master\PAWA\bin\System.Web.WebPages.dll
-E:\Work\Project\PAWA-master\PAWA\bin\System.Web.WebPages.Razor.dll
-E:\Work\Project\PAWA-master\PAWA\bin\EntityFramework.xml
-E:\Work\Project\PAWA-master\PAWA\bin\Newtonsoft.Json.xml
-E:\Work\Project\PAWA-master\PAWA\bin\Microsoft.Web.Infrastructure.xml
-E:\Work\Project\PAWA-master\PAWA\bin\System.Net.Http.Formatting.xml
-E:\Work\Project\PAWA-master\PAWA\bin\System.Web.Helpers.xml
-E:\Work\Project\PAWA-master\PAWA\bin\System.Web.Http.xml
-E:\Work\Project\PAWA-master\PAWA\bin\System.Web.Http.WebHost.xml
-E:\Work\Project\PAWA-master\PAWA\bin\System.Web.Mvc.xml
-E:\Work\Project\PAWA-master\PAWA\bin\System.Web.Razor.xml
-E:\Work\Project\PAWA-master\PAWA\bin\System.Web.WebPages.xml
-E:\Work\Project\PAWA-master\PAWA\bin\System.Web.WebPages.Deployment.xml
-E:\Work\Project\PAWA-master\PAWA\bin\System.Web.WebPages.Razor.xml
-E:\Work\Project\PAWA-master\PAWA\obj\Debug\PAWA.csprojResolveAssemblyReference.cache
-E:\Work\Project\PAWA-master\PAWA\obj\Debug\PAWA.Migrations.InitialCreate.resources
-E:\Work\Project\PAWA-master\PAWA\obj\Debug\PAWA.Migrations.AddedDailyStatisticsTable.resources
-E:\Work\Project\PAWA-master\PAWA\obj\Debug\PAWA.Migrations.FolderTableForeignKeyFix.resources
-E:\Work\Project\PAWA-master\PAWA\obj\Debug\PAWA.Migrations.TableNullableUpdate.resources
-E:\Work\Project\PAWA-master\PAWA\obj\Debug\PAWA.csproj.GenerateResource.Cache
-E:\Work\Project\PAWA-master\PAWA\obj\Debug\PAWA.dll
-E:\Work\Project\PAWA-master\PAWA\obj\Debug\PAWA.pdb
+E:\PAWA\PAWA\bin\PAWA.dll
+E:\PAWA\PAWA\bin\PAWA.pdb
+E:\PAWA\PAWA\bin\EntityFramework.dll
+E:\PAWA\PAWA\bin\Microsoft.Web.Infrastructure.dll
+E:\PAWA\PAWA\bin\Newtonsoft.Json.dll
+E:\PAWA\PAWA\bin\System.Net.Http.Formatting.dll
+E:\PAWA\PAWA\bin\System.Web.Helpers.dll
+E:\PAWA\PAWA\bin\System.Web.Http.dll
+E:\PAWA\PAWA\bin\System.Web.Http.WebHost.dll
+E:\PAWA\PAWA\bin\System.Web.Mvc.dll
+E:\PAWA\PAWA\bin\System.Web.Razor.dll
+E:\PAWA\PAWA\bin\System.Web.WebPages.Deployment.dll
+E:\PAWA\PAWA\bin\System.Web.WebPages.dll
+E:\PAWA\PAWA\bin\System.Web.WebPages.Razor.dll
+E:\PAWA\PAWA\bin\EntityFramework.xml
+E:\PAWA\PAWA\bin\Newtonsoft.Json.xml
+E:\PAWA\PAWA\bin\Microsoft.Web.Infrastructure.xml
+E:\PAWA\PAWA\bin\System.Net.Http.Formatting.xml
+E:\PAWA\PAWA\bin\System.Web.Helpers.xml
+E:\PAWA\PAWA\bin\System.Web.Http.xml
+E:\PAWA\PAWA\bin\System.Web.Http.WebHost.xml
+E:\PAWA\PAWA\bin\System.Web.Mvc.xml
+E:\PAWA\PAWA\bin\System.Web.Razor.xml
+E:\PAWA\PAWA\bin\System.Web.WebPages.xml
+E:\PAWA\PAWA\bin\System.Web.WebPages.Deployment.xml
+E:\PAWA\PAWA\bin\System.Web.WebPages.Razor.xml
+E:\PAWA\PAWA\obj\Debug\PAWA.csprojResolveAssemblyReference.cache
+E:\PAWA\PAWA\obj\Debug\PAWA.Migrations.InitialCreate.resources
+E:\PAWA\PAWA\obj\Debug\PAWA.Migrations.AddedDailyStatisticsTable.resources
+E:\PAWA\PAWA\obj\Debug\PAWA.Migrations.FolderTableForeignKeyFix.resources
+E:\PAWA\PAWA\obj\Debug\PAWA.Migrations.TableNullableUpdate.resources
+E:\PAWA\PAWA\obj\Debug\PAWA.csproj.GenerateResource.Cache
+E:\PAWA\PAWA\obj\Debug\PAWA.dll
+E:\PAWA\PAWA\obj\Debug\PAWA.pdb
+E:\PAWA-Working Copy\PAWA\bin\PAWA.dll
+E:\PAWA-Working Copy\PAWA\bin\PAWA.pdb
+E:\PAWA-Working Copy\PAWA\bin\EntityFramework.dll
+E:\PAWA-Working Copy\PAWA\bin\Microsoft.Web.Infrastructure.dll
+E:\PAWA-Working Copy\PAWA\bin\Newtonsoft.Json.dll
+E:\PAWA-Working Copy\PAWA\bin\System.Net.Http.Formatting.dll
+E:\PAWA-Working Copy\PAWA\bin\System.Web.Helpers.dll
+E:\PAWA-Working Copy\PAWA\bin\System.Web.Http.dll
+E:\PAWA-Working Copy\PAWA\bin\System.Web.Http.WebHost.dll
+E:\PAWA-Working Copy\PAWA\bin\System.Web.Mvc.dll
+E:\PAWA-Working Copy\PAWA\bin\System.Web.Razor.dll
+E:\PAWA-Working Copy\PAWA\bin\System.Web.WebPages.Deployment.dll
+E:\PAWA-Working Copy\PAWA\bin\System.Web.WebPages.dll
+E:\PAWA-Working Copy\PAWA\bin\System.Web.WebPages.Razor.dll
+E:\PAWA-Working Copy\PAWA\bin\EntityFramework.xml
+E:\PAWA-Working Copy\PAWA\bin\Newtonsoft.Json.xml
+E:\PAWA-Working Copy\PAWA\bin\Microsoft.Web.Infrastructure.xml
+E:\PAWA-Working Copy\PAWA\bin\System.Net.Http.Formatting.xml
+E:\PAWA-Working Copy\PAWA\bin\System.Web.Helpers.xml
+E:\PAWA-Working Copy\PAWA\bin\System.Web.Http.xml
+E:\PAWA-Working Copy\PAWA\bin\System.Web.Http.WebHost.xml
+E:\PAWA-Working Copy\PAWA\bin\System.Web.Mvc.xml
+E:\PAWA-Working Copy\PAWA\bin\System.Web.Razor.xml
+E:\PAWA-Working Copy\PAWA\bin\System.Web.WebPages.xml
+E:\PAWA-Working Copy\PAWA\bin\System.Web.WebPages.Deployment.xml
+E:\PAWA-Working Copy\PAWA\bin\System.Web.WebPages.Razor.xml
+E:\PAWA-Working Copy\PAWA\obj\Debug\PAWA.csprojResolveAssemblyReference.cache
+E:\PAWA-Working Copy\PAWA\obj\Debug\PAWA.Migrations.InitialCreate.resources
+E:\PAWA-Working Copy\PAWA\obj\Debug\PAWA.Migrations.AddedDailyStatisticsTable.resources
+E:\PAWA-Working Copy\PAWA\obj\Debug\PAWA.Migrations.FolderTableForeignKeyFix.resources
+E:\PAWA-Working Copy\PAWA\obj\Debug\PAWA.Migrations.TableNullableUpdate.resources
+E:\PAWA-Working Copy\PAWA\obj\Debug\PAWA.csproj.GenerateResource.Cache
+E:\PAWA-Working Copy\PAWA\obj\Debug\PAWA.dll
+E:\PAWA-Working Copy\PAWA\obj\Debug\PAWA.pdb

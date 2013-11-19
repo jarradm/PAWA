@@ -46,7 +46,7 @@ namespace PAWA.Classes
         {
             //Create variable for storing image type
             System.Drawing.Imaging.ImageFormat type;
-
+           
             if (file.Contains(".jpg"))
             {
                 type = System.Drawing.Imaging.ImageFormat.Jpeg;
@@ -138,6 +138,20 @@ namespace PAWA.Classes
                 }
             } 
             return ImageTagsIDs;    
+        }
+        public PAWA.Models.Tags getTag(int id)
+        {
+            PAWAContext db = new PAWAContext();
+            Models.Tags theTag;
+
+            var tag = 
+                from x in db.Tags
+                where x.TagsID == id
+                select x;
+
+            theTag = tag.FirstOrDefault();
+
+            return theTag;
         }
         ///<summary>
          /// Increase the selected tags usedcount
@@ -310,7 +324,33 @@ namespace PAWA.Classes
             }
             return false;
         }
-     
+     /// <summary>
+     /// Gets the Users object via passed ID
+     /// </summary>
+        public PAWA.Models.User getUserByID(int id)
+        {
+          PAWAContext db = new PAWAContext();
+          PAWA.Models.User theUser;
+
+            var USER =
+             from x in  db.Users
+             where x.UserID == id
+             select x;
+
+            theUser = USER.FirstOrDefault();
+            
+            return theUser;
+        }
+        /// <summary>
+        /// Gets all users
+        /// </summary>
+        public IEnumerable<PAWA.Models.User> GetUsers()
+        {
+            PAWAContext db = new PAWAContext();
+            var users = from u in db.Users
+                        select u;
+            return users;
+        }
         public string CreateFilename(int userid, string filename)
         {
             string stringToHash = DateTime.UtcNow.ToString() + "_" + userid.ToString() + "_" + filename;
