@@ -1,0 +1,54 @@
+﻿@model PAWA.Models.File
+
+@{
+    ViewBag.Title = "UpdateImage";
+}
+
+<h2>Update Image</h2>
+
+@using (Html.BeginForm("UpdateImage", "Image", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>File</legend>
+       
+         @Html.HiddenFor(model => model.Filename)
+         @Html.HiddenFor(model => model.FileID)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.FolderID, "Folder")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("FolderID")
+            @Html.ValidationMessageFor(model => model.FolderID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Tags)
+        </div>
+        <div class="editor-field">
+            <input id="Tags" type="text" value="@ViewBag.Tags" name="StringTag"/>
+            @Html.ValidationMessageFor(model => model.Tags)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Description)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Description)
+            @Html.ValidationMessageFor(model => model.Description)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Cancel", "Album", "Home", new { area = "" }, null)
+</div>
+
+
