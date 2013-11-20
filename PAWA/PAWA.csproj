@@ -115,6 +115,7 @@
     <Compile Include="Classes\Tools.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\FolderController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="DAL\IPAWAContext.cs" />
@@ -264,6 +265,7 @@
     <Content Include="Views\Admin\ViewUserDetails.cshtml" />
     <Content Include="Views\Admin\EditTag.cshtml" />
     <Content Include="Views\Image\UpdateImage.cshtml" />
+    <Content Include="Views\Folder\EditFolder.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -318,7 +320,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>61835</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:62246/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
