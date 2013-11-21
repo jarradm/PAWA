@@ -1,19 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PAWA.Models;
+using PAWA.DAL;
 
 namespace PAWA.Controllers
 {
     public class AccountController : Controller
     {
+        private PAWAContext db = new PAWAContext();
         //
         // GET: /Account/
 
         public ActionResult Index()
         {
-            return View();
+            return View(db.Users.ToList());
         }
 
         //
@@ -24,6 +29,20 @@ namespace PAWA.Controllers
             return View();
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateUser(User user)
+        {
+            if (ModelState.IsValid)
+            {
+                user.JoinDateTime = DateTime.Now;
+                db.Users.Add(user);
+                db.SaveChanges();
+                return RedirectToAction("../Home/Album");
+            }
+
+            return View(user);
+        }
         //
         // GET: /Account/Login
 
@@ -38,6 +57,16 @@ namespace PAWA.Controllers
         public ActionResult AccountManagement()
         {
             return View();
+        }
+
+        public ActionResult Details(int id = 0)
+        {
+            User user = db.Users.Find(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
         }
     }
 }

@@ -114,9 +114,8 @@ namespace PAWA.Classes
                             "\"><img src=\"../../Images/User/" + fileExtension[0] + "_thumb." + fileExtension[1] + 
                             "\" class=\"body-content-table-image\"/>\n" +                      
                             "<input type=\"checkbox\" class=\"body-content-table-checkbox\" name=\"" +
-                            files.ElementAt(filesIndex).FileID.ToString() + "\" id=\"" +
+                            files.ElementAt(filesIndex).Filename.ToString() + "\" id=\"" +
                             files.ElementAt(filesIndex).FileID.ToString() + "\" /></a>\n</td>";
-                            
                             filesIndex++;
                         }
                     }
