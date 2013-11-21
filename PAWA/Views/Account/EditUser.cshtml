@@ -1,0 +1,34 @@
+﻿@model PAWA.Models.User
+
+@{
+    ViewBag.Title = "EditUser";
+    
+}
+<link href="~/App_Themes/EditUser.css" type="text/css" rel="stylesheet" />
+<div id="body-area">
+    <div id="center-content">
+        @using (Html.BeginForm("EditUser", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken();
+            <div id="formTitle">
+                <h2>Edit Profile</h2>
+            </div>
+            <span class="form-text">@Html.Label("Current Email:")</span>@Html.DisplayFor(m => m.Email)<br />
+            <span class="required">*</span><span class="form-text">@Html.Label("New Email:")</span><span></span>@Html.TextBoxFor(m => m.Email, new { Value = ""})<span class="form-helper">@Html.ValidationMessageFor(m => m.Email)</span><br />
+            <span class="form-text">@Html.Label("Old Password:")</span>@Html.DisplayFor(m => m.Password)<br />
+            <span class="required">*</span><span class="form-text">@Html.Label("New Password:")</span><input type="password" id="pass" name="pass" /><span class="form-helper">@Html.ValidationMessageFor(m => m.Password)</span><br />
+            <span class="required">*</span><span class="form-text">@Html.Label("Confirm Password:")</span><input type="password" id="confirmPass" name="confirmPass" /><span class="form-helper">@Html.ValidationMessageFor(m => m.Password)</span><br />
+            <span class="required">*</span><span class="form-text">@Html.Label("Country:")</span>@Html.TextBoxFor(m => m.Country)<span class="form-helper">@Html.ValidationMessageFor(m => m.Country)</span><br />
+            <span class="form-text">Gender:</span><span>Male</span>@Html.RadioButton("Gender", PAWA.Models.Gender.Male, (Model.Gender == PAWA.Models.Gender.Male) ? true : false)
+            <span>Female</span>@Html.RadioButton("Gender", PAWA.Models.Gender.Female, (Model.Gender == PAWA.Models.Gender.Female) ? true : false)<br />
+            <span></span><button value="submit" name="button">Save Changes</button>
+            <span></span><button value="cancel" name="button">Cancel</button>
+            <span></span><button value="delete" name="button">Close Account</button>
+        }
+    </div>
+</div>
+<script>
+    $("#center-content").position({ my: "center top", at: "center top", of: "#body-area" });
+</script>
+
+
