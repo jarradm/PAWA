@@ -16,6 +16,8 @@ namespace PAWA.Controllers
         //
         // GET: /Home/
 
+        PAWAContext dbContext = new PAWAContext();
+
         public ActionResult Index()
         {
             return RedirectToAction("Album");
@@ -31,8 +33,9 @@ namespace PAWA.Controllers
             return View();
         }
 
+        [HttpPost]
         public ActionResult GetAlbumList(UserIDType value) {
-            int UserID=1;
+            int UserID=0;
             try
             {
                 UserID = Convert.ToInt32(value.userID);
@@ -40,7 +43,7 @@ namespace PAWA.Controllers
             catch (Exception e)
             {
                 System.Console.WriteLine("eror: " + e);
-                UserID = 1;
+                UserID = 0;//Response.Output;
             }
 
             /*
@@ -53,38 +56,98 @@ namespace PAWA.Controllers
             }
             returnValue += "length:" + folderList.Count() + "}";*/
 
-            PAWAContext dbContext = new PAWAContext();
             var folderList = from f in dbContext.Folders
                              where f.UserID == UserID
                              select f.Folders;
             ViewBag.userID = UserID;
+
             return PartialView();
         }
 
+        private IList<string> splitToIList(string stringToSplit, string splitAt)
+        {
+            IList<string> returnValue = new List<string>();
+            string[] splitString = stringToSplit.Split((new string[]{splitAt}),StringSplitOptions.RemoveEmptyEntries);
+            for (int i = 0; i < splitString.Length; i++)
+            {
+                returnValue.Add(splitString[i]);
+            }
+            return returnValue;
+        }
+
+        [HttpPost]
         public ActionResult MoveImageTo(MoveItemList moveItemList)
         {
-            PAWAContext dbContext = new PAWAContext();
-            for (int i = 0; i < dbContext.Folders.Count(); i++)
+            IList<string> selectedItems = moveItemList.selected.Split((new char[]{','}),StringSplitOptions.RemoveEmptyEntries);
+            int? newFolderID = Convert.ToInt32(moveItemList.destinationFolder);
+            int? currentFolder = Convert.ToInt32(moveItemList.sourceFolder);
+            if (currentFolder < 0) { currentFolder = null; }
+            IList<Folder> listOfUserFolders;
+            IEnumerable<File> listOfUserFiles;
             {
-                if (dbContext.Folders.ElementAt(i).FolderID == Convert.ToInt32(moveItemList.destinationFolder) ) // User not passed across
-                {
+                Tools toolbelt = new Tools();
+                listOfUserFolders = toolbelt.getFolders(1 /*TODO:Replace with user id from POST*/ );
+            }
+            {
+                AlbumGrid toolbelt = new AlbumGrid(dbContext);
+                listOfUserFiles = toolbelt.GetFiles(currentFolder);
+            }
 
-                    for (int n = 0; n < dbContext.Files.Count(); n++)
+            int amountOfUserFolders = listOfUserFolders.Count;
+            IList<File> filesToMove = new List<File>();
+
+            string ReturnValue = "";
+            ReturnValue += "Selected Items Count : " + selectedItems.Count + " : " + selectedItems.Count();
+            ReturnValue += "\nFolders Count : " + listOfUserFolders.Count + " : " + listOfUserFolders.Count();
+            ReturnValue += "\nFiles Count  : " + listOfUserFiles.Count() + "\nFileID : " + listOfUserFiles.ElementAt(listOfUserFiles.Count()-1).Description;
+            ReturnValue += "\nNew Folder ID : " + newFolderID.ToString();
+
+            for (int i = 0; i < amountOfUserFolders; i++){
+                // Go through every folder
+            
+                if (listOfUserFolders.ElementAt(i).FolderID == newFolderID){
+                    // FolderID(i) == FolderID.FromAJAX
+                    // MAKE SURE the folder exists
+                
+                    int numberOfFilesInFolder = listOfUserFiles.Count();
+                    for (int n = 0; n < numberOfFilesInFolder; n++)
                     {
-                        for (int j = 0; j < moveItemList.selected.Length; j++)
+                        for (int j = 0; j < selectedItems.Count; j++)
                         {
-                            if (dbContext.Files.ElementAt(n).FileID == Convert.ToInt32(moveItemList.selected[j]))
+                            int fileIdFromAJAX = -1;
+
+                            /* Catch Bogus Array values*/
+                            try { fileIdFromAJAX = Convert.ToInt32(selectedItems.ElementAt(j)); }
+                            catch (Exception e) { System.Diagnostics.Debug.WriteLine(e); }
+
+                            if (listOfUserFiles.ElementAt(n).FileID == fileIdFromAJAX)
                             {
-                                dbContext.Files.ElementAt(j).FolderID = Convert.ToInt32(moveItemList.destinationFolder);
-                                dbContext.SaveChanges();
+                                filesToMove.Add(listOfUserFiles.ElementAt(n));
                             }
                         }
                     }
-                    return PartialView();
                 }
             }
-            return PartialView();
+            for (int i = 0; i < filesToMove.Count; i++)
+            {
+                MoveFile(filesToMove.ElementAt(i), newFolderID);
+                ReturnValue += "\nFilesToMove : " + filesToMove.ElementAt(i).Description;
+            }
+            return Content(ReturnValue);
         }
+
+        private void MoveFile(File fileToEdit,int? newFolderID)
+        {
+            if (newFolderID < 0) { newFolderID = null; }
+            fileToEdit.FolderID = newFolderID;
+            dbContext.Entry<File>(fileToEdit).State = EntityState.Modified;
+            try
+            {
+                dbContext.SaveChanges();
+            }
+            catch (Exception e) { System.Diagnostics.Debug.WriteLine("Error : " + e); }
+        }
+
 
 
         [HttpPost]

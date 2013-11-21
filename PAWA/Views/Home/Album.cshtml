@@ -92,6 +92,7 @@
     });
     var moveSubmitButton = function () {
         var inputsArray = [];
+        var inputsList = "";
         var inputs = $("input[type='checkbox']");
         for (var i = 0; i < inputs.length; i++) {
             var checkedInputID = inputs[i].id;
@@ -99,10 +100,22 @@
             if (inputs[i].checked && (checkedInputID.search('_folder') == -1)) {
                 pop("submit btn working");
                 inputsArray.push([checkedInputID]);
+
+                if (inputsList == "") {
+                    inputsList += checkedInputID;
+                } else {
+                    inputsList += ',' + checkedInputID
+                }
             }
         }
-        pop("Folder : "+$("#folderList").val()+"\nLength : "+inputsArray.length +"\nValues : "+inputsArray);
-        $.post("../../Home/MoveImageTo",{destinationFolder:$("#folderList").val(),'selected[]':inputsArray},function(data){pop("works"+data);});
+        pop("Folder : " + $("#folderList").val() + "\nLength : " + inputsArray.length + "\nValues : " + inputsArray + "\nString : " + inputsList);
+        var currentFolder = "" + window.location;
+        pop("serch : " + currentFolder.search("folderID"))
+        if (currentFolder.search("folderID=") > 0) {
+            currentFolder = currentFolder.substring(currentFolder.search("folderID=") + 9, currentFolder.toString().length);
+            pop("Working Result : "+currentFolder);
+        } else { currentFolder = "-1" };
+        $.post("../../Home/MoveImageTo", { destinationFolder: $("#folderList").val(), selected: inputsList, sourceFolder : currentFolder}, function (data) { pop("works" + data); });
     };
 </script>
 

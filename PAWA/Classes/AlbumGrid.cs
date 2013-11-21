@@ -33,13 +33,13 @@ namespace PAWA.Classes
                 returnValue = from f in dbContext.Folders
                               where f.UserID == UserID && (f.InFolderID == folderID || (f.InFolderID == null && folderID == null))
                               select f;
+                Console.WriteLine(returnValue.ElementAt(0).FolderName);
             }
             catch (Exception e)
             {
-                returnValue = (new HashSet<Folder> {  }) ;
+                returnValue = (new HashSet<Folder> { });
                 Console.WriteLine(e.InnerException);
             }
-            Console.WriteLine(returnValue.ElementAt(0).FolderName);
 
             return returnValue;
         }
@@ -102,7 +102,7 @@ namespace PAWA.Classes
 
                         if (!exitFolders)
                         {
-                            htmlOutput += "<td>\n<a href=\"./Album?folderID=" + folders.ElementAt(foldersIndex).FolderID + "\">" +
+                            htmlOutput += "<td>\n<a href=\"../Home/Album?folderID=" + folders.ElementAt(foldersIndex).FolderID + "\">" +
                             "<img src=\"../../Images/folder.png\" class=\"body-content-table-image\"/>\n" +
                             "<input type=\"checkbox\" class=\"body-content-table-checkbox\" id=\"" +
                             folders.ElementAt(foldersIndex).FolderID.ToString() + "_folder\" />\n" +

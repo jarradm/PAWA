@@ -15,7 +15,8 @@ namespace PAWA.Classes
     public class MoveItemList
     {
         public string destinationFolder { get; set; }
-        public int[] selected { get; set; }
+        public string selected { get; set; }
+        public string sourceFolder { get; set; }
     }
 
     public class GetFolderFormSelectOptions
