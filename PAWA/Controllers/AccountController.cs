@@ -29,6 +29,7 @@ namespace PAWA.Controllers
                 Response.Redirect("/Admin/Index");
             }
 
+            return View();
         }
 
         //
