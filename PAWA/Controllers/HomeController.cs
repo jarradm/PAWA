@@ -28,6 +28,7 @@ namespace PAWA.Controllers
 
         public ActionResult Album(int? folderID = null)
         {
+            // DELETE ME ===========================================
             int userid = 11;
             int tid = 7;
             int? fid = null;
@@ -229,6 +230,9 @@ namespace PAWA.Controllers
                     SizeMB = 775, SizeHeight = 768, SizeWidth = 1024 }
                 }
             };
+
+            // END DELETE ME =========================================================
+
             AlbumViewModel avm = new AlbumViewModel(new PAWAContext());
             avm.FolderID = folderID;
             //ViewBag.FolderID = folderID;
