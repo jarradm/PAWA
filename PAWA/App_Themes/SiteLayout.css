@@ -12,12 +12,12 @@
 
 
 body {
-    /*
-    background-image: url("../Images/bg_lite.png");
+    
+    background-image: url("../Images/cutdown-nostripe.png");
     background-size: 2px 100%;
     background-repeat: repeat-x;
     background-attachment: fixed;
-        */
+        
 }
 
 #header {
@@ -36,3 +36,40 @@ a {
 a:visited {
     color: #0077cc;
 }
+
+#main-panel {
+    margin:auto;
+    border-top-right-radius:15px;
+    border-bottom-right-radius:15px;
+    border-bottom-left-radius:15px;
+
+}
+#panel-header {
+    background-color: lightblue;
+    padding-left: 15px;
+    height: 30px;
+    border-top: solid;
+    border-right: solid;
+    border-left: solid;
+    border-left-width: 1px;
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    line-height: 175%;
+}
+#inner-panel {
+    background-color: whitesmoke;
+    padding-top: 5px;
+    padding-left: 15px;
+    border-right: solid;
+    border-left: solid;
+    border-bottom: solid;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    
+}
+

@@ -7,24 +7,30 @@
 
 #header-logo-image {
     position: relative;
-    width: 940px;
-    height: 124px;
+    width: 250px;
+    height: 80px;
+    
 }
-
+#header-stripe {
+    background-image:url('/Images/stripecut.png');
+    background-color:transparent;
+    min-width:700px;
+    background-repeat:repeat-x;
+}
 #header-navbar-home {
-    background-image: url(/Images/BlueGreenGradient1.jpg);
+
 }
 
 #header-navbar-user {
-    background-image: url(/Images/BlueGreenGradient3.jpg);
+
 }
 
 #header-navbar-upload {
-    background-image: url(/Images/BlueGreenGradient2.jpg);
+   
 }
 
 #header-navbar-options {
-    background-image: url(/Images/BlueGreenGradient4.jpg);
+
 }
 
 .header-navbar-links {
@@ -43,4 +49,9 @@
     width: 150px;
     text-align: center;
     font-size: 18px;
+}
+
+#header-navbar-area {
+    width: 100%;
+    padding: 0px;
 }

@@ -1,8 +1,9 @@
 ﻿body {
-    background-image: url('../Images/cutdown-withstripe.png');
+    background-image: url('../Images/cutdown-nostripe.png');
     background-repeat: repeat-x;
     background-size:contain;
     min-width: 1150px;
+    min-height:1080px;
 }
 #logo {
 background-image:url('../Images/logopng.png');
@@ -11,15 +12,11 @@ width:240px;
 height:80px;
 margin:auto;
 }
-#cloud {
-    margin-left:30%;
-    padding-top:150px;
-background-image:url('../Images/cloud3png.png');
-background-repeat:no-repeat;
+#stripecut {
+background-image:url('../Images/stripecut.png');
 background-color:transparent;
-width:713px;
-height:443px;
-
+min-width:700px;
+background-repeat:repeat-x;
 }
 #outer-panel {
     margin-top: 2%;
@@ -50,6 +47,7 @@ height:443px;
 }
 #inner-panel {
     background-color: whitesmoke;
+    padding-right:15px;
     padding-top: 5px;
     padding-left: 15px;
     border-right: solid;

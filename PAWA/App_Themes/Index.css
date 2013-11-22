@@ -1,16 +1,6 @@
-﻿#maindiv {
-    width:900px;
-    padding-left: 25%;
-    margin: auto;
-    text-align:justify;
-}
-#buttons {
-    padding-top: 10px;
-    padding-left: 13%;
-}
-#main-panel {
+﻿#main-panel {
     margin:auto;
-    width: 450px;
+    width: 300px;
     height: 133px;
     border-top-right-radius:15px;
     border-bottom-right-radius:15px;
@@ -32,6 +22,7 @@
 }
 #inner-panel {
     background-color: whitesmoke;
+    padding-right:15px;
     padding-top: 5px;
     padding-left: 15px;
     border-right: solid;

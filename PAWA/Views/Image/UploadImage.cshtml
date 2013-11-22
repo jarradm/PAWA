@@ -1,10 +1,10 @@
 ﻿<link rel="stylesheet" href="~/App_Themes/Album.css" type="text/css" />
 <link rel="stylesheet" href="~/App_Themes/UploadImage.css" type="text/css" />
 <BR />
-<div id="body-area">
-    <div id="body-content-area">
-        <div id="body-content-table">
-            <div id="maindiv">
+<div id="outer-panel">
+        <div id="main-panel">
+            <div id="panel-header" style="font-family:Constantia"><b>Upload an Image</b></div>
+            <div id="inner-panel">
                 @using (Html.BeginForm("UploadImage", "Image", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
                     <br />
@@ -45,7 +45,7 @@
             </div>
         </div>
     </div>
-</div>
+
 <h3>@Html.Encode(ViewData["Uploaded"])</h3>
 
 <script>

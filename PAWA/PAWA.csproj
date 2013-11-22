@@ -171,6 +171,7 @@
     <Content Include="App_Themes\AdminReports.css" />
     <Content Include="App_Themes\Album.css" />
     <Content Include="App_Themes\DisplayImage.css" />
+    <Content Include="App_Themes\Index.css" />
     <Content Include="App_Themes\Login.css" />
     <Content Include="App_Themes\SiteLayout_Footer.css" />
     <Content Include="App_Themes\SiteLayout_Header.css" />
@@ -254,6 +255,7 @@
     <Content Include="Images\PAWACP Logo2.jpg" />
     <Content Include="Images\Rabbit Profile.jpg" />
     <None Include="Scripts\jquery-1.6.4-vsdoc.js" />
+    <Content Include="Images\stripecut.png" />
     <Content Include="Scripts\jquery-1.6.4.js" />
     <Content Include="Scripts\jquery-1.6.4.min.js" />
     <Content Include="Scripts\jquery-ui-1.10.3.js" />
@@ -274,7 +276,6 @@
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\MostUsedTagReport.cshtml" />
     <Content Include="Views\Admin\MostPopularTagReport.cshtml" />
-    <Content Include="Views\Account\NewLogin.cshtml" />
     <Content Include="Views\Admin\ViewUserDetails.cshtml" />
     <Content Include="Views\Admin\EditTag.cshtml" />
     <Content Include="Views\Image\UpdateImage.cshtml" />
@@ -282,6 +283,7 @@
     <Content Include="Views\Admin\VideoUsageReport.cshtml" />
     <Content Include="Views\Admin\DailyUsageReport.cshtml" />
     <Content Include="Views\Admin\ApplicationUsageReport.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -303,7 +305,6 @@
   <ItemGroup>
     <Content Include="Views\Account\AccountManagement.cshtml" />
     <Content Include="Views\Account\CreateUser.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Admin\ImageManagement.cshtml" />
     <Content Include="Views\Admin\TagManagement.cshtml" />
     <Content Include="Views\Admin\UserManagement.cshtml" />

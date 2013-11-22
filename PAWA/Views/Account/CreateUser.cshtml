@@ -3,67 +3,74 @@
 @{
     ViewBag.Title = "CreateUser";
 }
-
-<h2>CreateUser</h2>
-
-@using (Html.BeginForm()) {
+  <link rel="stylesheet" href="~/App_Themes/Login.css" type="text/css" />
+@using (Html.BeginForm())
+{
+    
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
+    <div id="outer-panel">
+        <div id="main-panel">
+            <div id="panel-header" style="font-family: Constantia"><b>Register</b></div>
+            <div id="inner-panel">
+                <fieldset>
+                    <legend>User</legend>
 
-<fieldset>
-        <legend>User</legend>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Username)
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.Username)
+                        @Html.ValidationMessageFor(model => model.Username)
+                    </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Username)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Username)
-            @Html.ValidationMessageFor(model => model.Username)
-        </div>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Password)
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.Password)
+                        @Html.ValidationMessageFor(model => model.Password)
+                    </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Password)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Password)
-            @Html.ValidationMessageFor(model => model.Password)
-        </div>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Email)
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.Email)
+                        @Html.ValidationMessageFor(model => model.Email)
+                    </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Email)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Email)
-            @Html.ValidationMessageFor(model => model.Email)
-        </div>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Country)
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.Country)
+                        @Html.ValidationMessageFor(model => model.Country)
+                    </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Country)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Country)
-            @Html.ValidationMessageFor(model => model.Country)
-        </div>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.DateOfBirth)
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.DateOfBirth)
+                        @Html.ValidationMessageFor(model => model.DateOfBirth)
+                    </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.DateOfBirth)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.DateOfBirth)
-            @Html.ValidationMessageFor(model => model.DateOfBirth)
-        </div>
-        
-            @Html.RadioButtonFor(model => model.Gender, "Male", new { id = "male" })
-            @Html.Label("male", "Male")
-            @Html.RadioButtonFor(model => model.Gender, "Female", new { id = "female" })
-            @Html.Label("female", "Female")
+                    @Html.RadioButtonFor(model => model.Gender, "Male", new { id = "male" })
+                    @Html.Label("male", "Male")
+                    @Html.RadioButtonFor(model => model.Gender, "Female", new { id = "female" })
+                    @Html.Label("female", "Female")
 
-        <p>
-            <input type="submit" value="Create" />
-        </p>
-    </fieldset>
+                    <p>
+                        <input type="submit" value="Create" />
+
+                        <a href="javascript:history.go(-1);">
+                            <input type="button" value="Cancel" />
+                        </a>
+                    </p>
+                </fieldset>
+                <br />
+            </div>
+        </div>
+    </div>     
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Album", "Home", new { area = ""}, null)
-</div>

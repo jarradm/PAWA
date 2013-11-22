@@ -5,29 +5,35 @@
 
 <link rel="stylesheet" href="~/App_Themes/Album.css" type="text/css" />
 
-<div id="body-area">
-    <div id="body-content-area">
-        <div id="page-top"></div>
+ <div id="outer-panel">
+            <div id="main-panel">
+                <div id="panel-header" style="font-family: Constantia"><b>My Photos</b></div>
+                <div id="inner-panel">
         @using(Html.BeginForm("Album", "Home", FormMethod.Post))
         {
+            <br />
             <select name="DropDownList" id="DropDownList">
                 <option value="Edit">Edit Selected</option>
                 <option value="Move">Move Selected</option>
                 <option value="Delete">Delete Selected</option>
             </select>
             
+            
             <input type="submit" name="Submit" value="Go" />
             <input type="button" name="Create" value="Create Folder" id="body-content-button-create" disabled />
             
             @*PAWA.Classes.AlbumGrid ag = new PAWA.Classes.AlbumGrid(new PAWA.DAL.PAWAContext());*@
-            foreach(var table in Model.ag.CreateTable(Model.FolderID))
+            foreach (var table in Model.ag.CreateTable(Model.FolderID))
             {
                 @Html.Raw(table);
             }
             @*Html.Raw(Model.ag.CreateTable1(Model.FolderID));*@
+            <br />
             <input type="button" name="NextPage" value="Next Page" id="body-content-button-next" />
             <a href="#page-top"><input type="button" value="Go To Top" id="body-content-button-top" /></a>
         }
+                    </div>
+                
     </div>
 </div>
 

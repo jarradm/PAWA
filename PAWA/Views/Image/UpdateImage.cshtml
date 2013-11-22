@@ -3,22 +3,24 @@
 @{
     ViewBag.Title = "UpdateImage";
 }
-
-<h2>Update Image</h2>
+<link rel="stylesheet" href="~/App_Themes/Index.css" type="text/css" />
 
 @using (Html.BeginForm("UpdateImage", "Image", FormMethod.Post))
 {
+    
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
+     <div id="outer-panel">
+    <div id="main-panel">
+        <div id="panel-header" style="font-family: Constantia"><b>Edit Tag</b></div>
+        <div id="inner-panel">
 
-    <fieldset>
-        <legend>File</legend>
        
          @Html.HiddenFor(model => model.Filename)
          @Html.HiddenFor(model => model.FileID)
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.FolderID, "Folder")
+            @Html.LabelFor(model => model.FolderID, "Folder"):
         </div>
         <div class="editor-field">
             @Html.DropDownList("FolderID")
@@ -26,7 +28,7 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Tags)
+            @Html.LabelFor(model => model.Tags):
         </div>
         <div class="editor-field">
             <input id="Tags" type="text" value="@ViewBag.Tags" name="StringTag"/>
@@ -34,7 +36,7 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Description)
+            @Html.LabelFor(model => model.Description):
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Description)
@@ -42,13 +44,14 @@
         </div>
 
         <p>
-            <input type="submit" value="Save" />
+            <input type="submit" value="Save" style="width:60px" />
+             <a href="javascript:history.go(-1);">
+                            <input type="button" value="Cancel" />
+                        </a>
         </p>
-    </fieldset>
+            </div></div></div>
 }
 
-<div>
-    @Html.ActionLink("Cancel", "Album", "Home", new { area = "" }, null)
-</div>
+
 
 

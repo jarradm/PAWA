@@ -4,25 +4,24 @@
     ViewBag.Title = "Index";
 }
 
-<link rel="stylesheet" href="~/App_Themes/AdminReports.css" type="text/css" />
+<link rel="stylesheet" href="~/App_Themes/Index.css" type="text/css" />
 
-<div id="body-area">
-    <div id="body-content-area">
-        <div id="body-content-area-header">
-            Reports
-        </div>
-        <div id="body-content-area-links">
+ <div id="outer-panel">
+        <div id="main-panel">
+            <div id="panel-header" style="font-family: Constantia"><b>Reports:</b></div>
+            <div id="inner-panel">
+   
             <div class="body-content-area-links-header">
-                Tag Usage Reports
+                Tag Usage:
             </div>
-            <div class="body-content-area-links-area">
+
                 <a href="~/Admin/MostUsedTagReport">Most Used Tags</a><br />
                 <a href="~/Admin/MostPopularTagReport">Most Popular Tags</a><br />
-            </div>
+            
             
             <br />
             <div class="body-content-area-links-header">
-                File Type Usage Reports
+                File Type Usage:
             </div>
             <div class="body-content-area-links-area">
                 <a href="~/Admin/ImageUsageReport">Image Usage</a><br />
@@ -31,7 +30,7 @@
             
             <br />
             <div class="body-content-area-links-header">
-                Daily Usage Report
+                Daily Usage:
             </div>
             <div class="body-content-area-links-area">
                 <a href="~/Admin/DailyUsageReport">Daily Usage</a><br />
@@ -39,11 +38,10 @@
             
             <br />
             <div class="body-content-area-links-header">
-                Application Usage Report
+                Application Usage:
             </div>
-            <div class="body-content-area-links-area">
-                <a href="~/Admin/ApplicationUsageReport">Application Usage</a><br />
+            
+                <a href="~/Admin/ApplicationUsageReport">Application Usage</a><br /><br />
             </div>
         </div>
     </div>
-</div>
