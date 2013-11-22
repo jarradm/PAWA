@@ -41,6 +41,8 @@ namespace PAWA.Controllers
                 //Call Delete Method
                 DeleteImage deleteImage = new DeleteImage();
                 deleteImage.deleteMultipleImages(Request, Server);
+                DeleteFolder deleteFolder = new DeleteFolder();
+                deleteFolder.deleteFolder(Request, Server);
             }
 
             //Re-load the view
