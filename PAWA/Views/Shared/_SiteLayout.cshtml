@@ -7,6 +7,9 @@
     <script src="~/Scripts/jquery-ui-1.10.3.min.js"></script>
 </head>
 <body>
+    <div id="logout">
+        User: @WebSecurity.CurrentUserName | <a href="~/Account/Logout" id="logout-link">Logout?</a>
+    </div>
     <div id="header">
         @Html.Partial("HeaderView")
     </div>

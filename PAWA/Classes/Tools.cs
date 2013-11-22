@@ -5,6 +5,7 @@ using System.Web;
 using System.Drawing;
 using PAWA.DAL;
 using System.Security.Cryptography;
+using WebMatrix.WebData;
 using PAWA.Models;
 
 namespace PAWA.Classes
@@ -302,7 +303,7 @@ namespace PAWA.Classes
         public void insertImageToDB(int Height,int Width, int FileSize, string FileName, string Tags, string Description, int? FolderID )
         {
             PAWAContext db = new PAWAContext();
-            Tools.UserID = 1;
+            Tools.UserID = WebSecurity.CurrentUserId;
 
             if(FolderID == -1)
             {
@@ -320,7 +321,7 @@ namespace PAWA.Classes
                 Description = Description,
 
                 //Required
-                TypeID = 1,
+                TypeID = 7,
                 UserID = Tools.UserID,
                 FolderID = FolderID
             };
@@ -387,6 +388,13 @@ namespace PAWA.Classes
             return HexByteArrayToHexString(hashValueBytes, fileExtension[fileExtension.Length-1]);
         }
 
+        /// <summary>
+        /// Converts a hexadecimal byte array into a filename string representing the
+        /// hexadecimal bytes.
+        /// </summary>
+        /// <param name="hexValues">Byte array, representing hexadecimal values.</param>
+        /// <param name="fileExtension">File extension of the filename.</param>
+        /// <returns>Filename string</returns>
         private string HexByteArrayToHexString(byte[] hexValues, string fileExtension)
         {
             System.Text.StringBuilder hexString = new System.Text.StringBuilder(hexValues.Length * 2);
@@ -398,7 +406,50 @@ namespace PAWA.Classes
 
             return hexString.ToString() + "." + fileExtension;
         }
-     
 
+        /// <summary>
+        /// Gets the 100 most used tags from the database.
+        /// </summary>
+        /// <returns>List of tags</returns>
+        public static List<Tags> GetTop100Tags(IPAWAContext dbContext)
+        {
+            var tags = dbContext.Tags.OrderByDescending(t => t.UseCount);
+            int count = 0;
+            List<Tags> top100Tags = new List<Tags>();
+
+            foreach (var tag in tags)
+            {
+                // exit loop once we have 100 tags
+                if (count == 100)
+                {
+                    break;
+                }
+
+                top100Tags.Add(tag);
+                count++;
+            }
+
+            return top100Tags;
+        }
+
+        public static string CreateTagCloudOverlayContents(List<Tags> tags)
+        {
+            string tagcloud = "";
+            int count = 0;
+
+            foreach (var tag in tags)
+            {
+                if (count % 5 == 0 && count != 0)
+                {
+                    tagcloud += "<br>";
+                }
+
+                tagcloud += "<span class=\"tagcloud-overlay-item\"><input type=\"button\" name=\"" + tag.TagName.ToString() +
+                    "\" value=\"+\" onclick=\"AddTagToTextBox(this)\">" + tag.TagName.ToString() + "</span>";
+                count++;
+            }
+
+            return tagcloud;
+        }
     }
 }

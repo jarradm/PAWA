@@ -1,5 +1,25 @@
 ﻿@{
-    ViewBag.Title = "Login";
+    Layout = null;
 }
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <link href="~/App_Themes/SiteLayout.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/jquery-1.6.4.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.10.3.min.js"></script>
+</head>
+<body>
+    @using(Html.BeginForm("Login", "Account", FormMethod.Post))
+    {
+        <div>
+            Username: <input type="text" name="username" /><br />
+            Password: <input type="text" name="password" /><br />
+            <input type="submit" name="submit" value="Submit" />
+            <br /> User: TVMegaFan <br />Password: qwert
+            <br /> Admin: CaptalAngine <br />Password: 12345
+        </div>
+    }
+</body>
 
-<h2>Login</h2>
+</html>

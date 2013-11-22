@@ -1,4 +1,5 @@
-﻿@{
+﻿@model PAWA.ViewModels.AlbumViewModel
+@{
     ViewBag.Title = "Album";
 }
 
@@ -6,6 +7,7 @@
 
 <div id="body-area">
     <div id="body-content-area">
+        <div id="page-top"></div>
         @using(Html.BeginForm("Album", "Home", FormMethod.Post))
         {
             <select name="DropDownList" id="DropDownList">
@@ -17,10 +19,14 @@
             <input type="submit" name="Submit" value="Go" />
             <input type="button" name="Create" value="Create Folder" id="body-content-button-create" disabled />
             
-            PAWA.Classes.AlbumGrid ag = new PAWA.Classes.AlbumGrid(new PAWA.DAL.PAWAContext());
-            @Html.Raw(ag.CreateTable((int?)ViewBag.FolderID));
-            <input type="submit" name="NextPae" value="Next Page" id="body-content-button-next" disabled /> 
-            <input type="submit" name="GoToTop" value="Go To Top" id="body-content-button-top" disabled />
+            @*PAWA.Classes.AlbumGrid ag = new PAWA.Classes.AlbumGrid(new PAWA.DAL.PAWAContext());*@
+            foreach(var table in Model.ag.CreateTable(Model.FolderID))
+            {
+                @Html.Raw(table);
+            }
+            @*Html.Raw(Model.ag.CreateTable1(Model.FolderID));*@
+            <input type="button" name="NextPage" value="Next Page" id="body-content-button-next" />
+            <a href="#page-top"><input type="button" value="Go To Top" id="body-content-button-top" /></a>
         }
     </div>
 </div>
@@ -111,13 +117,42 @@
 </script>
 
 <script>
-    $("#body-content-button-create").position({ my: "right top", at: "right-4 top+2", of: "#body-content-area", collision: "none" });
-    $("#body-content-button-next").position({ my: "center bottom", at: "center bottom-2", of: "#body-content-area", collision: "none" });
-    $("#body-content-button-top").position({ my: "right bottom", at: "right-4 bottom-2", of: "#body-content-area", collision: "none" });
-    $(".body-content-table-checkbox").each(function () {
-        $(this).position({ my: "right bottom", at: "right-5 bottom-5", of: $(this).parent().children("img"), collision: "none" });
+    var count = 1;
+    $(document).ready(Position());
+
+    function Position()
+    {
+        // Check this first, because hiding the next page button will mess with the positioning of go to top button,
+        // so reposition after hide.
+        CheckMorePages();
+
+        $("#page-top").position({ my: "center top", at: "center top", of: "body", collision: "none" });
+        $("#body-content-button-create").position({ my: "right top", at: "right-4 top+2", of: "#body-content-area", collision: "none" });
+        $("#body-content-button-next").position({ my: "center bottom", at: "center bottom-32", of: "#body-content-area", collision: "none" });
+        $("#body-content-button-top").position({ my: "right bottom", at: "right-4 bottom-32", of: "#body-content-area", collision: "none" });
+        $(".body-content-table-checkbox").each(function () {
+            $(this).position({ my: "right bottom", at: "right-5 bottom-5", of: $(this).parent().children("img"), collision: "none" });
+        });
+        $(".body-content-table-folder-text").each(function () {
+            $(this).position({ my: "center", at: "center center+10", of: $(this).parent().children("img"), collision: "none" });
+        });
+    }
+
+    function CheckMorePages()
+    {
+        var element = "#table-" + count;
+
+        if ($(element).length == 0)
+        {
+            $("#body-content-button-next").hide();
+        }
+    }
+
+    $("#body-content-button-next").click(function() {
+        var element = "#table-" + count;
+        $(element).show();
+        count++;
+        Position();
     });
-    $(".body-content-table-folder-text").each(function () {
-        $(this).position({ my: "center", at: "center center+10", of: $(this).parent().children("img"), collision: "none" });
-    });
+        
 </script>

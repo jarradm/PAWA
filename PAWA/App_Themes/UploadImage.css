@@ -8,3 +8,36 @@
     padding-top: 10px;
     padding-left: 13%;
 }
+
+.tagcloud-overlay-item {
+    display: inline-block;
+    width: 150px;
+    padding: 10px;
+}
+
+#tagcloud-overlay-area {
+    display: none;
+    border: 1px solid black;
+    border-radius: 15px;
+    box-shadow: 5px 5px 5px #888888;
+    width: 770px;
+    margin: auto;
+    background-color: whitesmoke;
+}
+
+#tagcloud-overlay-area-header {
+    border-bottom: 1px solid black;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+h3 {
+    text-align: center;
+}
+
+#tagcloud-overlay-item-area {
+    padding: 10px;
+}

@@ -8,15 +8,18 @@ using PAWA.Classes;
 
 namespace PAWA.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class AdminController : Controller
     {
-        PAWAContext db = new PAWAContext();
+        PAWAContext dbContext = new PAWAContext();
         //
         // GET: /Admin/
 
         public ActionResult Index()
         {
-            return View();
+            AdminReports ar = new AdminReports(dbContext);
+
+            return View(ar);
         }
 
         //
@@ -39,8 +42,9 @@ namespace PAWA.Controllers
             else if (Tools.tagAdded == false) { ViewData["tagAdded"] = "Tag couldn't Add"; }
             else if (Tools.tagAdded == null) { ViewData["tagAdded"] = " "; }
 
-            return View(db.Tags.ToList());
+            return View(dbContext.Tags.ToList());
         }
+
         [HttpPost]
         public ActionResult TagManagement(string newTag)
         {
@@ -78,6 +82,7 @@ namespace PAWA.Controllers
             db.SaveChanges();
             return RedirectToAction("TagManagement");
         }
+
         //
         // GET: /Admin/UserManagement
 
@@ -107,6 +112,62 @@ namespace PAWA.Controllers
 
             PAWA.Models.User TheUser = funcs.getUserByID(id);
             return View(TheUser);
+        }
+        public ActionResult MostUsedTagReport()
+        {
+            AdminReports reports = new AdminReports(dbContext);
+
+            return View(reports);
+        }
+
+        //
+        // GET: /Admin/MostPopularTagReport
+
+        public ActionResult MostPopularTagReport()
+        {
+            AdminReports reports = new AdminReports(dbContext);
+
+            return View(reports);
+        }
+
+        //
+        // GET: /Admin/ImageUsageReport
+
+        public ActionResult ImageUsageReport()
+        {
+            AdminReports reports = new AdminReports(dbContext);
+
+            return View(reports);
+        }
+
+        //
+        // GET: /Admin/VideoUsageReport
+
+        public ActionResult VideoUsageReport()
+        {
+            AdminReports reports = new AdminReports(dbContext);
+
+            return View(reports);
+        }
+
+        //
+        // GET: /Admin/DailyUsageReport
+
+        public ActionResult DailyUsageReport()
+        {
+            AdminReports reports = new AdminReports(dbContext);
+
+            return View(reports);
+        }
+
+        //
+        // GET: /Admin/ApplicationUsageReport
+
+        public ActionResult ApplicationUsageReport()
+        {
+            AdminReports reports = new AdminReports(dbContext);
+
+            return View(reports);
         }
     }
 }

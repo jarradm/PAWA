@@ -7,6 +7,7 @@ using PAWA.Models;
 using PAWA.DAL;
 using System.Drawing;
 using System.Data;
+using WebMatrix.WebData;
 
 namespace PAWA.Classes
 {
@@ -83,7 +84,7 @@ namespace PAWA.Classes
         public IEnumerable<File> GetFiles()
         {
 
-            var UserID = 1;
+            var UserID = WebSecurity.CurrentUserId;
 
             //Search database for user files
             var files = from f in dbContext.Files
@@ -101,7 +102,7 @@ namespace PAWA.Classes
         public PAWA.Models.File GetFile(string filename)
         {
 
-            var UserID = 1;
+            var UserID = WebSecurity.CurrentUserId;
 
             //Search database for file
             var files = from f in dbContext.Files
