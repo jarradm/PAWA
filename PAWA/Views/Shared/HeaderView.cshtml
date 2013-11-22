@@ -7,39 +7,41 @@
 
 
 <div id="header-area">
+    <div id="header-stripe">
     <div id="header-content-area">
-        <img id="header-logo-image" src="~/Images/PAWACP Logo2.jpg" />
+        <img id="header-logo-image" src="~/Images/logopng.png" />
 
         <div id="header-navbar-area">
             <a href="~/" class="header-navbar-links" id="header-navbar-home-link">
                 <span id="header-navbar-home" class="navbar">
-                    Album Home
+                ○  Home
                 </span>
             </a>
-
+            
             <a href="~/Image/UploadImage" class="header-navbar-links" id="header-navbar-upload-link">
                 <span id="header-navbar-upload" class="navbar">
-                    Upload Image
+                  ○  Upload Image
                 </span>
             </a>
             <a href="~/" class="header-navbar-links" id="header-navbar-user-link">
                 <span id="header-navbar-user" class="navbar">
-                    User Details
+                 ○  My Details
                 </span>
             </a>
 
             <a href="#" class="header-navbar-links" id="header-navbar-options-link">
                 <span id="header-navbar-options" class="navbar">
-                    Options
+                 ○  Settings
                 </span>
             </a>
         </div>
     </div>
+        </div>
 
     <script>
         // Position navbar elements from right to left
         $(window).ready(function () {
-            $("#header-navbar-area").position({ my: "right bottom", at: "right bottom", of: "#header-content-area", collision: "none" });
+            $("#header-navbar-area").position({ my: "right bottom", at: "right bottom-70", of: "#header-content-area", collision: "none" });
             $("#header-navbar-options-link").position({ my: "right bottom", at: "right bottom", of: "#header-navbar-area", collision: "none" });
             $("#header-navbar-user-link").position({ my: "right bottom", at: "left bottom", of: "#header-navbar-options-link", collision: "none" });
             $("#header-navbar-upload-link").position({ my: "right bottom", at: "left bottom", of: "#header-navbar-user-link", collision: "none" });
