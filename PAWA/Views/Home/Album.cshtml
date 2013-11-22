@@ -20,7 +20,7 @@
             <input type="button" name="Create" value="Create Folder" id="body-content-button-create" disabled />
             
             @*PAWA.Classes.AlbumGrid ag = new PAWA.Classes.AlbumGrid(new PAWA.DAL.PAWAContext());*@
-            foreach(var table in Model.ag.CreateTable1(Model.FolderID))
+            foreach(var table in Model.ag.CreateTable(Model.FolderID))
             {
                 @Html.Raw(table);
             }
