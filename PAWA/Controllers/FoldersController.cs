@@ -67,9 +67,9 @@ namespace PAWA.Controllers
             {
                 for (int i = 0; i < foldermonkey.Count; i++)
                 {
-                    if (foldermonkey.ElementAt(i).FolderID == folderId)
+                    if (foldermonkey[i].FolderID == folderId)
                     {
-                        returnValue = foldermonkey.ElementAt(i).InFolderID;
+                        returnValue = foldermonkey[i].InFolderID;
                     } 
                 }
                     

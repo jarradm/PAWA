@@ -64,7 +64,7 @@
                             },
                             hide: {
                                 effect: "explode",
-                                duration: 1000
+                                duration: 1500
                             }
                         });
 
@@ -85,7 +85,7 @@
 
                         $.get("../Folders/createFolder?FolderName=" + folder.FolderName
                             + "&InFolderID=" + folder.InFolderID, function () {
-                                alert("Success! Folder created");
+                                
                                 if (folder.InFolderID == -1) {
                                     window.location.href = "../Home/Album"
                                 } else {
@@ -116,6 +116,7 @@
                         });
                         */
                         $("#folder-create").dialog("close"); //closes the popup
+                        //alert("Success! Folder created");
                     }
 
                     function previousFolder() {
@@ -125,27 +126,18 @@
                         var subaddress = "folderID=";
 
                         if (address != "/Home/Album") {
-                            alert("if");
-                            //alert(address.search("folderID=")); //12
-                            //alert(address.length); //22
                             var searchVal = address.substring(address.search("folderID=")+9, address.length);
                             
                             var prevPage = null;
 
                             $.get("../Folders/getParentID?folderId=" + searchVal,
                                 function (data) {
-                                    alert("get return value:" + data);
                                     prevPage = data;
-                                    alert("Raw data :" + data + "\nTostring:" + data.toString());
                                     if (!isNaN(data)) {
                                         window.location.href = address.substring(0, address.search("folderID=") + 9) + prevPage;
                                     }
-                                });
-                            alert("Previous page is : "+prevPage)
-                            
+                                });                            
                         }
-                        else { alert("else");}
+                        else { ;}
                         
-
-                        alert(address + "ddddddd" + searchVal);
                     }

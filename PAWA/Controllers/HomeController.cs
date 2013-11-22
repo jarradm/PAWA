@@ -27,6 +27,8 @@ namespace PAWA.Controllers
         public ActionResult Album(int? folderID = null)
         {
             ViewBag.FolderID = folderID;
+            FoldersController f = new FoldersController();
+            f.getParentID(folderID);
 
             return View();
         }
