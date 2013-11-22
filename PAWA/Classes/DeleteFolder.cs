@@ -8,6 +8,7 @@ using PAWA.Models;
 using PAWA.DAL;
 using System.Drawing;
 using System.Data;
+using WebMatrix.WebData;
 
 namespace PAWA.Classes
 {
@@ -91,7 +92,7 @@ namespace PAWA.Classes
 
             public IEnumerable<Folder> GetFolders()
             {
-                var UserID = 1;
+                var UserID = WebSecurity.CurrentUserId;
                 var folders = from f in dbContext.Folders
                               where f.UserID == UserID
                               select f;
@@ -100,7 +101,7 @@ namespace PAWA.Classes
 
             public PAWA.Models.Folder GetFolder(int FolderID)
             {
-                var UserID = 1;
+                var UserID = WebSecurity.CurrentUserId;
                 var folders = from f in dbContext.Folders
                               where f.UserID == UserID &&
                               f.FolderID == FolderID
@@ -110,8 +111,8 @@ namespace PAWA.Classes
             }
 
             public int GetSubFolders(int FolderID)
-            { 
-                var UserID = 1;
+            {
+                var UserID = WebSecurity.CurrentUserId;
                 
                 int returnValue = FolderID;
                 PAWAContext db = new PAWAContext();
