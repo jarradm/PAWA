@@ -12,20 +12,39 @@ namespace PAWA.Classes
 {
     public class Tools
     {
-       public static Nullable<bool> uploaded { get; set; } //Used for confirmation on uploads
-       public static Nullable<bool> tagAdded { get; set; } // ^
+        public static Nullable<bool> uploaded { get; set; } //Used for confirmation on uploads
+        public static Nullable<bool> tagAdded { get; set; } // ^
        
-       public static Nullable<int> DDLChoice { get; set; } //Dropdown lists are fucking stupid
-       public static int totalImageCount {get; set;} //counter for index adding
-       private static List<int> selectedfile { get; set; } //list containing ids
-       public static int UserID { get; set; }
+        public static Nullable<int> DDLChoice { get; set; } //Dropdown lists are fucking stupid
+        public static int totalImageCount {get; set;} //counter for index adding
+        private static List<int> selectedfile { get; set; } //list containing ids
+        public static int UserID { get; set; }
+
+        public IEnumerable<File> GetFilesFromFolder(int? folderID, int? userId)
+        {
+            PAWAContext db = new PAWAContext();
+            IEnumerable<File> files;
+            if (userId != null)
+            {
+                var UserID = userId;
+                files = from f in db.Files
+                        where f.UserID == UserID && (f.FolderID == folderID || (f.FolderID == null && folderID == null))
+                        select f;
+            }
+            else
+            {
+                files = new HashSet<File> { };
+            }
+            return files;
+        }
+
         /// <summary>
            ///  Take in image, create a new bitmap, bitmap size = newsize
            ///  Render and clean image
            ///  Apply image to bitmap
            ///  
            ///  Return the thumbnail
-       /// </summary>
+        /// </summary>
         public Image ImageResize(Image imgFile, Size newSize)
         {
             
@@ -48,7 +67,7 @@ namespace PAWA.Classes
         {
             //Create variable for storing image type
             System.Drawing.Imaging.ImageFormat type;
-
+           
             if (file.Contains(".jpg"))
             {
                 type = System.Drawing.Imaging.ImageFormat.Jpeg;
@@ -140,6 +159,20 @@ namespace PAWA.Classes
                 }
             } 
             return ImageTagsIDs;    
+        }
+        public PAWA.Models.Tags getTag(int id)
+        {
+            PAWAContext db = new PAWAContext();
+            Models.Tags theTag;
+
+            var tag = 
+                from x in db.Tags
+                where x.TagsID == id
+                select x;
+
+            theTag = tag.FirstOrDefault();
+
+            return theTag;
         }
         ///<summary>
          /// Increase the selected tags usedcount
@@ -312,13 +345,33 @@ namespace PAWA.Classes
             }
             return false;
         }
-     
+     /// <summary>
+     /// Gets the Users object via passed ID
+     /// </summary>
+        public PAWA.Models.User getUserByID(int id)
+        {
+          PAWAContext db = new PAWAContext();
+          PAWA.Models.User theUser;
+
+            var USER =
+             from x in  db.Users
+             where x.UserID == id
+             select x;
+
+            theUser = USER.FirstOrDefault();
+            
+            return theUser;
+        }
         /// <summary>
-        /// Creates a unique hash to be used as a filename.
+        /// Gets all users
         /// </summary>
-        /// <param name="userid">ID of the user uploading file.</param>
-        /// <param name="filename">Filename of the file before</param>
-        /// <returns>Filename string</returns>
+        public IEnumerable<PAWA.Models.User> GetUsers()
+        {
+            PAWAContext db = new PAWAContext();
+            var users = from u in db.Users
+                        select u;
+            return users;
+        }
         public string CreateFilename(int userid, string filename)
         {
             string stringToHash = DateTime.UtcNow.ToString() + "_" + userid.ToString() + "_" + filename;

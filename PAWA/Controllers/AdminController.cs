@@ -48,32 +48,38 @@ namespace PAWA.Controllers
         [HttpPost]
         public ActionResult TagManagement(string newTag)
         {
-            //if tag string != nothing continue
+            Tools funcs = new Tools();
+
             if (newTag != "")
-            {
-                //Create new tag object for insertion
-                var TagObject = new PAWA.Models.Tags
-                {
-                    TagName = newTag,
-                    FirstDateTime = System.DateTime.Now,
-                    Status = Models.Status.Active,
-                    UseCount = (int)0,
-                    UserSuggest = Models.UserSuggest.Admin
-                };
-                //Add tag to Databsae
-                dbContext.Tags.Add(TagObject);
-
-                //Update DB
-                dbContext.SaveChanges();
-
-                //return successful tag add view
+            {    
+                funcs.createTag(newTag);
                 Tools.tagAdded = true;
             }
-            else
-            {
-                Tools.tagAdded = false;
-            }
+            else { Tools.tagAdded = false; }
 
+            return RedirectToAction("TagManagement");
+        }
+
+        public ActionResult EditTag(int id)
+        {
+            Tools funcs = new Tools();
+            PAWA.Models.Tags theTag = funcs.getTag(id);
+           
+           
+            return View(theTag);
+        }
+        [HttpPost]
+        public ActionResult EditTag([Bind(Include = "TagsID, TagName, Status, UserSuggest")]Models.Tags tag)
+        {
+            PAWAContext db = new PAWAContext();
+            db.Tags.Attach(tag);
+            var entry = db.Entry(tag);
+
+            entry.Property(e => e.TagName).IsModified = true ;
+            entry.Property(e => e.Status).IsModified = true;
+            entry.Property(e => e.UserSuggest).IsModified = true;
+            
+            db.SaveChanges();
             return RedirectToAction("TagManagement");
         }
 
@@ -84,10 +90,29 @@ namespace PAWA.Controllers
         {
             return View();
         }
+        public ViewResult ViewUser(string SearchString)
+        {
+            Tools funcs = new Tools();
 
-        //
-        // GET: /Admin/MostUsedTagReport
+            var users = from u in funcs.GetUsers()
+                        select u;
+            if (!String.IsNullOrEmpty(SearchString))
+            {
+                users = users.Where(u => u.UserID.ToString().Contains(SearchString) ||
+                                         u.Username.Contains(SearchString));
+            }
 
+
+            return View(users);
+        }
+
+        public ActionResult ViewUserDetails(int id)
+        {
+            Tools funcs = new Tools();
+
+            PAWA.Models.User TheUser = funcs.getUserByID(id);
+            return View(TheUser);
+        }
         public ActionResult MostUsedTagReport()
         {
             AdminReports reports = new AdminReports(dbContext);

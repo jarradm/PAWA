@@ -10,13 +10,12 @@ using PAWA.Classes;
 using System.IO;
 using WebMatrix.WebData;
 
-
 namespace PAWA.Controllers
 {
     [Authorize(Roles = "User")]
     public class ImageController : Controller
     {
-        PAWAContext dbContext;
+        PAWAContext dbContext = new PAWAContext();
 
         //
         // GET: /Image/
@@ -33,7 +32,6 @@ namespace PAWA.Controllers
         {
             int UserID = WebSecurity.CurrentUserId;
 
-            dbContext = new PAWAContext();
 
             var files = from f in dbContext.Files
                         where f.UserID == UserID &&
@@ -41,6 +39,7 @@ namespace PAWA.Controllers
                         select f;
 
             ViewBag.Tags = PAWA.Classes.DisplayImage.GetTags(dbContext, files.First().Tags);
+            int value = files.First().FileID;
 
             return View(files.First());
         }
@@ -81,7 +80,7 @@ namespace PAWA.Controllers
 
             System.Drawing.Imaging.ImageFormat fileExtension;
 
-            
+
             //Check file is valid
             if (funcs.PhotoValidation(file) == true)
             {
@@ -91,7 +90,7 @@ namespace PAWA.Controllers
                 var path = "";
 
                 //rename file?
-                if (newName != ""){ fileName = funcs.Rename(fileName, newName);}
+                if (newName != "") { fileName = funcs.Rename(fileName, newName); }
 
                 //split tags
                 TagArr = funcs.seperateTags(tags);
@@ -106,7 +105,7 @@ namespace PAWA.Controllers
                 fileExtension = funcs.checkExtension(fileName);
 
                 //Create encrypted fileName
-                fileName = funcs.CreateFilename(Tools.UserID, fileName); 
+                fileName = funcs.CreateFilename(Tools.UserID, fileName);
 
                 //Path is directory  and filename
                 path = System.IO.Path.Combine(Server.MapPath("~/Images/User/"), fileName);
@@ -156,6 +155,12 @@ namespace PAWA.Controllers
                 //Navigate to album
                 return RedirectToAction("./../Home/Album");
             }
+            else if (editImage != null)
+            {
+                UpdateImage(fileName);
+                Response.Redirect("UpdateImage?filename=" + fileName);
+                return View();
+            }
             else
             {
                 //Not deleting, do nothing
@@ -163,5 +168,50 @@ namespace PAWA.Controllers
             }
 
         }
+
+        public ActionResult UpdateImage(string filename)
+        {
+            EditImage ei = new EditImage();
+            PAWA.Models.File file = dbContext.Files.Find(Convert.ToInt32(ei.GetID(filename)));
+            if (file == null)
+            {
+                return HttpNotFound(filename.ToString());
+            }
+            string tags = file.Tags.ToString();
+            ViewBag.Tags = PAWA.Classes.DisplayImage.GetTags(dbContext, tags);
+            ViewBag.FolderID = new SelectList(dbContext.Folders, "FolderID", "FolderName", file.FolderID);
+            return View(file);
+        }
+
+        //
+        // POST: /Image/Edit/5
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UpdateImage(FormCollection form)
+        {
+            EditImage ei = new EditImage();
+            Tools tool = new Tools();
+
+            int index = Convert.ToInt32(form["FileID"]);
+            var files = from f in dbContext.Files where f.FileID == index select f;
+            var file = files.First();
+
+            file.Description = form["Description"];
+            file.FolderID = Convert.ToInt32(form["FolderID"]);
+
+
+            file.Tags = ei.stringOfTags(form);
+            if (ModelState.IsValid)
+            {
+                dbContext.Entry(file).State = EntityState.Modified;
+                dbContext.SaveChanges();
+                Response.Redirect("DisplayImage?filename=" + form["Filename"]);
+                return View();
+            }
+            ViewBag.FolderID = new SelectList(dbContext.Folders, "FolderID", "FolderName", file.FolderID);
+            return View(file);
+        }
+
     }
 }

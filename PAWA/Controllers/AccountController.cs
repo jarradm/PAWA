@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -12,6 +14,7 @@ namespace PAWA.Controllers
 {
     public class AccountController : Controller
     {
+        private PAWAContext db = new PAWAContext();
         //
         // GET: /Account/
         [Authorize]
@@ -26,7 +29,6 @@ namespace PAWA.Controllers
                 Response.Redirect("/Admin/Index");
             }
 
-            return View();
         }
 
         //
@@ -54,6 +56,20 @@ namespace PAWA.Controllers
             return View();
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateUser(User user)
+        {
+            if (ModelState.IsValid)
+            {
+                user.JoinDateTime = DateTime.Now;
+                db.Users.Add(user);
+                db.SaveChanges();
+                return RedirectToAction("../Home/Album");
+            }
+
+            return View(user);
+        }
         //
         // GET: /Account/Login
         [HttpGet]
@@ -96,6 +112,16 @@ namespace PAWA.Controllers
             WebSecurity.Logout();
             Response.Redirect("~/Account/Login");
             return View();
+        }
+
+        public ActionResult Details(int id = 0)
+        {
+            User user = db.Users.Find(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
         }
     }
 }

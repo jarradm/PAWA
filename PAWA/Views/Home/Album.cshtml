@@ -25,7 +25,6 @@
                 @Html.Raw(table);
             }
             @*Html.Raw(Model.ag.CreateTable1(Model.FolderID));*@
-            
             <input type="button" name="NextPage" value="Next Page" id="body-content-button-next" />
             <a href="#page-top"><input type="button" value="Go To Top" id="body-content-button-top" /></a>
         }
@@ -59,8 +58,7 @@
         //For all elements
         for (var i = 0; i < inputs.length; i++) {
             //If it is a checkbox
-            if (inputs[i].type == "checkbox") 
-            {
+            if (inputs[i].type == "checkbox") {
                 //That is selected
                 if (inputs[i].checked) {
                     //Then something was
@@ -71,6 +69,51 @@
         //Nothing was selected
         return false;
     };
+</script>
+
+<script type="text/javascript">
+    function countChecked() {
+        //Get input elements
+        var count = 0;
+        var inputs = document.getElementsByTagName("input"); //or document.forms[0].elements;  
+        var ids = "";
+        //For all elements
+        for (var i = 0; i < inputs.length; i++) {
+            //If it is a checkbox
+            if (inputs[i].type == "checkbox") {
+                //That is selected
+                if (inputs[i].checked) {
+                    count--;
+                    ids += i;
+                }
+            }
+        }
+        if (count == -1)
+        { return ids; }
+        else
+        { return count; }
+    };
+
+
+    $(document).ready(function () {
+        $("input[name='Submit']").click(function () {
+            if ($('#DropDownList').val() == "Edit") {
+                var count = countChecked();
+                //check if anything was selected
+                if (count == 0 || count <= -2) {
+                    //Nothing was so show a message.
+                    alert("You cannot perform Edit Selected on " + (-count) + " items.");
+                    return;
+                }
+                else {
+                    var inputs = document.getElementsByTagName("input"); //or document.forms[0].elements;
+                    window.open("/Image/UpdateImage?filename=" + inputs[count].name);
+                    return;
+                }
+
+            }
+        });
+    });
 </script>
 
 <script>

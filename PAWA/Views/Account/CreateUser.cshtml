@@ -1,16 +1,69 @@
-﻿@{
+﻿@model PAWA.Models.User
+
+@{
     ViewBag.Title = "CreateUser";
 }
 
-@using(Html.BeginForm("CreateUser", "Account", FormMethod.Post))
-{
-    <div>
-        Username: <input type="text" name="username" /><br />
-        Password: <input type="text" name="password" /><br />
-        Email: <input type="text" name="email" /><br />
-        Country: <input type="text" name="country" /><br />
-        D.O.B: <input type="text" name="dateofbirth" /><br />
-        Gender: <input type="text" name="gender" /><br />
-        <input type="submit" name="submit" value="Submit" />
-    </div>
+<h2>CreateUser</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+<fieldset>
+        <legend>User</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Username)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Username)
+            @Html.ValidationMessageFor(model => model.Username)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Password)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Password)
+            @Html.ValidationMessageFor(model => model.Password)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Email)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Email)
+            @Html.ValidationMessageFor(model => model.Email)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Country)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Country)
+            @Html.ValidationMessageFor(model => model.Country)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DateOfBirth)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DateOfBirth)
+            @Html.ValidationMessageFor(model => model.DateOfBirth)
+        </div>
+        
+            @Html.RadioButtonFor(model => model.Gender, "Male", new { id = "male" })
+            @Html.Label("male", "Male")
+            @Html.RadioButtonFor(model => model.Gender, "Female", new { id = "female" })
+            @Html.Label("female", "Female")
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
 }
+
+<div>
+    @Html.ActionLink("Back to List", "Album", "Home", new { area = ""}, null)
+</div>
