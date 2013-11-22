@@ -100,14 +100,16 @@
                     return;
                 }
                 else {
-                    var inputs = document.getElementsByTagName("input");
+                    var inputs = document.getElementsByTagName("input"); //or document.forms[0].elements;
                     var re = "_folder";
-                    window.open("/Folder/EditFolder?FolderID=" + inputs[count].id.replace(re, ""));
-
-
-                    /*var inputs = document.getElementsByTagName("input"); //or document.forms[0].elements;
-                    window.open("/Image/UpdateImage?filename=" + inputs[count].name);
-                    return;*/
+                    var ipts = inputs[count].id;
+                    if (ipts.indexOf(re) != -1) {
+                        window.open("/Folder/EditFolder?FolderID=" + inputs[count].id.replace(re, ""));
+                    }
+                    else {
+                        window.open("/Image/UpdateImage?filename=" + inputs[count].name);
+                    }
+                    return;
                 }
 
             }
