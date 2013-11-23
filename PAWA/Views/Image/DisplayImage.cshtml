@@ -30,6 +30,10 @@
         <input type="submit" name="editImage" value="Edit Image" id="body-content-button-edit" />
         <input type="submit" name="deleteImage" value ="Delete Image" id="body-content-button-delete" />
     </div>
+    <div id="facebookButton">
+        </div>
+        <div id="twitterButton">
+        </div>
 </div>
 }
 
@@ -46,5 +50,7 @@
     $(window).load(function () {
         $("#body-content-button-edit").position({ my: "left top", at: "left top", of: "#body-content-button-area", collision: "none" });
         $("#body-content-button-delete").position({ my: "right top", at: "right top", of: "#body-content-button-area", collision: "none" });
+        $("#facebookButton").position({ my: "right top", at: "right+55 top", of: "#body-content-description", collision: "none" });
+        $("#twitterButton").position({ my: "right top", at: "right+110 top", of: "#body-content-description", collision: "none" });
     });
 </script>
