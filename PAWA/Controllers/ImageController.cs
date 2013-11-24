@@ -8,13 +8,15 @@ using PAWA.Models;
 using System.Drawing;
 using PAWA.Classes;
 using System.IO;
-
+using WebMatrix.WebData;
+using System.Data;
 
 namespace PAWA.Controllers
 {
+    [Authorize(Roles = "User")]
     public class ImageController : Controller
     {
-        PAWAContext dbContext;
+        PAWAContext dbContext = new PAWAContext();
 
         //
         // GET: /Image/
@@ -29,64 +31,17 @@ namespace PAWA.Controllers
 
         public ActionResult DisplayImage(string filename)
         {
-            int UserID = 1;
-            dbContext = new PAWAContext();
-            /*
-            var files1 = new List<File>
-            {
-                new File { UserID = 1, TypeID = 1, FolderID = 2, Tags = "1,2", 
-                    Filename = "839782adf0f886f2a7cedee64ba05a71985279cf805756c072ec0c6cb4c8760f.jpg", UploadedDateTime = DateTime.Parse("2013/08/27 17:16:15"), 
-                    Description = "A killer koala, seen in its natural habit waiting for its prey.", 
-                    SizeMB = 780, SizeHeight = 768, SizeWidth = 1024 },
+            int UserID = WebSecurity.CurrentUserId;
 
-                new File { UserID = 1, TypeID = 1, FolderID = null, Tags = "1", 
-                    Filename = "2d80cf81124d5057a38050c895004da6a95fcfae9f3d86117fb9b782b04e1d4a.jpg", UploadedDateTime = DateTime.Parse("2013/08/27 17:16:25"), 
-                    Description = "That flower that's hard to say and even harder to spell...but they make great tea.", 
-                    SizeMB = 879, SizeHeight = 768, SizeWidth = 1024 },
 
-                new File { UserID = 1, TypeID = 1, FolderID = null, Tags = "1", 
-                    Filename = "5f3b380e8ed98f8b2125bc5112681ba5352a449554e66a78506290950d8b2946.jpg", UploadedDateTime = DateTime.Parse("2013/08/27 17:16:35"), 
-                    Description = "Desert.", 
-                    SizeMB = 845, SizeHeight = 768, SizeWidth = 1024 },
-
-                new File { UserID = 1, TypeID = 1, FolderID = null, Tags = "1", 
-                    Filename = "8477e434351ebcce936ab0a0cd9211cea9b9f47b44cca5785fe6558b8739508a.jpg", UploadedDateTime = DateTime.Parse("2013/08/27 17:16:45"), 
-                    Description = "Flower.", 
-                    SizeMB = 595, SizeHeight = 768, SizeWidth = 1024 },
-
-                new File { UserID = 1, TypeID = 1, FolderID = null, Tags = "1", 
-                    Filename = "9cee7bfd4d41b11a35f9e62bd4cfd84fb55ed82c4c663c6456e2e5b295fd00b4.jpg", UploadedDateTime = DateTime.Parse("2013/08/27 17:16:55"), 
-                    Description = "The invasion has begun.", 
-                    SizeMB = 775, SizeHeight = 768, SizeWidth = 1024 }
-            };
-
-            */
             var files = from f in dbContext.Files
                         where f.UserID == UserID &&
                               f.Filename == filename
                         select f;
-            /*
-            
-            var files = from f in files1
-                        where f.UserID == UserID &&
-                              f.Filename == filename
-                        select f;
-             
 
-            var file = new File
-            {
-                UserID = 1,
-                TypeID = 1,
-                FolderID = 2,
-                Tags = "1,2",
-                Filename = "Koala.jpg",
-                UploadedDateTime = DateTime.Parse("2013/08/27 17:16:15"),
-                Description = "Sydney Harbour as seen from the peak of the Sydney Harbour Bridge",
-                SizeMB = 3500,
-                SizeHeight = 680,
-                SizeWidth = 1048
-            };
-            */
+            ViewBag.Tags = PAWA.Classes.DisplayImage.GetTags(dbContext, files.First().Tags);
+            int value = files.First().FileID;
+
             return View(files.First());
         }
 
@@ -99,7 +54,7 @@ namespace PAWA.Controllers
             Tools funcs = new Tools();
 
             //temp user for authentication testing
-            Tools.UserID = 1;
+            Tools.UserID = WebSecurity.CurrentUserId;
 
             //list used to generate DDL
             IList<Models.Folder> list = funcs.getFolders(Tools.UserID);
@@ -126,7 +81,7 @@ namespace PAWA.Controllers
 
             System.Drawing.Imaging.ImageFormat fileExtension;
 
-            
+
             //Check file is valid
             if (funcs.PhotoValidation(file) == true)
             {
@@ -136,7 +91,7 @@ namespace PAWA.Controllers
                 var path = "";
 
                 //rename file?
-                if (newName != ""){ fileName = funcs.Rename(fileName, newName);}
+                if (newName != "") { fileName = funcs.Rename(fileName, newName); }
 
                 //split tags
                 TagArr = funcs.seperateTags(tags);
@@ -151,7 +106,7 @@ namespace PAWA.Controllers
                 fileExtension = funcs.checkExtension(fileName);
 
                 //Create encrypted fileName
-                fileName = funcs.CreateFilename(Tools.UserID, fileName); 
+                fileName = funcs.CreateFilename(Tools.UserID, fileName);
 
                 //Path is directory  and filename
                 path = System.IO.Path.Combine(Server.MapPath("~/Images/User/"), fileName);
@@ -201,6 +156,12 @@ namespace PAWA.Controllers
                 //Navigate to album
                 return RedirectToAction("./../Home/Album");
             }
+            else if (editImage != null)
+            {
+                UpdateImage(fileName);
+                Response.Redirect("UpdateImage?filename=" + fileName);
+                return View();
+            }
             else
             {
                 //Not deleting, do nothing
@@ -208,5 +169,50 @@ namespace PAWA.Controllers
             }
 
         }
+
+        public ActionResult UpdateImage(string filename)
+        {
+            EditImage ei = new EditImage();
+            PAWA.Models.File file = dbContext.Files.Find(Convert.ToInt32(ei.GetID(filename)));
+            if (file == null)
+            {
+                return HttpNotFound(filename.ToString());
+            }
+            string tags = file.Tags.ToString();
+            ViewBag.Tags = PAWA.Classes.DisplayImage.GetTags(dbContext, tags);
+            ViewBag.FolderID = new SelectList(dbContext.Folders, "FolderID", "FolderName", file.FolderID);
+            return View(file);
+        }
+
+        //
+        // POST: /Image/Edit/5
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UpdateImage(FormCollection form)
+        {
+            EditImage ei = new EditImage();
+            Tools tool = new Tools();
+
+            int index = Convert.ToInt32(form["FileID"]);
+            var files = from f in dbContext.Files where f.FileID == index select f;
+            var file = files.First();
+
+            file.Description = form["Description"];
+            file.FolderID = Convert.ToInt32(form["FolderID"]);
+
+
+            file.Tags = ei.stringOfTags(form);
+            if (ModelState.IsValid)
+            {
+                dbContext.Entry(file).State = EntityState.Modified;
+                dbContext.SaveChanges();
+                Response.Redirect("DisplayImage?filename=" + form["Filename"]);
+                return View();
+            }
+            ViewBag.FolderID = new SelectList(dbContext.Folders, "FolderID", "FolderName", file.FolderID);
+            return View(file);
+        }
+
     }
 }

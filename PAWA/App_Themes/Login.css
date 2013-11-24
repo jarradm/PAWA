@@ -1,0 +1,92 @@
+﻿body {
+    background-image: url('../Images/cutdown-nostripe.png');
+    background-repeat: repeat-x;
+    background-size:contain;
+    min-width: 1150px;
+    min-height:1080px;
+}
+#logo {
+background-image:url('../Images/logopng.png');
+background-color:transparent;
+width:240px;
+height:80px;
+margin:auto;
+}
+#stripecut {
+background-image:url('../Images/stripecut.png');
+background-color:transparent;
+min-width:700px;
+background-repeat:repeat-x;
+}
+#outer-panel {
+    margin-top: 2%;
+}
+/*PAWA LOGIN PANEL*/
+#main-panel {
+    margin:auto;
+    width: 300px;
+    height: 133px;
+    border-top-right-radius:15px;
+    border-bottom-right-radius:15px;
+    border-bottom-left-radius:15px;
+
+}
+#panel-header {
+    background-color: lightblue;
+    padding-left: 15px;
+    height: 30px;
+    border-top: solid;
+    border-right: solid;
+    border-left: solid;
+    border-left-width: 1px;
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    line-height: 175%;
+}
+#inner-panel {
+    background-color: whitesmoke;
+    padding-right:15px;
+    padding-top: 5px;
+    padding-left: 15px;
+    border-right: solid;
+    border-left: solid;
+    border-bottom: solid;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    
+}
+
+#button-login {
+    padding-top: 5px;
+    margin-left: 77px;
+}
+.textbox {
+    border:1px solid;
+       border-radius:15px;
+       text-align:center;
+}
+    .textbox:focus {
+        outline:none;
+        box-shadow: 0px 0px 3pt 3pt lightblue;
+        background-color:lightgrey;
+    }
+.buttonlogin {
+    outline:none;
+    border: 1px solid;
+    border-radius:15px;
+}
+    .buttonlogin:hover {
+        border: 1px solid;
+        background-color: lightblue;
+        cursor: pointer;
+    }
+    .buttonlogin:active {
+        
+        background-color:lightgrey;
+    }
+/* -------*/

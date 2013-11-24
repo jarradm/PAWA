@@ -1,10 +1,10 @@
 ﻿<link rel="stylesheet" href="~/App_Themes/Album.css" type="text/css" />
 <link rel="stylesheet" href="~/App_Themes/UploadImage.css" type="text/css" />
 <BR />
-<div id="body-area">
-    <div id="body-content-area">
-        <div id="body-content-table">
-            <div id="maindiv">
+<div id="outer-panel">
+        <div id="main-panel">
+            <div id="panel-header" style="font-family:Constantia"><b>Upload an Image</b></div>
+            <div id="inner-panel">
                 @using (Html.BeginForm("UploadImage", "Image", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
                     <br />
@@ -22,7 +22,8 @@
                     @Html.TextArea("description", null, new { cols = "50", rows = "5", style = "resize:none" })
                     <br />
                     <label>Add Tags: </label>
-                    <input type="text" style="width: 250px" name="tags" /><input type="button" onclick="TagHelp()" value="?" />
+                    <input type="text" style="width: 250px" name="tags" id="textbox-tags" /><input type="button" onclick="TagHelp()" value="?" />
+                    <input type="button" id="tagcloud-button" value="Tag Cloud" />
                     <br />
                     <div id="buttons">
                         <input type="submit" value="Upload" />
@@ -33,14 +34,49 @@
                     </div>
                 }
             </div>
+            <div id="tagcloud-overlay-area">
+                <div id="tagcloud-overlay-area-header">
+                    100 Most Used Tags
+                    <input type="button" id="tagcloud-overlay-close-button" value="X" onclick="CloseCloudOverlay()"/>
+                </div>
+                <div id="tagcloud-overlay-item-area">
+                    @Html.Raw(PAWA.Classes.Tools.CreateTagCloudOverlayContents(PAWA.Classes.Tools.GetTop100Tags(new PAWA.DAL.PAWAContext())))
+                </div>
+            </div>
         </div>
     </div>
-</div>
-<center><h3>@Html.Encode(ViewData["Uploaded"])</h3></center>
+
+<h3>@Html.Encode(ViewData["Uploaded"])</h3>
 
 <script>
     function TagHelp()
     {
         alert("Tags are used to quickly find an Image\nThe correct format for tagging: 'Ocean,Holiday,2013'\n Seperated using commas and no spacing.");
+    }
+
+    $(document).ready(function () {
+        $("#tagcloud-button").click(function () {
+            $("#tagcloud-overlay-area").show();
+            $("#tagcloud-overlay-close-button").position({ my: "right top", at: "right-12 top+4", of: "#tagcloud-overlay-area-header", collision: "none" });
+            $("#tagcloud-overlay-area").position({ my: "center center", at: "center center", of: window, collision: "none" });
+        });
+    });
+
+    function AddTagToTextBox(button)
+    {
+        if ($("#textbox-tags").val() == "") {
+            $("#textbox-tags").val($(button).attr("name"));
+        }
+        else
+        {
+            $("#textbox-tags").val($("#textbox-tags").val() + "," + $(button).attr("name"));
+        }
+
+        $(button).attr("disabled", "disabled");
+    }
+
+    function CloseCloudOverlay()
+    {
+        $("#tagcloud-overlay-area").hide();
     }
 </script>

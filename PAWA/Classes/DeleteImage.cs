@@ -7,6 +7,7 @@ using PAWA.Models;
 using PAWA.DAL;
 using System.Drawing;
 using System.Data;
+using WebMatrix.WebData;
 
 namespace PAWA.Classes
 {
@@ -24,8 +25,8 @@ namespace PAWA.Classes
 
             //Delete the image file from server
             string[] fileExtension = deleteFile.Filename.Split('.');
-            System.IO.File.Delete(Server.MapPath("~/Images/User/" + fileExtension[0] + ".jpg"));
-            System.IO.File.Delete(Server.MapPath("~/Images/User/" + fileExtension[0] + "_thumb.jpg"));
+            System.IO.File.Delete(Server.MapPath("~/Images/User/" + fileExtension[0] + "." + fileExtension[1]));
+            System.IO.File.Delete(Server.MapPath("~/Images/User/" + fileExtension[0] + "_thumb." + fileExtension[1]));
 
             //Delete record from database
             dbContext.Files.Remove(deleteFile);
@@ -58,8 +59,8 @@ namespace PAWA.Classes
 
                     //Delete the image file from server
                     string[] fileExtension = files.ElementAt(filesIndex).Filename.Split('.');
-                    System.IO.File.Delete(Server.MapPath("~/Images/User/" + fileExtension[0] + ".jpg"));
-                    System.IO.File.Delete(Server.MapPath("~/Images/User/" + fileExtension[0] + "_thumb.jpg"));
+                    System.IO.File.Delete(Server.MapPath("~/Images/User/" + fileExtension[0] + "." + fileExtension[1]));
+                    System.IO.File.Delete(Server.MapPath("~/Images/User/" + fileExtension[0] + "_thumb." + fileExtension[1]));
 
                     //Delete it from the database
                     dbContext.Files.Remove(delFile);
@@ -83,7 +84,7 @@ namespace PAWA.Classes
         public IEnumerable<File> GetFiles()
         {
 
-            var UserID = 1;
+            var UserID = WebSecurity.CurrentUserId;
 
             //Search database for user files
             var files = from f in dbContext.Files
@@ -101,7 +102,7 @@ namespace PAWA.Classes
         public PAWA.Models.File GetFile(string filename)
         {
 
-            var UserID = 1;
+            var UserID = WebSecurity.CurrentUserId;
 
             //Search database for file
             var files = from f in dbContext.Files

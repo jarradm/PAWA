@@ -1,0 +1,78 @@
+﻿#backer {
+    background-color:whitesmoke;
+    border: 1px solid;
+    border-radius:15px;
+    padding-left:10px;
+    padding-top:5px;
+    padding-bottom:5px;
+    box-shadow: 5px 5px 5px #888888;
+  width:550px;
+    margin:auto;
+}
+a.button {
+
+     float:left;
+     background-color:lightgrey;
+     display: block;
+     width: 45px;
+     height: 20px;
+    padding-left: 10px;
+     border: 1px solid;
+     border-radius:15px;
+     
+}
+    a.button:hover {
+        background-color:lightblue;
+    }
+a.buttonEdit {
+    float:left;
+    margin-left:5px;
+     background-color:lightgrey;
+     display: block;
+     width: 45px;
+     height: 20px;
+    padding-left: 10px;
+     border: 1px solid;
+     border-radius:15px;
+     
+}
+   a.buttonEdit:hover {
+        background-color:lightblue;
+    }
+   
+#main-panel {
+    margin:auto;
+    width:600px; 
+    height: 133px;
+    border-top-right-radius:15px;
+    border-bottom-right-radius:15px;
+    border-bottom-left-radius:15px;
+}
+#panel-header {
+    background-color: lightblue;
+    padding-left: 15px;
+    height: 30px;
+    border-top: solid;
+    border-right: solid;
+    border-left: solid;
+    border-left-width: 1px;
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    line-height: 175%;
+}
+#inner-panel {
+    background-color: whitesmoke;
+    padding-top: 5px;
+    padding-left: 15px;
+    border-right: solid;
+    border-left: solid;
+    border-bottom: solid;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    
+}

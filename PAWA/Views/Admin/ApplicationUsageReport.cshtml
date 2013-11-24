@@ -1,0 +1,44 @@
+﻿@model PAWA.Classes.AdminReports
+
+@{
+    ViewBag.Title = "ApplicationUsageReport";
+}
+
+<link rel="stylesheet" href="~/App_Themes/AdminReports.css" type="text/css" />
+
+<div id="body-area">
+    <input type="button" name="back" value="Back To Reports Index" id="back-button" />
+    <div id="body-content-area">
+        <div id="body-content-area-header">
+            Application Usage Report
+        </div>
+        <div id="body-content-report-area">
+            <div class="body-content-report-area-header">
+                Image
+            </div>
+            @Html.Raw(Model.CreateApplicationImageUsageReport("body-content-report-left-column", "body-content-report-right-column"))
+            <br /><br />
+            <div class="body-content-report-area-header">
+                Video
+            </div>
+            @Html.Raw(Model.CreateApplicationVideoUsageReport("body-content-report-left-column", "body-content-report-right-column"))
+            <br /><br />
+            <div class="body-content-report-area-header">
+                Other
+            </div>
+            @Html.Raw(Model.CreateApplicationOtherUsageReport("body-content-report-left-column", "body-content-report-right-column"))
+        </div>
+    </div>
+    <div id="body-datetime-area">
+        @Html.Raw(Model.GetCurrentDateTime())
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#back-button").position({ my: "left bottom", at: "left top", of: "#body-content-area", collision: "none" });
+        $("#back-button").click(function () {
+            window.location.href = "./Index";
+        });
+    });
+</script>

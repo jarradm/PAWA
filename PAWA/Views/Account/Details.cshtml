@@ -1,0 +1,64 @@
+﻿@model PAWA.Models.User
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>User</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Username)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Username)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Password)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Password)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Email)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Email)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.JoinDateTime)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.JoinDateTime)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DeleteDateTime)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DeleteDateTime)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Country)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Country)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DateOfBirth)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DateOfBirth)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.UserID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

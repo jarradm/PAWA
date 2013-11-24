@@ -8,14 +8,14 @@ using PAWA.Models;
 
 namespace PAWA.DAL
 {
-    public class PAWAContext : DbContext
+    public class PAWAContext : DbContext, IPAWAContext
     {
-        public DbSet<User> Users { get; set; }
-        public DbSet<Folder> Folders { get; set; }
-        public DbSet<PAWA.Models.Type> Types { get; set; }
-        public DbSet<Tags> Tags { get; set; }
-        public DbSet<File> Files { get; set; }
-        public DbSet<DailyStatistics> DailyStatistics { get; set; }
+        public IDbSet<User> Users { get; set; }
+        public IDbSet<Folder> Folders { get; set; }
+        public IDbSet<PAWA.Models.Type> Types { get; set; }
+        public IDbSet<Tags> Tags { get; set; }
+        public IDbSet<File> Files { get; set; }
+        public IDbSet<DailyStatistics> DailyStatistics { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
