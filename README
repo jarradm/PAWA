@@ -3,6 +3,11 @@
   -> In Package Manager Console type 'install-package EntityFramework -version 5.0.0'
   -> In Package Manager Console type 'install-package Newtonsoft.JSon'
   -> In Package Manager Console type 'install-package jQuery.ui.combined'
+  -> In Package Manager Console type
+  -> In Package Manager Console type
+  -> In Package Manager Console type
+  -> In Package Manager Console type
+  -> In Package Manager Console type
   
 2. Build database
   -> In Package Manager Console type 'update-database'
@@ -19,26 +24,3 @@ Any changes to the data in the database you made within your
 project will be lost.
 
 ============================================================
-
-<fieldset>
-                            <legend>Create Folder</legend>
-
-                            @Html.LabelFor(m => m.FolderName)
-                            @Html.TextBoxFor(m => m.FolderName)
-
-                            @Html.LabelFor(m => m.InFolderID)
-                            @Html.TextBoxFor(m => m.InFolderID)
-							
-http://www.asp.net/web-api/overview/creating-web-apis/creating-a-web-api-that-supports-crud-operations
-http://www.youtube.com/watch?v=RokXgBFSvp8
-
-these are the two url's im using for the create folder popup; attempting to combine the two
-having issues with accessing the controller -> class
-
-Create a new product	POST	/api/products (perhaps this should be /PAWA/Folders
-
-
-other possible useful links
-
-http://www.youtube.com/watch?v=UW-sHS9T8Kw&list=UUF8GrHgyyVMsYC_GdMbL34Q
-http://www.dotnet-tricks.com/Tutorial/mvc/42R0171112-CRUD-Operations-using-jQuery-dialog-and-Entity-Framework---MVC-Razor.html
