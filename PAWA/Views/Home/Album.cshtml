@@ -1,16 +1,23 @@
 ﻿@model PAWA.ViewModels.AlbumViewModel
+@using System.Web.Optimization
 @{
     ViewBag.Title = "Album";
 }
+    @Styles.Render("~/Content/themes/base/css")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/modernizr")
 
 <link rel="stylesheet" href="~/App_Themes/Album.css" type="text/css" />
 
+<script src="~/Scripts/CreateFolder.js"></script>
 <div id="page-top"></div>
  <div id="outer-panel">
             <div id="main-panel">
                 <div id="panel-header" style="font-family: Constantia"><b>My Photos</b></div>
                 <div id="inner-panel">
-        @using(Html.BeginForm("Album", "Home", FormMethod.Post))
+        @using (Html.BeginForm("Album", "Home", FormMethod.Post))
         {
             <br />
             <select name="DropDownList" id="DropDownList">
@@ -18,8 +25,7 @@
                 <option value="Move">Move Selected</option>
                 <option value="Delete">Delete Selected</option>
             </select>
-            
-            
+          
             <input type="submit" name="Submit" value="Go" />
             <input type="button" name="Create" value="Create Folder" id="body-content-button-create" />
             
@@ -30,15 +36,81 @@
             <br />
             <input type="button" name="NextPage" value="Next Page" id="body-content-button-next" />
             <a href="#page-top"><input type="button" value="Go To Top" id="body-content-button-top" /></a>
+            
+            
+
+                <div id="folder-create" title="Create a Folder">
+                    <label>Folder Name:</label>
+                    <input type="text" id="FolderName" style="position:relative;left:20px" />
+                    <br /><label>Location:</label>
+                    <select id="InFolderID" style="position:relative;left: 62px;width: 211px;">
+                        @{
+                            PAWA.Classes.Tools toolbox = new PAWA.Classes.Tools();
+                            IList<PAWA.Models.Folder> folderlist = toolbox.getFolders(WebSecurity.CurrentUserId);
+
+                            for (int i = 0; i < folderlist.Count;i++ ) {
+                                @:<option value="
+                                    @Html.Raw(folderlist.ElementAt(i).FolderID.ToString());
+                                        @:">
+                                        @Html.Raw(folderlist.ElementAt(i).FolderName);
+                                  @:</option>
+
+                            }   
+                        }
+                    </select>
+                    <br /><br /><div style="text-align:center">
+                        <input type="button" value="Create" onclick="folderAlert();" />
+                    </div>
+
+                </div>
+
+            
         }
                     </div>
                 
     </div>
 </div>
 
-<script type="text/javascript">
 
+
+<!--
+<script type="text/javascript">
+    self.create = function () {
+
+        var folder = {
+            FolderName: $('#FolderName').val(),
+            InFolderID: $('#InfolderID').val(),
+        };
+
+        $.ajax({
+            url: 'Folders/CreateFolder', /*may be something else*/
+            cache: false,
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(folder),
+            statusCode: {
+                201 /*Created*/: function (data) {
+                    self.folders.push(data);
+                }
+            }
+        })
+        /* need to work out how to post the folder object through the controller and folder class */
+    }
+
+
+</script> -->
+
+
+<script type="text/javascript">
+   
     $(document).ready(function () {
+
+        var address = window.location.toString();
+        address = address.substring(address.search("/Home/Album"), address.length);
+        if (address == "/Home/Album") {
+            //hide button
+            $("#body-content-button-previous").hide();
+        }
         $("input[name='Submit']").click(function () {
             if ($('#DropDownList').val() == "Delete") {
 

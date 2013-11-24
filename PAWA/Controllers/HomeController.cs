@@ -35,7 +35,10 @@ namespace PAWA.Controllers
 
         public ActionResult Album(int? folderID = null)
         {
+            FoldersController f = new FoldersController();
+            f.getParentID(folderID);
             // DELETE ME ===========================================
+            
             int userid = 11;
             int tid = 7;
             int? fid = null;
@@ -245,8 +248,27 @@ namespace PAWA.Controllers
 
             return View(avm);
         }
+        /*
+        [HttpPost]
+        public ActionResult CreateFolder(string folderName, int parentFolder)
+        {
+            Tools funcs = new Tools();
+            Tools.UserID = 1;
 
+            Folder newFolder = new Folder();
+            newFolder.UserID = 1;
+            newFolder.FolderName = folderName;
+            newFolder.InFolderID = parentFolder;
+            newFolder.CreateDateTime = DateTime.Now;
 
+            UpdateModel(newFolder);
+            
+            
+            return PartialView();
+        }*/
+
+        
+        
         [HttpPost]
         public ActionResult Album(string DropDownList, string Submit)
         {

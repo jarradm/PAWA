@@ -290,7 +290,7 @@ namespace PAWA.Classes
                 if (f.UserID == userID)
                 {
                     //add folder to List
-                    list.Add(new Models.Folder { FolderID = f.FolderID, FolderName = f.FolderName });
+                    list.Add(new Models.Folder { FolderID = f.FolderID, FolderName = f.FolderName, InFolderID = f.InFolderID });
                 }
                 
             }
