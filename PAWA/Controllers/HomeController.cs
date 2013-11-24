@@ -15,6 +15,13 @@ namespace PAWA.Controllers
     [Authorize(Roles="User")]
     public class HomeController : Controller
     {
+        private IPAWAContext dbContext;
+
+        public HomeController()
+        {
+            dbContext = new PAWAContext();
+        }
+
         //
         // GET: /Home/
 
@@ -233,9 +240,8 @@ namespace PAWA.Controllers
 
             // END DELETE ME =========================================================
 
-            AlbumViewModel avm = new AlbumViewModel(new PAWAContext());
-            avm.FolderID = folderID;
-            //ViewBag.FolderID = folderID;
+            AlbumGrid ag = new AlbumGrid(dbContext);
+            AlbumViewModel avm = new AlbumViewModel(ag.CreateTable(folderID));
 
             return View(avm);
         }
@@ -254,8 +260,12 @@ namespace PAWA.Controllers
                 deleteFolder.deleteFolder(Request, Server);
             }
 
+            // Recreate the grid tables
+            AlbumGrid ag = new AlbumGrid(dbContext);
+            AlbumViewModel avm = new AlbumViewModel(ag.CreateTable());
+
             //Re-load the view
-            return View();
+            return View(avm);
         }
     }
 }
