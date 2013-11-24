@@ -3,11 +3,6 @@
   -> In Package Manager Console type 'install-package EntityFramework -version 5.0.0'
   -> In Package Manager Console type 'install-package Newtonsoft.JSon'
   -> In Package Manager Console type 'install-package jQuery.ui.combined'
-  -> In Package Manager Console type
-  -> In Package Manager Console type
-  -> In Package Manager Console type
-  -> In Package Manager Console type
-  -> In Package Manager Console type
   
 2. Build database
   -> In Package Manager Console type 'update-database'
