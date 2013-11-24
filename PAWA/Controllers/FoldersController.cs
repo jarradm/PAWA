@@ -9,6 +9,7 @@ using PAWA.Classes;
 using System.Drawing;
 using System.Data;
 using System.Collections;
+using WebMatrix.WebData;
 
 namespace PAWA.Controllers
 {
@@ -48,7 +49,7 @@ namespace PAWA.Controllers
         public ActionResult Create(string FolderName, int InFolderID)
         {
             Folder newFolder = new Folder();
-            newFolder.UserID = 1;
+            newFolder.UserID = WebSecurity.CurrentUserId;
             newFolder.FolderName = FolderName;
             newFolder.InFolderID = InFolderID;
             newFolder.CreateDateTime = DateTime.Now;
@@ -92,7 +93,7 @@ namespace PAWA.Controllers
                 CreateDateTime = System.DateTime.Now,
                 FolderName = FolderName,
                 InFolderID = InFolderID,
-                UserID = 1,
+                UserID = WebSecurity.CurrentUserId,
 
                 //FolderID auto?
                 
