@@ -10,12 +10,11 @@ namespace PAWA.ViewModels
 {
     public class AlbumViewModel
     {
-        public AlbumGrid ag;
-        public int? FolderID { get; set; }
+        public List<string> AlbumGridTable { get; set; }
 
-        public AlbumViewModel(IPAWAContext dbContext)
+        public AlbumViewModel(List<string> table)
         {
-            ag = new AlbumGrid(dbContext);
+            AlbumGridTable = table;
         }
     }
 }

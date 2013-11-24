@@ -55,7 +55,7 @@ namespace PAWA.Classes
             return files;
         }
 
-        public List<string> CreateTable(int? folderID)
+        public List<string> CreateTable(int? folderID=null)
         {
             IEnumerable<Folder> folders = GetFolders(folderID);
             IEnumerable<File> files = GetFiles(folderID);
@@ -137,7 +137,7 @@ namespace PAWA.Classes
                 }
 
                 htmlOutput += "</table>\n";
-                if (!(exitFiles && i == 0))
+                if (!(exitFiles && count == 0))
                 {
                     htmlTables.Add(htmlOutput);
                 }

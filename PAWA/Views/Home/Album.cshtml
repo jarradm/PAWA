@@ -23,12 +23,10 @@
             <input type="submit" name="Submit" value="Go" />
             <input type="button" name="Create" value="Create Folder" id="body-content-button-create" />
             
-            @*PAWA.Classes.AlbumGrid ag = new PAWA.Classes.AlbumGrid(new PAWA.DAL.PAWAContext());*@
-            foreach (var table in Model.ag.CreateTable(Model.FolderID))
+            foreach (var table in Model.AlbumGridTable)
             {
                 @Html.Raw(table);
             }
-            @*Html.Raw(Model.ag.CreateTable1(Model.FolderID));*@
             <br />
             <input type="button" name="NextPage" value="Next Page" id="body-content-button-next" />
             <a href="#page-top"><input type="button" value="Go To Top" id="body-content-button-top" /></a>
