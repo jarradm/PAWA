@@ -42,6 +42,9 @@
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="Facebook">
+      <HintPath>..\packages\Facebook.6.4.2\lib\net45\Facebook.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -122,6 +125,7 @@
     <Compile Include="Classes\DeleteImage.cs" />
     <Compile Include="Classes\DisplayImage.cs" />
     <Compile Include="Classes\EditImage.cs" />
+    <Compile Include="Classes\SocialMediaTools.cs" />
     <Compile Include="Classes\Tools.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
@@ -249,6 +253,7 @@
     <Content Include="Images\BlueGreenGradient4.jpg" />
     <Content Include="Images\cutdown-nostripe.png" />
     <Content Include="Images\cutdown-withstripe.png" />
+    <Content Include="Images\facebook.png" />
     <Content Include="Images\folder.png" />
     <Content Include="Images\logopng.png" />
     <Content Include="Images\PAWACP Logo.jpg" />
@@ -256,6 +261,7 @@
     <Content Include="Images\Rabbit Profile.jpg" />
     <None Include="Scripts\jquery-1.6.4-vsdoc.js" />
     <Content Include="Images\stripecut.png" />
+    <Content Include="Images\Twitter.png" />
     <Content Include="Scripts\jquery-1.6.4.js" />
     <Content Include="Scripts\jquery-1.6.4.min.js" />
     <Content Include="Scripts\jquery-ui-1.10.3.js" />
@@ -284,6 +290,7 @@
     <Content Include="Views\Admin\DailyUsageReport.cshtml" />
     <Content Include="Views\Admin\ApplicationUsageReport.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Image\Facebook.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

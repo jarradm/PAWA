@@ -10,7 +10,10 @@ using PAWA.Classes;
 using System.IO;
 using WebMatrix.WebData;
 using System.Data;
-
+using System.Configuration;
+using System.Net;
+using System.Text;
+using Facebook;
 namespace PAWA.Controllers
 {
     [Authorize(Roles = "User")]
@@ -33,16 +36,47 @@ namespace PAWA.Controllers
         {
             int UserID = WebSecurity.CurrentUserId;
 
+            //Check if URL contains the Facebook share code
+            if (Request.QueryString["code"] != null)
+            {
+                SocialMediaTools socTools = new SocialMediaTools();
+                var fb = new FacebookClient();
+                string accessCode = Request.QueryString["code"].ToString();                
+                
+                dynamic result = fb.Post("oauth/access_token", new
+                {
+                    client_id = "574337319304836", //This is my facebook APP ID
+                    client_secret = "ec31c9a8ec90b1a790ffec84848b3ed9", //The APP's SECRET ID
+                    redirect_uri = Request.Url.AbsoluteUri.ToString(),
+                    code = accessCode //Code used to swap for Token
+                });
+                //Check result object for the token
+                var accessToken = result.access_token;
 
-            var files = from f in dbContext.Files
-                        where f.UserID == UserID &&
-                              f.Filename == filename
-                        select f;
+                //Throw Token into a session, incase we might need later
+                Session["AccessToken"] = accessToken;
+                //Attach Token to Current Clients token paramater
+                fb.AccessToken = accessToken;
+                //Start Upload, passing filename and currently open client
+                socTools.PostToFacebook(filename, fb);
+                //Completed
+                Response.Redirect("./../Home/Album");
+                return View();
+            }
+            else
+            {
 
-            ViewBag.Tags = PAWA.Classes.DisplayImage.GetTags(dbContext, files.First().Tags);
-            int value = files.First().FileID;
+                var files = from f in dbContext.Files
+                            where f.UserID == UserID &&
+                                  f.Filename == filename
+                            select f;
 
-            return View(files.First());
+                ViewBag.Tags = PAWA.Classes.DisplayImage.GetTags(dbContext, files.First().Tags);
+                int value = files.First().FileID;
+
+
+                return View(files.First());
+            }
         }
 
         //
@@ -142,9 +176,9 @@ namespace PAWA.Controllers
 
 
         [HttpPost]
-        public ActionResult DisplayImage(string fileName, string editImage, string deleteImage)
+        public ActionResult DisplayImage(string fileName, string editImage, string deleteImage, string ShareToFacebook)
         {
-
+            
             //If they want to delete
             if (deleteImage != null)
             {
@@ -161,6 +195,24 @@ namespace PAWA.Controllers
                 UpdateImage(fileName);
                 Response.Redirect("UpdateImage?filename=" + fileName);
                 return View();
+            }
+            //If they want to share to Facebook
+            else if (ShareToFacebook != null)
+            {
+                SocialMediaTools SocTools = new SocialMediaTools();
+                FacebookClient FBClient = new FacebookClient();
+
+                //Create a custom query for facebook, they then return a in-url code which we exchange for a user token
+                var loginUrl = FBClient.GetLoginUrl(new
+                {
+                    client_id = "574337319304836",
+                    redirect_uri = (Request.Url.AbsoluteUri.ToString() + "?filename=" + fileName),
+                    response_type = "code",
+                    scope = "publish_actions,publish_stream"
+                });
+                //Reload the page and get a new Acess Token for this user --> Go to HTTPPOST
+                Response.Redirect(loginUrl.AbsoluteUri);
+                return View(fileName);
             }
             else
             {
@@ -213,6 +265,7 @@ namespace PAWA.Controllers
             ViewBag.FolderID = new SelectList(dbContext.Folders, "FolderID", "FolderName", file.FolderID);
             return View(file);
         }
+    
 
     }
 }
