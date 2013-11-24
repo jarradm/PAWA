@@ -1,0 +1,32 @@
+﻿#body-area {
+}
+#center-content {
+    width:470px;
+
+}
+.form-text {
+    display:inline-block;
+    width:140px;
+    font-size:14px;
+    font-family:Georgia;
+    color:darkblue;
+}
+#formTitle {
+    font-family:Georgia;
+    color:darkblue;
+    text-align:center;
+}
+.form-helper {
+    display:inline-block;
+    width:180px;
+    font-size:14px;
+    font-family:Georgia;
+    color:red;
+}
+.required {
+    display:inline-block;
+    width:2px;
+    font-size:14px;
+    font-family:Georgia;
+    color:red;
+}
