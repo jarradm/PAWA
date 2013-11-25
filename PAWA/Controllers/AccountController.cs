@@ -131,9 +131,8 @@ namespace PAWA.Controllers
         [HttpGet]
         public ActionResult EditUser()
         {
-            PAWAContext dbContext = new PAWAContext();
-
-            var user = dbContext.Users.Where(u => u.UserID == 2).SingleOrDefault();
+            // WebSecurity.CurrentUserId gets logged in user, UserID 
+            var user = db.Users.Where(u => u.UserID == WebSecurity.CurrentUserId).SingleOrDefault();
             var uvm = new UserViewModel
             {
                 UserID = user.UserID,
@@ -169,10 +168,8 @@ namespace PAWA.Controllers
 
         [HttpPost]
         public ActionResult EditUser(string button, UserViewModel uvm, FormCollection fc)
-        {
-            PAWAContext dbContext = new PAWAContext();
-            
-            var user = dbContext.Users.Where(u => u.UserID == 2).SingleOrDefault();
+        {            
+            var user = db.Users.Where(u => u.UserID == 2).SingleOrDefault();
             string password = fc.Get(2).ToString();
             string confirmPassword = fc.Get(3).ToString();
             string email = fc.Get(1).ToString();
@@ -212,10 +209,10 @@ namespace PAWA.Controllers
                 }
                 else
                 {
-                    dbContext.GetValidationErrors();
+                    db.GetValidationErrors();
                 }
-                dbContext.Entry(user).State = EntityState.Modified;
-                dbContext.SaveChanges();
+                db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
 
             }
             return View(uvm);
@@ -246,12 +243,11 @@ namespace PAWA.Controllers
         [HttpGet]
         public ActionResult Delete(FormCollection collection)
         {
-            PAWAContext dbContext = new PAWAContext();
             try
             {
-                var user = dbContext.Users.Where(u => u.UserID == 2).SingleOrDefault();
+                var user = db.Users.Where(u => u.UserID == WebSecurity.CurrentUserId).SingleOrDefault();
 
-                dbContext.Users.Remove(user);
+                db.Users.Remove(user);
                 //Dangerous Code: dbContext.SaveChanges();
 
                 return RedirectToAction("Login");
