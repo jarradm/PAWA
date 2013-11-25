@@ -177,6 +177,7 @@
     <Compile Include="Models\DailyStatistics.cs" />
     <Compile Include="Models\File.cs" />
     <Compile Include="Models\Folder.cs" />
+    <Compile Include="Classes\MoveFolder.cs" />
     <Compile Include="Models\FolderRepository.cs" />
     <Compile Include="Models\IFolderRepository.cs" />
     <Compile Include="Models\Tags.cs" />
@@ -219,6 +220,7 @@
     <Content Include="Images\Rabbit Profile.jpg" />
     <Content Include="Scripts\CreateFolder.js" />
     <None Include="Scripts\jquery-1.6.4-vsdoc.js" />
+    <Content Include="Scripts\GridOptionHandle.js" />
     <Content Include="Images\stripecut.png" />
     <Content Include="Scripts\jquery-1.6.4.js" />
     <Content Include="Scripts\jquery-1.6.4.min.js" />
@@ -240,6 +242,8 @@
     <Content Include="Views\Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Views\Home\GetAlbumList.cshtml" />
+    <Content Include="Views\Home\MoveImageTo.cshtml" />
     <Content Include="_AppStart.cshtml" />
     <Content Include="Views\Home\CreateFolder.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />

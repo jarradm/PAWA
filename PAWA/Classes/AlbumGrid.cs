@@ -33,12 +33,20 @@ namespace PAWA.Classes
         public IEnumerable<Folder> GetFolders(int? folderID)
         {
             var UserID = WebSecurity.CurrentUserId;
+            IEnumerable<Folder> returnValue;
+            try
+            {
+                returnValue = from f in dbContext.Folders
+                              where f.UserID == UserID && (f.InFolderID == folderID || (f.InFolderID == null && folderID == null))
+                              select f;
+            }
+            catch (Exception e)
+            {
+                returnValue = (new HashSet<Folder> { });
+                System.Diagnostics.Debug.WriteLine(e.InnerException);
+            }
 
-            var folders = from f in dbContext.Folders
-                          where f.UserID == UserID && (f.InFolderID == folderID || (f.InFolderID == null && folderID == null))
-                          select f;             
-
-            return folders;
+            return returnValue;
         }
          
 
@@ -50,11 +58,22 @@ namespace PAWA.Classes
         {
             var UserID = WebSecurity.CurrentUserId;
 
-            var files = from f in dbContext.Files
-                        where f.UserID == UserID && (f.FolderID == folderID || (f.FolderID == null && folderID == null))
-                        select f;            
+            IEnumerable<File> returnValue;
+            
+            try
+            {
+                returnValue = from f in dbContext.Files
+                              where f.UserID == UserID && (f.FolderID == folderID || (f.FolderID == null && folderID == null))
+                              select f;
+            }
+            catch (Exception e)
+            {
+                returnValue = new HashSet<File> {  };
+                System.Diagnostics.Debug.WriteLine(e.InnerException);
+            }
 
-            return files;
+            return returnValue;
+
         }
 
         public List<string> CreateTable(int? folderID = null)

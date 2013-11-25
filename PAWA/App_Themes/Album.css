@@ -58,6 +58,13 @@
     text-align: center;
 }
 
+#moveButton {
+    width:200px;
+    height:200px;
+    background-color:rgba(124, 176, 155, 0.20);
+    border-radius:4px;
+}
+
 #main-panel {
     margin:auto;
     width: 970px;

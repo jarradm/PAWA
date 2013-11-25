@@ -1,0 +1,21 @@
+1. Install EntityFramework Package
+  -> Open Package Manager Console (Tools->Library Package Manager->Package Manager Console)
+  -> In Package Manager Console type 'install-package EntityFramework -version 5.0.0'
+  -> In Package Manager Console type 'install-package Newtonsoft.JSon'
+  -> In Package Manager Console type 'install-package jQuery.ui.combined'
+  
+2. Build database
+  -> In Package Manager Console type 'update-database'
+
+
+======== LATEST BUILD AS OF 29/10/2013 ~8pm NEWS ===========
+
+The seed data for the database has been updated, the latest 
+version of the Album view will not work without this data. 
+Whenever you next pull from the remote master, make sure to 
+update the data in the database with the 'update-database' 
+command again. This will re-seed your existing database. 
+Any changes to the data in the database you made within your 
+project will be lost.
+
+============================================================
