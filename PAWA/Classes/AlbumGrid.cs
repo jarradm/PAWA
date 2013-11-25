@@ -33,12 +33,11 @@ namespace PAWA.Classes
                 returnValue = from f in dbContext.Folders
                               where f.UserID == UserID && (f.InFolderID == folderID || (f.InFolderID == null && folderID == null))
                               select f;
-                Console.WriteLine(returnValue.ElementAt(0).FolderName);
             }
             catch (Exception e)
             {
                 returnValue = (new HashSet<Folder> { });
-                Console.WriteLine(e.InnerException);
+                System.Diagnostics.Debug.WriteLine(e.InnerException);
             }
 
             return returnValue;
@@ -63,10 +62,9 @@ namespace PAWA.Classes
             catch (Exception e)
             {
                 returnValue = new HashSet<File> {  };
-                Console.WriteLine(e.InnerException);
+                System.Diagnostics.Debug.WriteLine(e.InnerException);
             }
 
-            //Console.WriteLine(returnValue.ElementAt(0).Filename);
             return returnValue;
 
         }

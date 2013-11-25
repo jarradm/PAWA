@@ -246,6 +246,7 @@
     <Content Include="Images\PAWACP Logo.jpg" />
     <Content Include="Images\PAWACP Logo2.jpg" />
     <Content Include="Images\Rabbit Profile.jpg" />
+    <Content Include="packages.config" />
     <None Include="Scripts\jquery-1.6.4-vsdoc.js" />
     <Content Include="Scripts\GridOptionHandle.js" />
     <Content Include="Scripts\jquery-1.6.4.js" />
@@ -268,9 +269,6 @@
     <Content Include="Views\Home\MoveImageTo.cshtml" />
   </ItemGroup>
   <ItemGroup />
-  <ItemGroup>
-    <Content Include="packages.config" />
-  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201310102227375_InitialCreate.resx">
       <DependentUpon>201310102227375_InitialCreate.cs</DependentUpon>
