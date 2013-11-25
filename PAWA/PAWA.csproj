@@ -325,6 +325,7 @@
     <Content Include="Views\Admin\DailyUsageReport.cshtml" />
     <Content Include="Views\Admin\ApplicationUsageReport.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\UserDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
