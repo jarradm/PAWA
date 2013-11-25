@@ -26,7 +26,7 @@ namespace PAWA.Controllers
 
         public ActionResult EditFolder(int folderid)
         {
-            EditFolder ef = new EditFolder();
+            //EditFolder ef = new EditFolder();
             PAWA.Models.Folder folder = dbContext.Folders.Find(folderid);
             if (folder == null)
             {
@@ -41,7 +41,7 @@ namespace PAWA.Controllers
         [HttpPost]
         public ActionResult EditFolder(FormCollection formal)
         {
-            EditFolder ef = new EditFolder();
+            //EditFolder ef = new EditFolder();
             Tools tool = new Tools();
             int index = Convert.ToInt32(formal["FolderID"]);
             var folders = from f in dbContext.Folders where f.FolderID == index select f;
