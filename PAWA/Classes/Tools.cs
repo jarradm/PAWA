@@ -85,21 +85,6 @@ namespace PAWA.Classes
             }
             return null;
         }
-        /// <summary>
-           ///  Take in original file name & new file name
-           /// 
-           ///  set tempName = newname + oldnames extension
-           ///  eg. tempname = thenewname + .jpg
-           ///      result   = thenewname.jpg
-        /// </summary>
-        public string Rename(string original, string newName)
-        {
-            string tempName;
-            tempName = newName + original.Substring(original.Length - 4);
-
-            return tempName;
-        }
-
         ///<summary>
          /// Seperate the string via ','
          /// 
@@ -300,15 +285,22 @@ namespace PAWA.Classes
          ///  Uses all passed parimeters to create a new db 
          ///  image object, then pushes it into the db and saves  
         ///</summary>
-        public void insertImageToDB(int Height,int Width, int FileSize, string FileName, string Tags, string Description, int? FolderID )
+        public void insertImageToDB(int Height,int Width, int FileSize, string FileName, string Tags, string Description, int? FolderID)
         {
             PAWAContext db = new PAWAContext();
             Tools.UserID = WebSecurity.CurrentUserId;
 
-            if(FolderID == -1)
+            if (FolderID == -1)
             {
                 FolderID = null;
             }
+
+            // get filename extension
+            var ext = ("." + FileName.Split('.')[1]);
+
+            var tid = from t in db.Types
+                      where t.Extension == ext
+                      select t;
           
             var ImageFile = new PAWA.Models.File
             {
@@ -321,7 +313,7 @@ namespace PAWA.Classes
                 Description = Description,
 
                 //Required
-                TypeID = 7,
+                TypeID = tid.SingleOrDefault().TypeID,
                 UserID = Tools.UserID,
                 FolderID = FolderID
             };

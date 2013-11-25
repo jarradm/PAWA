@@ -71,7 +71,7 @@ namespace PAWA.Controllers
             return View(list);
         }
         [HttpPost]
-        public ActionResult UploadImage(HttpPostedFileBase file, string FolderID, string newName, string description, string tags)
+        public ActionResult UploadImage(HttpPostedFileBase file, string FolderID, string description, string tags)
         {
             Tools funcs = new Tools();         //funcs contains resize/rename method
             Size newSize = new Size(181, 100); //global size for all thumbnails
@@ -89,9 +89,6 @@ namespace PAWA.Controllers
                 //Declare filename and path
                 var fileName = System.IO.Path.GetFileName(file.FileName);
                 var path = "";
-
-                //rename file?
-                if (newName != "") { fileName = funcs.Rename(fileName, newName); }
 
                 //split tags
                 TagArr = funcs.seperateTags(tags);

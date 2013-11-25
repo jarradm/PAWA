@@ -59,11 +59,14 @@ namespace PAWA.Migrations
             var types = new List<PAWA.Models.Type>
             {
                 new PAWA.Models.Type { FileType = FileType.Image, Extension = ".png", 
-                    FirstDateTime = DateTime.Parse("2013/08/27 14:21:16"), Status = Status.Active },
+                    FirstDateTime = DateTime.Now, Status = Status.Active },
 
                 new PAWA.Models.Type { FileType = FileType.Image, Extension = ".jpg", 
-                    FirstDateTime = DateTime.Parse("2013/08/27 14:21:16"), Status = Status.Active },
+                    FirstDateTime = DateTime.Now, Status = Status.Active },
 
+                new PAWA.Models.Type { FileType = FileType.Image, Extension = ".bmp", 
+                    FirstDateTime = DateTime.Now, Status = Status.Active },
+                
                 new PAWA.Models.Type { FileType = FileType.Video, Extension = ".mp4", 
                     FirstDateTime = null, Status = Status.Inactive }
             };
