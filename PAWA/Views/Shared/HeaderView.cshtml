@@ -1,54 +1,51 @@
 ﻿@{
     ViewBag.Title = "HeaderView";
+    
 }
 
 <link href="@Url.Content("~/App_Themes/SiteLayout_Header.css")" rel="stylesheet" type="text/css" />
 
 
 <div id="header-area">
+    <div id="header-stripe">
     <div id="header-content-area">
-        <div id="header-logo-area">
-            <div id="header-logo-username-area">
-                @{string name;
-                      name = "Peter Rabbit";
-                }
-                <a id="header-logo-username-user" href="#">@name</a>.
-            </div>
-            <img id="header-logo-image" src="~/Images/PAWACP Logo2.jpg" />
-        </div>
+        <img id="header-logo-image" src="~/Images/logopng.png" />
 
-        <div id="header-menulist-area">
-            <ul id="header-menulist-list">
-                <li id="header-menulist-list-home">
-                    <a href="~/" class="header-menulist-list-nav-links">Home</a> <br />
-                    <span class="header-menulist-list-nav-message">
-                        Edit details or <br />                            
-                        view recent activity.
-                    </span>
-                </li>
-                <li id="header-menulist-list-gallery">
-                    <a href="~/Home/Album" class="header-menulist-list-nav-links">Gallery</a> <br />
-                    <span class="header-menulist-list-nav-message">
-                        View your photo <br />
-                        albums.
-                    </span>
-                </li>
-                <li id="header-menulist-list-upload">
-                    <a href="~/Image/UploadImage" class="header-menulist-list-nav-links">Upload<br />
-                    <span class="header-menulist-list-nav-message">
-                        Upload photos to <br />
-                        your gallery.
-                    </span>
-                    </a>
-                </li>
-                <li id="header-menulist-list-options">
-                    <a href="#" class="header-menulist-list-nav-links">Options</a> <br />
-                    <span class="header-menulist-list-nav-message">
-                        Select your own <br />
-                        display preferences.
-                    </span>
-                </li>
-            </ul>
+        <div id="header-navbar-area">
+            <a href="~/" class="header-navbar-links" id="header-navbar-home-link">
+                <span id="header-navbar-home" class="navbar">
+                ○  Home
+                </span>
+            </a>
+            
+            <a href="~/Image/UploadImage" class="header-navbar-links" id="header-navbar-upload-link">
+                <span id="header-navbar-upload" class="navbar">
+                  ○  Upload Image
+                </span>
+            </a>
+            <a href="~/" class="header-navbar-links" id="header-navbar-user-link">
+                <span id="header-navbar-user" class="navbar">
+                 ○  My Details
+                </span>
+            </a>
+
+            <a href="#" class="header-navbar-links" id="header-navbar-options-link">
+                <span id="header-navbar-options" class="navbar">
+                 ○  Settings
+                </span>
+            </a>
         </div>
     </div>
+        </div>
+
+    <script>
+        // Position navbar elements from right to left
+        $(window).ready(function () {
+            $("#header-navbar-area").position({ my: "right bottom", at: "right bottom-70", of: "#header-content-area", collision: "none" });
+            $("#header-navbar-options-link").position({ my: "right bottom", at: "right bottom", of: "#header-navbar-area", collision: "none" });
+            $("#header-navbar-user-link").position({ my: "right bottom", at: "left bottom", of: "#header-navbar-options-link", collision: "none" });
+            $("#header-navbar-upload-link").position({ my: "right bottom", at: "left bottom", of: "#header-navbar-user-link", collision: "none" });
+            $("#header-navbar-home-link").position({ my: "right bottom", at: "left bottom", of: "#header-navbar-upload-link", collision: "none" });
+        });
+    </script>
 </div>

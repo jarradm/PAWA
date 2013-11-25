@@ -3,6 +3,7 @@
   -> In Package Manager Console type 'install-package EntityFramework -version 5.0.0'
   -> In Package Manager Console type 'install-package Newtonsoft.JSon'
   -> In Package Manager Console type 'install-package jQuery.ui.combined'
+  -> In Package Manager Console type 'install-package Microsoft.AspNet.Web.Optimization'
   
 2. Build database
   -> In Package Manager Console type 'update-database'
@@ -19,4 +20,3 @@ Any changes to the data in the database you made within your
 project will be lost.
 
 ============================================================
-# test

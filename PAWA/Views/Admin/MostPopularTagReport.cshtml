@@ -1,0 +1,29 @@
+﻿@model PAWA.Classes.AdminReports
+
+@{
+    ViewBag.Title = "MostPopularTagReport";
+}
+
+<link rel="stylesheet" href="~/App_Themes/AdminReports.css" type="text/css" />
+
+<div id="body-area">
+    <input type="button" name="back" value="Back To Reports Index" id="back-button" />
+    <div id="body-content-area">
+        <div id="body-content-area-header">
+            Most Popular Tag
+        </div>
+        @Html.Raw(Model.CreateTableForMostUsedTagPerDay("body-content-table-col5", "body-content-table-header"))
+    </div>
+    <div id="body-datetime-area">
+        @Html.Raw(Model.GetCurrentDateTime())
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#back-button").position({ my: "left bottom", at: "left top", of: "#body-content-area", collision: "none" });
+        $("#back-button").click(function () {
+            window.location.href = "./Index";
+        });
+    });
+</script>

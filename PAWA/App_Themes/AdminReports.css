@@ -1,0 +1,87 @@
+﻿#body-content-area {
+    width: 940px;
+    margin: auto;
+    border: 1px solid black;
+}
+
+#body-content-report-area {
+    width: 400px;
+    margin: auto;
+    padding: 20px;
+}
+
+.body-content-report-area-header {
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+#body-content-area-header {
+    text-align: center;
+    border-bottom: 1px solid black;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.body-content-report-left-column {
+    display: inline-block;
+    width: 200px;
+}
+
+.body-content-report-right-column {
+    display: inline-block;
+    width: 200px;
+    text-align: right;
+}
+
+#body-content-table-col4 {
+    width: 600px;
+    margin: auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#body-content-table-col5 {
+    width: 750px;
+    margin: auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.body-content-table-header {
+    font-size: 20px;
+    font-weight: bold;
+    width: 150px;
+}
+
+#row-background-color {
+    background-color: rgb(229, 234, 255);
+}
+
+#body-datetime-area {
+    width: 940px;
+    margin: auto;
+    text-align: right;
+    font-weight: 300;
+    font-size: 12px;
+}
+
+.body-content-area-links-header {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: left;
+}
+
+#body-content-area-links {
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.body-content-area-links-area a {
+    color: #0077cc;
+}
+
+.body-content-area-links-area a:visited {
+    color: #0077cc;
+}
