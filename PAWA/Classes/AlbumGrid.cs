@@ -57,22 +57,23 @@ namespace PAWA.Classes
             return files;
         }
 
-        public List<string> CreateTable(int? folderID=null)
+        public List<string> CreateTable(int? folderID = null)
         {
             IEnumerable<Folder> folders = GetFolders(folderID);
             IEnumerable<File> files = GetFiles(folderID);
             string htmlOutput = "";
             List<string> htmlTables = new List<string>();
-            int i=0, foldersIndex = 0, filesIndex = 0, count=0;
+            int i = 0, foldersIndex = 0, filesIndex = 0, count = 0;
             bool exitFiles = false, exitFolders = false;
-
-            while (!exitFiles)
+            int exitCount = folders.Count() + files.Count();
+            exitCount = exitCount / TilesPerPage;
+            do
             {
                 htmlOutput = "<table class=\"body-content-table\" id=\"table-" + htmlTables.Count() + "\">" +
                     "<tr><td colspan=\"" + TilesPerRow + "\"><div id=\"table-header-page-count\">Page " + (htmlTables.Count() + 1) + "</div>\n";
 
-                while(count < (TilesPerPage/TilesPerRow) && !exitFiles)
-                {                    
+                for(var j=0; j<(TilesPerPage/TilesPerRow); j++)
+                {
                     htmlOutput += "<tr>\n";
 
                     for (i = 0; i < TilesPerRow; i++)
@@ -110,13 +111,9 @@ namespace PAWA.Classes
 
                             // fill the rest of the final row to maintain proper <td> width if there is only
                             // one row of data. Doesn't fill if at start of row, don't want full row of fakes.
-                            if (exitFiles && i > 0)
+                            if (exitFiles)
                             {
                                 htmlOutput += "<td>\n<span class=\"body-content-table-fakeimage\"/></span>\n"; ;
-                            }
-                            else if (exitFiles && i == 0)
-                            {
-                                break;
                             }
                             else
                             {
@@ -134,17 +131,13 @@ namespace PAWA.Classes
                         }
                     }
 
-                    count++;
+                    
                     htmlOutput += "</tr>\n";
                 }
-
+                count++;
                 htmlOutput += "</table>\n";
-                if (!(exitFiles && count == 0))
-                {
-                    htmlTables.Add(htmlOutput);
-                }
-                count = 0;
-            }
+                htmlTables.Add(htmlOutput);
+            } while (count < exitCount);
 
             return htmlTables;
         }
