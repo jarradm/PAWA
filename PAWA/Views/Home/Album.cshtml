@@ -205,8 +205,8 @@
 
         $("#page-top").position({ my: "center top", at: "center top", of: "body", collision: "none" });
         $("#body-content-button-create").position({ my: "right bottom", at: "right-2 top-2", of: ".body-content-table", collision: "none" });
-        $("#body-content-button-next").position({ my: "center top", at: "center bottom+2", of: ".body-content-table", collision: "none" });
-        $("#body-content-button-top").position({ my: "right top", at: "right-2 bottom+2", of: ".body-content-table", collision: "none" });
+        $("#body-content-button-next").position({ my: "center top", at: "center bottom+2", of: "#table-" + (count - 1), collision: "none" });
+        $("#body-content-button-top").position({ my: "right top", at: "right-2 bottom+2", of: "#table-" + (count - 1), collision: "none" });
         $(".body-content-table-checkbox").each(function () {
             $(this).position({ my: "right bottom", at: "right-5 bottom-5", of: $(this).parent().children("img"), collision: "none" });
         });
@@ -227,7 +227,7 @@
 
     $("#body-content-button-next").click(function() {
         var element = "#table-" + count;
-        $(element).removeAttr('disabled');
+        $(element).show();
         count++;
         Position();
     });
