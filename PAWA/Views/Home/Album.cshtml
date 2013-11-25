@@ -17,8 +17,11 @@
             <div id="main-panel">
                 <div id="panel-header" style="font-family: Constantia"><b>My Photos</b></div>
                 <div id="inner-panel">
+                    
         @using (Html.BeginForm("Album", "Home", FormMethod.Post))
         {
+            @Html.Hidden("FolderID", Model.FolderID.ToString())
+            @Html.Hidden("InFolderID", Model.InFolderID.ToString())
             <br />
             <select name="DropDownList" id="DropDownList">
                 <option value="Edit">Edit Selected</option>
@@ -27,6 +30,7 @@
             </select>
           
             <input type="submit" name="Submit" value="Go" />
+            <input type="button" name="Back" value="Go Up A Folder" id="body-content-button-back" />
             <input type="button" name="Create" value="Create Folder" id="body-content-button-create" />
             
             foreach (var table in Model.AlbumGridTable)
@@ -207,6 +211,7 @@
         // Check this first, because hiding the next page button will mess with the positioning of go to top button,
         // so reposition after hide.
         CheckMorePages();
+        CheckInFolder();
 
         $("#page-top").position({ my: "center top", at: "center top", of: "body", collision: "none" });
         $("#body-content-button-create").position({ my: "right bottom", at: "right-2 top-2", of: ".body-content-table", collision: "none" });
@@ -227,6 +232,27 @@
         if ($(element).length == 0)
         {
             $("#body-content-button-next").attr('disabled', 'disabled');
+        }
+    }
+
+    function CheckInFolder()
+    {
+        if ($("#FolderID").val() != "")
+        {
+            $("#body-content-button-back").show();
+            // table-0 is guarenteed to be there, even if empty
+            
+
+            $("#body-content-button-back").click(function () {
+                if ($("#InFolderID").val() == "")
+                {
+                    window.location = "./Album";
+                }
+                else
+                {
+                    window.location = "./Album?folderID=" + $("#InFolderID").val();
+                }
+            });
         }
     }
 
