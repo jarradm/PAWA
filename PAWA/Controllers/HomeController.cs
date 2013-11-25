@@ -15,7 +15,7 @@ namespace PAWA.Controllers
     [Authorize(Roles="User")]
     public class HomeController : Controller
     {
-        private IPAWAContext dbContext;
+        private PAWAContext dbContext;
 
         public HomeController()
         {
