@@ -1,6 +1,18 @@
 ﻿
 if (pop != window.alert) { var pop = window.alert }// Disableable test alert
 
+/**
+  * <summary> 
+  *   On the document load, the submit event for the album grid form is edited to handle the function for each required action.
+  * </summary>
+  *
+  * <input>
+  *   None
+  * </input>
+  *
+  * TODO :
+  *
+  */
 $(document).ready(function () {
     $("#resultPopup").dialog({ autoOpen: false });
     $("form").first().submit(function (event) {
@@ -24,7 +36,9 @@ $(document).ready(function () {
             if (hasChecked()) {
                 event.preventDefault();
                 pop("before");
+                // .POST 
                 var albumPost = $.post("../../Home/GetAlbumList", { userID: "1" }, function (data) {
+                    // .POST Success function
                     pop("The chidren are safe");
                     $("#resultPopup").empty().append(data);
                     $("#resultPopup").dialog("open");
@@ -70,6 +84,11 @@ var getCheckedIDArray = function (o) {
         var checkedInputID = "" + inputs[i].id;
         pop("id : " + checkedInputID + "\nchecked : " + inputs[i].checked + "\nNot Folder : " + (checkedInputID.search('_folder') == -1));
         if (inputs[i].checked) {
+            // This should be a switch case statement
+            // Here it jumps through each possible state for
+            //  the options object and checks to see if the
+            //  required condition is true. If true, the
+            //  appropriate value is added to the returnArray.
             if (o && (checkedInputID.search('_folder') != -1)) {
                 pop("submit btn working");
                 returnValue.push([checkedInputID.substring(checkedInputID.search("_folder") + 7, checkedInputID.toString().length)]);
@@ -81,6 +100,16 @@ var getCheckedIDArray = function (o) {
     return returnValue;
 }
 
+/**
+  * <summary> 
+  * </summary>
+  *
+  * <input>
+  * </input>
+  *
+  * TODO :
+  *
+  */
 var moveSubmitButton = function () {
 
     var checkedImageIDs = getCheckedIDArray(false);
@@ -88,26 +117,48 @@ var moveSubmitButton = function () {
     // Loop through each checkbox, find the checkboxs ID value,
     // determine whether it is an image or folder, add the ID 
     // to the return list.
-    /*var inputs = $("input[type='checkbox']");
-    for (var i = 0; i < inputs.length; i++) {
-        var checkedInputID = inputs[i].id;
-        pop("id : " + checkedInputID + "\nchecked : " + inputs[i].checked + "\nNot Folder : " + (checkedInputID.search('_folder') == -1));
-        if (inputs[i].checked && (checkedInputID.search('_folder') == -1)) {
-            pop("submit btn working");
-            checkedImageIDs.push([checkedInputID]);
-        }
-    }*/
     pop("Folder : " + $("#folderList").val() + "\nLength : " + checkedImageIDs.length + "\nValues : " + checkedImageIDs.toString() );
-    var currentFolder = "" + window.location;
-    pop("serch : " + currentFolder.search("folderID"))
-    if (currentFolder.search("folderID=") > 0) {
-        currentFolder = currentFolder.substring(currentFolder.search("folderID=") + 9, currentFolder.toString().length);
-        pop("Working Result : " + currentFolder);
-    } else { currentFolder = "-1" };
-    $.post("../../Home/MoveImageTo", { destinationFolder: $("#folderList").val(), selected: checkedImageIDs.toString(), sourceFolder: currentFolder }, function (data) { pop("works" + data); });
+    var currentFolder = "" + getCurrentFolderID();
+    // .POST
+    $.post("../../Home/MoveImageTo",
+        /*POSTED Values*/{ destinationFolder: $("#folderList").val(), selected: checkedImageIDs.toString(), sourceFolder: currentFolder }, function (data) {
+            // .POST Success function
+            pop("works" + data);
+            window.open(""+window.location,window.
+        });
 };
 
+/**
+  * <summary> 
+  * </summary>
+  *
+  * <input>
+  * </input>
+  *
+  * TODO :
+  *
+  */
+var getCurrentFolderID = function () {
+    var returnValue = "" + window.location;
+    // IF the current folder is not = to Root
+    if (returnValue.search("folderID=") != -1) {
+        returnValue = returnValue.substring(returnValue.search("folderID=") + 9, returnValue.toString().length);
+        pop("Working Result : " + returnValue);
+    } else { returnValue = "-1" };
+    return returnValue;
+}
 
+
+/**
+  * <summary> 
+  * </summary>
+  *
+  * <input>
+  * </input>
+  *
+  * TODO :
+  *
+  */
 function hasChecked() {
     pop("hasChecked");
     //Get List of all checked elements
