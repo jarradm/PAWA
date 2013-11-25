@@ -14,9 +14,6 @@
                     @model IEnumerable<PAWA.Models.Folder>
                     @Html.DropDownListFor(m => m.First().FolderID, new SelectList(Model.AsEnumerable(), "FolderID", "FolderName"))
                     <br /> 
-                    <label>Image Name:&nbsp </label> 
-                    <input type="text" style="width: 250px" maxlength="15" name="newName" />
-                    <br />
                     <label>Description: </label>
                     <br />
                     @Html.TextArea("description", null, new { cols = "50", rows = "5", style = "resize:none" })
@@ -28,7 +25,7 @@
                     <div id="buttons">
                         <input type="submit" value="Upload" />
                         <a href="javascript:history.go(-1);">
-                            <input type="button" value="Cancel" />
+                            <input type="button" value="Back" />
                         </a>
 
                     </div>
