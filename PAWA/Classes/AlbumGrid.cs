@@ -66,7 +66,7 @@ namespace PAWA.Classes
                 Console.WriteLine(e.InnerException);
             }
 
-            Console.WriteLine(returnValue.ElementAt(0).Filename);
+            //Console.WriteLine(returnValue.ElementAt(0).Filename);
             return returnValue;
 
         }
