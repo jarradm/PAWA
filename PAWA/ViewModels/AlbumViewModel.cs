@@ -11,10 +11,7 @@ namespace PAWA.ViewModels
     public class AlbumViewModel
     {
         public List<string> AlbumGridTable { get; set; }
-
-        public AlbumViewModel(List<string> table)
-        {
-            AlbumGridTable = table;
-        }
+        public int? InFolderID { get; set; }
+        public int? FolderID { get; set; }
     }
 }
