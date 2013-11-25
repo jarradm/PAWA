@@ -183,9 +183,14 @@
                     return;
                 }
                 else {
-                    var inputs = document.getElementsByTagName("input"); //or document.forms[0].elements;
+                    var inputs = document.getElementsByTagName("input");
+                    var re = "_folder";
+                    window.open("/Folder/EditFolder?FolderID=" + inputs[count].id.replace(re, ""));
+
+
+                    /*var inputs = document.getElementsByTagName("input"); //or document.forms[0].elements;
                     window.open("/Image/UpdateImage?filename=" + inputs[count].name);
-                    return;
+                    return;*/
                 }
 
             }
