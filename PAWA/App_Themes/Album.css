@@ -94,3 +94,7 @@
     border-bottom-right-radius: 10px;
     
 }
+
+#body-content-button-back {
+    display: none;
+}

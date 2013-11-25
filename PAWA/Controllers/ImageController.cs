@@ -40,7 +40,8 @@ namespace PAWA.Controllers
                         select f;
 
             ViewBag.Tags = PAWA.Classes.DisplayImage.GetTags(dbContext, files.First().Tags);
-            int value = files.First().FileID;
+            int value = files.SingleOrDefault().FileID;
+            ViewBag.FolderId = files.SingleOrDefault().FolderID;
 
             return View(files.First());
         }

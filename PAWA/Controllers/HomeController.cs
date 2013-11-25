@@ -35,11 +35,17 @@ namespace PAWA.Controllers
 
         public ActionResult Album(int? folderID = null)
         {
-            FoldersController f = new FoldersController();
-            f.getParentID(folderID);
+            var InFolderId = (from f in dbContext.Folders
+                             where f.FolderID == folderID
+                             select f.InFolderID).SingleOrDefault();
 
             AlbumGrid ag = new AlbumGrid(dbContext);
-            AlbumViewModel avm = new AlbumViewModel(ag.CreateTable(folderID));
+            AlbumViewModel avm = new AlbumViewModel
+            {
+                AlbumGridTable = (ag.CreateTable(folderID)),
+                FolderID = folderID,
+                InFolderID = InFolderId
+            };
 
             return View(avm);
         }
@@ -65,7 +71,7 @@ namespace PAWA.Controllers
         
         
         [HttpPost]
-        public ActionResult Album(string DropDownList, string Submit)
+        public ActionResult Album(string DropDownList, string Submit, AlbumViewModel avm)
         {
             //If the go button was pushed and the dropdown was delete
             if (Submit != null && DropDownList.Equals("Delete"))
@@ -79,7 +85,15 @@ namespace PAWA.Controllers
 
             // Recreate the grid tables
             AlbumGrid ag = new AlbumGrid(dbContext);
-            AlbumViewModel avm = new AlbumViewModel(ag.CreateTable());
+            avm.AlbumGridTable = ag.CreateTable(avm.FolderID);
+
+                /*
+            AlbumViewModel avm = new AlbumViewModel
+            {
+                AlbumGridTable = (ag.CreateTable(folderID)),
+                InFolderID = f.getParentID(folderID).ToString()
+            };
+                 * */
 
             //Re-load the view
             return View(avm);
