@@ -33,7 +33,7 @@ namespace PAWA.Classes
                     }
                     else
                     {
-                        tagOutput += ", " + tagName.SingleOrDefault().ToString();
+                        tagOutput += "," + tagName.SingleOrDefault().ToString();
                     }
                 }
             }

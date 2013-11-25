@@ -20,6 +20,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -39,10 +40,26 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AjaxControlToolkit">
+      <HintPath>..\packages\AjaxControlToolkit.7.1005\lib\45\AjaxControlToolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="AjaxMin">
+      <HintPath>..\packages\AjaxMin.4.97.4951.28483\lib\net40\AjaxMin.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>..\packages\HtmlAgilityPack.1.4.6\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -56,6 +73,9 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.2\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -65,10 +85,6 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
-    </Reference>
     <Reference Include="System.Net.Http">
     </Reference>
     <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -106,9 +122,23 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="WebGrease">
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="WebMatrix.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.Data.2.0.20710.0\lib\net40\WebMatrix.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="WebMatrix.WebData, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.WebData.2.0.30506.0\lib\net40\WebMatrix.WebData.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="Classes\AdminReports.cs" />
     <Compile Include="Classes\AlbumGrid.cs" />
+    <Compile Include="Classes\DeleteFolder.cs" />
     <Compile Include="Classes\DeleteImage.cs" />
     <Compile Include="Classes\DisplayImage.cs" />
     <Compile Include="Classes\EditImage.cs" />
@@ -116,6 +146,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\FolderController.cs" />
+    <Compile Include="Controllers\FoldersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="DAL\IPAWAContext.cs" />
@@ -142,9 +173,12 @@
       <DependentUpon>201310141524045_TableNullableUpdate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="ViewModels\AlbumViewModel.cs" />
     <Compile Include="Models\DailyStatistics.cs" />
     <Compile Include="Models\File.cs" />
     <Compile Include="Models\Folder.cs" />
+    <Compile Include="Models\FolderRepository.cs" />
+    <Compile Include="Models\IFolderRepository.cs" />
     <Compile Include="Models\Tags.cs" />
     <Compile Include="Models\Type.cs" />
     <Compile Include="Models\User.cs" />
@@ -158,8 +192,10 @@
     <Content Include="App_Data\PAWADB_log.ldf">
       <DependentUpon>PAWADB.mdf</DependentUpon>
     </Content>
+    <Content Include="App_Themes\AdminReports.css" />
     <Content Include="App_Themes\Album.css" />
     <Content Include="App_Themes\DisplayImage.css" />
+    <Content Include="App_Themes\Index.css" />
     <Content Include="App_Themes\Login.css" />
     <Content Include="App_Themes\SiteLayout_Footer.css" />
     <Content Include="App_Themes\SiteLayout_Header.css" />
@@ -230,6 +266,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
     <Content Include="Global.asax" />
+    <Content Include="Images\bg.bmp" />
     <Content Include="Images\BlueGreenGradient1.jpg" />
     <Content Include="Images\BlueGreenGradient2.jpg" />
     <Content Include="Images\BlueGreenGradient3.jpg" />
@@ -241,11 +278,29 @@
     <Content Include="Images\PAWACP Logo.jpg" />
     <Content Include="Images\PAWACP Logo2.jpg" />
     <Content Include="Images\Rabbit Profile.jpg" />
+    <Content Include="Scripts\CreateFolder.js" />
+    <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <None Include="Scripts\jquery-1.6.4-vsdoc.js" />
+    <Content Include="Images\stripecut.png" />
     <Content Include="Scripts\jquery-1.6.4.js" />
     <Content Include="Scripts\jquery-1.6.4.min.js" />
+    <Content Include="Scripts\jquery-1.8.2.js" />
+    <Content Include="Scripts\jquery-1.8.2.min.js" />
     <Content Include="Scripts\jquery-ui-1.10.3.js" />
     <Content Include="Scripts\jquery-ui-1.10.3.min.js" />
+    <Content Include="Scripts\jquery-ui-1.8.24.js" />
+    <Content Include="Scripts\jquery-ui-1.8.24.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\knockout-2.2.0.debug.js" />
+    <Content Include="Scripts\knockout-2.2.0.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -258,16 +313,21 @@
     <Content Include="Views\Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Views\Account\NewLogin.cshtml" />
-    <Content Include="Views\Admin\ViewUser.cshtml">
-      <BrowseToURL>~/Admin/ViewUser</BrowseToURL>
-    </Content>
+    <Content Include="_AppStart.cshtml" />
+    <Content Include="Views\Home\CreateFolder.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\MostUsedTagReport.cshtml" />
+    <Content Include="Views\Admin\MostPopularTagReport.cshtml" />
     <Content Include="Views\Admin\ViewUserDetails.cshtml" />
     <Content Include="Views\Admin\EditTag.cshtml" />
     <Content Include="Views\Image\UpdateImage.cshtml" />
     <Content Include="Views\Folder\EditFolder.cshtml" />
+    <Content Include="Views\Admin\ImageUsageReport.cshtml" />
+    <Content Include="Views\Admin\VideoUsageReport.cshtml" />
+    <Content Include="Views\Admin\DailyUsageReport.cshtml" />
+    <Content Include="Views\Admin\ApplicationUsageReport.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
@@ -288,7 +348,6 @@
   <ItemGroup>
     <Content Include="Views\Account\AccountManagement.cshtml" />
     <Content Include="Views\Account\CreateUser.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Admin\ImageManagement.cshtml" />
     <Content Include="Views\Admin\TagManagement.cshtml" />
     <Content Include="Views\Admin\UserManagement.cshtml" />
@@ -320,7 +379,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>61835</DevelopmentServerPort>
+          <DevelopmentServerPort>50563</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:62246/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

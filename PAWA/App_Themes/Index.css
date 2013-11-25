@@ -1,48 +1,10 @@
-﻿#footer {
-    left: 0px;
-    width: 100%;
-}
-
-#logout {
-    width: 940px;
-    text-align: right;
-    margin: auto;
-}
-
-
-
-body {
-    
-    background-image: url("../Images/cutdown-nostripe.png");
-    background-size: 2px 100%;
-    background-repeat: repeat-x;
-    background-attachment: fixed;
-        
-}
-
-#header {
-    //position: fixed;
-    width: 100%;
-    padding: 0px;
-    margin: 0px;
-    left: 0px;
-    z-index: 10;
-}
-
-a {
-    color: #0077cc;
-}
-
-a:visited {
-    color: #0077cc;
-}
-
-#main-panel {
+﻿#main-panel {
     margin:auto;
+    width: 300px;
+    height: 133px;
     border-top-right-radius:15px;
     border-bottom-right-radius:15px;
     border-bottom-left-radius:15px;
-
 }
 #panel-header {
     background-color: lightblue;
@@ -60,6 +22,7 @@ a:visited {
 }
 #inner-panel {
     background-color: whitesmoke;
+    padding-right:15px;
     padding-top: 5px;
     padding-left: 15px;
     border-right: solid;
@@ -72,4 +35,3 @@ a:visited {
     border-bottom-right-radius: 10px;
     
 }
-
