@@ -1,0 +1,46 @@
+﻿@model PAWA.Models.Tags
+
+@{
+    ViewBag.Title = "Edit";
+}
+<link rel="stylesheet" href="~/App_Themes/Index.css" type="text/css" />
+
+@using (Html.BeginForm()) {
+    <div id="outer-panel">
+            <div id="main-panel">
+                <div id="panel-header" style="font-family: Constantia"><b>Edit Tag</b></div>
+                <div id="inner-panel">
+
+        @Html.HiddenFor(model => model.TagsID )
+
+        <div class="editor-label">
+            Tag Name:
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TagName)
+            @Html.ValidationMessageFor(model => model.TagName)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Status):
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.Status, new SelectList(Enum.GetValues(typeof(PAWA.Models.Status))),new{style = "width: 75px"})
+            @Html.ValidationMessageFor(model => model.Status)
+        </div>
+          <div class="editor-label">
+            @Html.LabelFor(model => model.UserSuggest):
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.Status, new SelectList(Enum.GetValues(typeof(PAWA.Models.UserSuggest))),new{style = "width: 75px"})
+            @Html.ValidationMessageFor(model => model.UserSuggest)
+        </div>
+        <p>
+            <input type="submit" value="Save" style="width:60px" />
+     
+                        <a href="javascript:history.go(-1);">
+                            <input type="button" value="Cancel" />
+                        </a>
+               </p>
+                    </div></div></div>
+}
+

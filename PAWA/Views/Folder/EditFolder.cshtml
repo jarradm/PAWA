@@ -1,0 +1,38 @@
+﻿@model PAWA.Models.Folder
+
+@{
+    ViewBag.Title = "EditFolder";
+}
+
+<h2>Edit Folder</h2>
+
+@using (Html.BeginForm("EditFolder", "Folder", FormMethod.Post))
+{
+    <fieldset>
+        <legend>Folder</legend>
+        
+        <div class="editor-label">
+            @Html.LabelFor(model=> model.FolderID, "Folder")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("FolderID")
+            @Html.ValidationMessageFor(model => model.FolderID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.FolderName)
+        </div>
+        <div class ="editor-field">
+            @Html.EditorFor(model => model.FolderName)
+			@Html.ValidationMessageFor(model => model.FolderName)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+    <div>
+    @Html.ActionLink("Cancel", "Album", "Home", new { area = "" }, null)
+    </div>

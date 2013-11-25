@@ -1,60 +1,78 @@
-﻿
-@using (Html.BeginForm("TagManagement", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    <div id="background">
-    <h1>Add Tag API</h1>
-  
-    <label>Add Tag:</label>
-    <br />
-    <input type="text" style="width:250px" name="newTag" /><input type="submit" value="Add" style="width:75px" /> 
-    <br />
-    <h3>@Html.Encode(ViewData["tagAdded"])</h3>
-    </div>
-    
-}
-@model IEnumerable<PAWA.Models.Tags>
-<table>
-    <tr>
-        <th>
-            @Html.Encode(Html.DisplayNameFor(model => model.TagName))
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstDateTime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-         <th>
-            @Html.DisplayNameFor(model => model.UseCount)
-        </th>
-         <th>
-            @Html.DisplayNameFor(model => model.UserSuggest)
-        </th>
-        <th></th>
-    </tr>
+﻿<link rel="stylesheet" href="~/App_Themes/ViewUser.css" type="text/css" />
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.Encode(@Html.DisplayFor(modelItem => item.TagName))
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FirstDateTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Status)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UseCount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserSuggest)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.TagsID }) |
-            @Html.ActionLink("Freeze", "Freeze", new { id=item.TagsID })
-        </td>
-    </tr>
-}
-    </table>
+<div id="outer-panel">
+    <div id="main-panel">
+        <div id="panel-header" style="font-family: Constantia"><b>Add Tags:</b></div>
+        <div id="inner-panel">
+            @using (Html.BeginForm("TagManagement", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <div id="background">
+                    <center>   
+
+    <input type="text" style="width:250px" name="newTag" /><input type="submit" value="Add" style="width:75px" /> 
+     </center>
+
+                    <h3>@Html.Encode(ViewData["tagAdded"])</h3>
+
+                </div>
+    
+            }
+        </div>
+    </div>
+</div>
+
+<div id="outer-panel">
+    <div id="main-panel">
+        <div id="panel-header" style="font-family: Constantia"><b>Current Tags:</b></div>
+        <div id="inner-panel">
+            @model IEnumerable<PAWA.Models.Tags>
+            <table>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TagName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstDateTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Status)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UseCount)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UserSuggest)
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TagName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FirstDateTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UseCount)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserSuggest)
+                        </td>
+                        <td>
+
+                            @Html.ActionLink("Edit", "EditTag", new { id = item.TagsID }) |
+            @Html.ActionLink("Freeze", "Freeze", new { id = item.TagsID })
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>
 

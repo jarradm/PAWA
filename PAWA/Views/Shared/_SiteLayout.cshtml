@@ -9,6 +9,9 @@
     
 </head>
 <body>
+    <div id="logout">
+        User: @WebSecurity.CurrentUserName | <a href="~/Account/Logout" id="logout-link">Logout</a>
+    </div>
     <div id="header">
         @Html.Partial("HeaderView")
     </div>

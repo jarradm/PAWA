@@ -3,13 +3,25 @@
     margin: auto;
 }
 
-#body-content-table {
+.body-content-table {
     border: 1px solid black;
-    width: 938px;
+    width: 940px;
     padding-bottom: 3px;
+    display: none;
+    margin-bottom: 30px;
 }
 
-#body-content-table tr td {
+#table-0 {
+    display: inline-table;
+}
+
+#table-header-page-count {
+    font-size: 20px;
+    font-family: Arial;
+    border-bottom: 1px solid black;
+}
+
+.body-content-table tr td {
     font-size: 0px;
     margin: 0px;
     padding: 0px;
@@ -33,8 +45,7 @@
 
 .body-content-table-folder-text {
     display: inline-block;
-    background-color: rgba(255, 255, 255, 0.60);
-    border-radius:5px;
+    background-color: white;
     width: 125px;
     max-height: 40px;
     font-style: oblique;
@@ -52,4 +63,45 @@
     height:200px;
     background-color:rgba(124, 176, 155, 0.20);
     border-radius:4px;
+}
+
+#main-panel {
+    margin:auto;
+    width: 970px;
+    height: 133px;
+    border-top-right-radius:15px;
+    border-bottom-right-radius:15px;
+    border-bottom-left-radius:15px;
+}
+#panel-header {
+    background-color: lightblue;
+    padding-left: 15px;
+    height: 30px;
+    border-top: solid;
+    border-right: solid;
+    border-left: solid;
+    border-left-width: 1px;
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    line-height: 175%;
+}
+#inner-panel {
+    background-color: whitesmoke;
+    padding-top: 5px;
+    padding-left: 15px;
+    border-right: solid;
+    border-left: solid;
+    border-bottom: solid;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    
+}
+
+#body-content-button-back {
+    display: none;
 }
