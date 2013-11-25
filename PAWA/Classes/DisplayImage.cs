@@ -12,7 +12,7 @@ namespace PAWA.Classes
         public static string GetTags(IPAWAContext dbContext, string tagInput)
         {
             string[] tags;
-            string tagOutput = null;
+            string tagOutput = "";
             int tagId;
 
             tags = tagInput.Split(',');
@@ -27,13 +27,16 @@ namespace PAWA.Classes
                                   where t.TagsID == tagId
                                   select t.TagName;
 
-                    if (tagOutput == null)
+                    if (tagName.Count() == 1)
                     {
-                        tagOutput = tagName.SingleOrDefault().ToString();
-                    }
-                    else
-                    {
-                        tagOutput += ", " + tagName.SingleOrDefault().ToString();
+                        if (tagOutput == "")
+                        {
+                            tagOutput = tagName.SingleOrDefault().ToString();
+                        }
+                        else
+                        {
+                            tagOutput += "," + tagName.SingleOrDefault().ToString();
+                        }
                     }
                 }
             }

@@ -8,10 +8,12 @@ using PAWA.Models;
 using System.Drawing;
 using PAWA.Classes;
 using System.IO;
+using WebMatrix.WebData;
 using System.Data;
 
 namespace PAWA.Controllers
 {
+    [Authorize(Roles = "User")]
     public class ImageController : Controller
     {
         PAWAContext dbContext = new PAWAContext();
@@ -29,7 +31,8 @@ namespace PAWA.Controllers
 
         public ActionResult DisplayImage(string filename)
         {
-            int UserID = 1;
+            int UserID = WebSecurity.CurrentUserId;
+
 
             var files = from f in dbContext.Files
                         where f.UserID == UserID &&
@@ -37,7 +40,8 @@ namespace PAWA.Controllers
                         select f;
 
             ViewBag.Tags = PAWA.Classes.DisplayImage.GetTags(dbContext, files.First().Tags);
-            int value = files.First().FileID;
+            int value = files.SingleOrDefault().FileID;
+            ViewBag.FolderId = files.SingleOrDefault().FolderID;
 
             return View(files.First());
         }
@@ -51,7 +55,7 @@ namespace PAWA.Controllers
             Tools funcs = new Tools();
 
             //temp user for authentication testing
-            Tools.UserID = 1;
+            Tools.UserID = WebSecurity.CurrentUserId;
 
             //list used to generate DDL
             IList<Models.Folder> list = funcs.getFolders(Tools.UserID);
@@ -68,7 +72,7 @@ namespace PAWA.Controllers
             return View(list);
         }
         [HttpPost]
-        public ActionResult UploadImage(HttpPostedFileBase file, string FolderID, string newName, string description, string tags)
+        public ActionResult UploadImage(HttpPostedFileBase file, string FolderID, string description, string tags)
         {
             Tools funcs = new Tools();         //funcs contains resize/rename method
             Size newSize = new Size(181, 100); //global size for all thumbnails
@@ -86,9 +90,6 @@ namespace PAWA.Controllers
                 //Declare filename and path
                 var fileName = System.IO.Path.GetFileName(file.FileName);
                 var path = "";
-
-                //rename file?
-                if (newName != "") { fileName = funcs.Rename(fileName, newName); }
 
                 //split tags
                 TagArr = funcs.seperateTags(tags);
