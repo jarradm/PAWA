@@ -206,7 +206,6 @@
     <Content Include="App_Themes\ViewUser.css" />
     <Content Include="App_Themes\Zain\ZainCSS3.css" />
     <Content Include="Global.asax" />
-    <Content Include="Images\bg.bmp" />
     <Content Include="Images\BlueGreenGradient1.jpg" />
     <Content Include="Images\BlueGreenGradient2.jpg" />
     <Content Include="Images\BlueGreenGradient3.jpg" />

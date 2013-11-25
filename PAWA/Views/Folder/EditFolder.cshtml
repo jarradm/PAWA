@@ -10,13 +10,12 @@
 {
     <fieldset>
         <legend>Folder</legend>
-        
         <div class="editor-label">
-            @Html.LabelFor(model=> model.FolderID, "Folder")
+            @Html.LabelFor(model => model.InFolderID, "Location")
         </div>
         <div class="editor-field">
-            @Html.DropDownList("FolderID")
-            @Html.ValidationMessageFor(model => model.FolderID)
+            @Html.DropDownList("InFolderID", "Album Home")
+            @Html.ValidationMessageFor(model => model.InFolderID)
         </div>
 
         <div class="editor-label">
@@ -26,6 +25,9 @@
             @Html.EditorFor(model => model.FolderName)
 			@Html.ValidationMessageFor(model => model.FolderName)
         </div>
+       <input type="hidden" name="fid" value="@ViewBag.fid" />
+
+        @Html.ValidationMessage("InFError")
 
         <p>
             <input type="submit" value="Save" />
