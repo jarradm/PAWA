@@ -40,8 +40,10 @@
             
 
                 <div id="folder-create" title="Create a Folder">
+                    <label id="folder-validate"></label>
                     <label>Folder Name:</label>
                     <input type="text" id="FolderName" style="position:relative;left:20px" />
+                       
                     <br /><label>Location:</label>
                     <select id="InFolderID" style="position:relative;left: 62px;width: 211px;">
                         @{
@@ -59,7 +61,7 @@
                         }
                     </select>
                     <br /><br /><div style="text-align:center">
-                        <input type="button" value="Create" onclick="folderAlert();" />
+                        <input type="button" id="createNewFolder" value="Create" onclick="folderAlert();" />
                     </div>
 
                 </div>
@@ -73,33 +75,6 @@
 
 
 
-<!--
-<script type="text/javascript">
-    self.create = function () {
-
-        var folder = {
-            FolderName: $('#FolderName').val(),
-            InFolderID: $('#InfolderID').val(),
-        };
-
-        $.ajax({
-            url: 'Folders/CreateFolder', /*may be something else*/
-            cache: false,
-            type: 'POST',
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(folder),
-            statusCode: {
-                201 /*Created*/: function (data) {
-                    self.folders.push(data);
-                }
-            }
-        })
-        /* need to work out how to post the folder object through the controller and folder class */
-    }
-
-
-</script> -->
-
 
 <script type="text/javascript">
    
@@ -111,6 +86,7 @@
             //hide button
             $("#body-content-button-previous").hide();
         }
+        
         $("input[name='Submit']").click(function () {
             if ($('#DropDownList').val() == "Delete") {
 
@@ -125,6 +101,8 @@
             }
         });
     });
+
+ 
 </script>
 
 <script type="text/javascript">
@@ -205,8 +183,8 @@
 
         $("#page-top").position({ my: "center top", at: "center top", of: "body", collision: "none" });
         $("#body-content-button-create").position({ my: "right bottom", at: "right-2 top-2", of: ".body-content-table", collision: "none" });
-        $("#body-content-button-next").position({ my: "center top", at: "center bottom+2", of: "#table-" + (count - 1), collision: "none" });
-        $("#body-content-button-top").position({ my: "right top", at: "right-2 bottom+2", of: "#table-" + (count - 1), collision: "none" });
+        $("#body-content-button-next").position({ my: "center top", at: "center bottom+2", of: ".body-content-table", collision: "none" });
+        $("#body-content-button-top").position({ my: "right top", at: "right-2 bottom+2", of: ".body-content-table", collision: "none" });
         $(".body-content-table-checkbox").each(function () {
             $(this).position({ my: "right bottom", at: "right-5 bottom-5", of: $(this).parent().children("img"), collision: "none" });
         });
@@ -227,7 +205,7 @@
 
     $("#body-content-button-next").click(function() {
         var element = "#table-" + count;
-        $(element).show();
+        $(element).removeAttr('disabled');
         count++;
         Position();
     });

@@ -98,6 +98,7 @@ namespace PAWA.Controllers
                 //FolderID auto?
                 
             };
+
             db.Folders.Add(newFolder);
             db.SaveChanges();
         }
