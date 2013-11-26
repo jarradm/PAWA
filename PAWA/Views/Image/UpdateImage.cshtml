@@ -14,16 +14,15 @@
     <div id="main-panel">
         <div id="panel-header" style="font-family: Constantia"><b>Edit Image Info</b></div>
         <div id="inner-panel">
-
        
          @Html.HiddenFor(model => model.Filename)
          @Html.HiddenFor(model => model.FileID)
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.FolderID, "Folder"):
+            @Html.LabelFor(model => model.FolderID, "Location"):
         </div>
         <div class="editor-field">
-            @Html.DropDownList("FolderID")
+            @Html.DropDownList("FolderID", "Album Home")
             @Html.ValidationMessageFor(model => model.FolderID)
         </div>
 

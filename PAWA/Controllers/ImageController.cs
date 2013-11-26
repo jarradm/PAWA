@@ -156,9 +156,9 @@ namespace PAWA.Controllers
             }
             else if (editImage != null)
             {
-                UpdateImage(fileName);
-                Response.Redirect("UpdateImage?filename=" + fileName);
-                return View();
+                EditImage ei = new EditImage();
+                int index = ei.GetID(fileName);
+                return RedirectToAction("./../Image/UpdateImage", new{fileID = index}); ;
             }
             else
             {
@@ -168,14 +168,15 @@ namespace PAWA.Controllers
 
         }
 
-        public ActionResult UpdateImage(string filename)
+        public ActionResult UpdateImage(int fileID)
         {
             EditImage ei = new EditImage();
-            PAWA.Models.File file = dbContext.Files.Find(Convert.ToInt32(ei.GetID(filename)));
+            PAWA.Models.File file = dbContext.Files.Find(fileID);
             if (file == null)
             {
-                return HttpNotFound(filename.ToString());
+                return HttpNotFound(fileID.ToString());
             }
+            
             string tags = file.Tags.ToString();
             ViewBag.Tags = PAWA.Classes.DisplayImage.GetTags(dbContext, tags);
             ViewBag.FolderID = new SelectList(dbContext.Folders, "FolderID", "FolderName", file.FolderID);
@@ -197,8 +198,14 @@ namespace PAWA.Controllers
             var file = files.First();
 
             file.Description = form["Description"];
-            file.FolderID = Convert.ToInt32(form["FolderID"]);
-
+            if (form["FolderID"] == "")
+            {
+                file.FolderID = null;
+            }
+            else
+            {
+                file.FolderID = Convert.ToInt32(form["FolderID"]);
+            }
 
             file.Tags = ei.stringOfTags(form);
             if (ModelState.IsValid)
