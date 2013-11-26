@@ -42,39 +42,35 @@ namespace PAWA.Controllers
         [AllowAnonymous]
         public ActionResult CreateUser()
         {
-            if (!WebSecurity.Initialized)
-            {
-                WebSecurity.InitializeDatabaseConnection("PAWAContext", "User", "UserID", "Username", true);
-            }
-            return View();
-        }
-
-        [HttpPost]
-        [AllowAnonymous]
-        public ActionResult CreateUser(FormCollection form)
-        {
-            /* 
-             *  Test Stub 
-             */
-            WebSecurity.CreateUserAndAccount(form["username"], form["password"], new { Email = "a@a.com", Country="USA", JoinDateTime = DateTime.Now, Status=1, DateOfBirth="12/12/2012", Gender=1, Password="A"});
-            Response.Redirect("~/Account/Login");
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public ActionResult CreateUser(User user)
         {
+
             if (ModelState.IsValid)
             {
-                user.JoinDateTime = DateTime.Now;
-                db.Users.Add(user);
-                db.SaveChanges();
+                WebSecurity.CreateUserAndAccount(user.Username, user.Password, new
+                {
+                    Email = user.Email,
+                    Country = user.Country,
+                    JoinDateTime = DateTime.Now,
+                    Status = Status.Active,
+                    DateOfBirth = user.DateOfBirth.ToString("dd-MM-yyyy"),
+                    Gender = user.Gender,
+                    Password = "notused"
+                });
+                Roles.AddUserToRole(user.Username, "user");
+
                 return RedirectToAction("../Home/Album");
             }
 
             return View(user);
         }
+
         //
         // GET: /Account/Login
         [HttpGet]
