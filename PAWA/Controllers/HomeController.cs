@@ -114,7 +114,11 @@ namespace PAWA.Controllers
         [HttpPost]
         public ActionResult MoveImageTo(MoveItemList moveItemList)
         {
-            IList<string> selectedItems = moveItemList.selected.Split((new char[]{','}),StringSplitOptions.RemoveEmptyEntries);
+            IList<string> selectedItems = new List<string> { };
+            if (moveItemList.selected != null)
+            {
+                selectedItems = moveItemList.selected.Split((new char[] { ',' }), StringSplitOptions.RemoveEmptyEntries);
+            }
             int? newFolderID = Convert.ToInt32(moveItemList.destinationFolder);
             int? currentFolder = Convert.ToInt32(moveItemList.sourceFolder);
             if (currentFolder < 0) { currentFolder = null; }
