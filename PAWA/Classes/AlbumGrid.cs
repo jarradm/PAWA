@@ -85,7 +85,7 @@ namespace PAWA.Classes
             int i = 0, foldersIndex = 0, filesIndex = 0, count = 0;
             bool exitFiles = false, exitFolders = false;
             int exitCount = folders.Count() + files.Count();
-            exitCount = exitCount / TilesPerPage;
+            exitCount = (exitCount / TilesPerPage) + 1;
             do
             {
                 htmlOutput = "<table class=\"body-content-table\" id=\"table-" + htmlTables.Count() + "\">" +
