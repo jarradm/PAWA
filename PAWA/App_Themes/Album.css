@@ -47,9 +47,13 @@
     text-align: center;
 }
 
-#moveButton {
+#folderList {
     width:200px;
-    height:200px;
-    background-color:rgba(124, 176, 155, 0.20);
-    border-radius:4px;
+    display:inline-block;
+    float:left;
+}
+
+#moveFolderSubmit {
+    display:inline-block;
+    float:right;
 }

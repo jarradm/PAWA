@@ -1,5 +1,5 @@
 ﻿
-if (pop != window.alert) { var pop = window.alert }// Disableable test alert
+if (pop != window.alert) { var pop = function () { } }// Disableable test alert
 
 /**
   * <summary> 
@@ -14,7 +14,7 @@ if (pop != window.alert) { var pop = window.alert }// Disableable test alert
   *
   */
 $(document).ready(function () {
-    $("#resultPopup").dialog({ autoOpen: false });
+    $("#resultPopup").dialog({ autoOpen: false, resizable: false, height: 140,  width: 280 });
     $("form").first().submit(function (event) {
         // Handle for submit on where dropdown is Delete.
         // If no images are selected, cancel the submit action.
@@ -124,7 +124,7 @@ var moveSubmitButton = function () {
         /*POSTED Values*/{ destinationFolder: $("#folderList").val(), selected: checkedImageIDs.toString(), sourceFolder: currentFolder }, function (data) {
             // .POST Success function
             pop("works" + data);
-            window.open(""+window.location,window.
+            window.location.href = window.location;
         });
 };
 
