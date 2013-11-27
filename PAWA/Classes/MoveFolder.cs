@@ -28,7 +28,7 @@ namespace PAWA.Classes
         public GetFolderFormSelectOptions(int userID)
         {
             returnHTML = "";
-            IList<Folder> iFolderList = toolbelt.getFolders(1);
+            IList<Folder> iFolderList = toolbelt.getFolders(userID);
             count = iFolderList.Count;
             for (int i = 0; i < count; i++)
             {
