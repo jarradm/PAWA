@@ -9,6 +9,7 @@ using PAWA.Classes;
 using System.Drawing;
 using System.Data;
 using PAWA.ViewModels;
+using WebMatrix.WebData;
 
 namespace PAWA.Controllers
 {
@@ -71,7 +72,8 @@ namespace PAWA.Controllers
         
         [HttpPost]
         public ActionResult GetAlbumList(UserIDType value) {
-            int UserID=0;
+            int UserID=WebSecurity.CurrentUserId;
+            /*
             try
             {
                 UserID = Convert.ToInt32(value.userID);
@@ -81,7 +83,7 @@ namespace PAWA.Controllers
                 System.Console.WriteLine("eror: " + e);
                 UserID = 0;//Response.Output;
             }
-
+            */
             /*
             string returnValue = "";
             returnValue += "{";
@@ -126,7 +128,7 @@ namespace PAWA.Controllers
             IEnumerable<File> listOfUserFiles;
             {
                 Tools toolbelt = new Tools();
-                listOfUserFolders = toolbelt.getFolders(1 /*TODO:Replace with user id from POST*/ );
+                listOfUserFolders = toolbelt.getFolders(WebSecurity.CurrentUserId);
             }
             {
                 AlbumGrid toolbelt = new AlbumGrid(dbContext);
