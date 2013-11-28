@@ -78,16 +78,21 @@ namespace PAWA.Controllers
             return returnValue;
         }
 
+        
+
 
         public void createFolder(string FolderName, int? InFolderID)
         {
             PAWAContext db = new PAWAContext();
- 
+            if (FolderName == null)
+            {
+                FolderName = "Folder";
+            }
             if (InFolderID == -1)
             {
                 InFolderID = null;
             }
-
+            
             var newFolder = new PAWA.Models.Folder           
             {
                 CreateDateTime = System.DateTime.Now,

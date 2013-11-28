@@ -1,4 +1,5 @@
 ﻿@model PAWA.ViewModels.AlbumViewModel
+
 @using System.Web.Optimization
 @{
     ViewBag.Title = "Album";
@@ -40,17 +41,16 @@
             
 
                 <div id="folder-create" title="Create a Folder">
-                    <label id="folder-validate"></label>
                     <label>Folder Name:</label>
                     <input type="text" id="FolderName" style="position:relative;left:20px" />
-                       
                     <br /><label>Location:</label>
                     <select id="InFolderID" style="position:relative;left: 62px;width: 211px;">
                         @{
-                            PAWA.Classes.Tools toolbox = new PAWA.Classes.Tools();
-                            IList<PAWA.Models.Folder> folderlist = toolbox.getFolders(WebSecurity.CurrentUserId);
+                                PAWA.Classes.Tools toolbox = new PAWA.Classes.Tools();
+                                IList<PAWA.Models.Folder> folderlist = toolbox.getFolders(WebSecurity.CurrentUserId);
 
-                            for (int i = 0; i < folderlist.Count;i++ ) {
+                            for (int i = 0; i < folderlist.Count; i++)
+                            {
                                 @:<option value="
                                     @Html.Raw(folderlist.ElementAt(i).FolderID.ToString());
                                         @:">
@@ -61,7 +61,7 @@
                         }
                     </select>
                     <br /><br /><div style="text-align:center">
-                        <input type="button" id="createNewFolder" value="Create" onclick="folderAlert();" />
+                        <input type="button" value="Create" onclick="folderAlert();" />
                     </div>
 
                 </div>

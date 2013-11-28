@@ -115,14 +115,15 @@ namespace PAWA.Controllers
             return View();
         }
 
-        public ActionResult Details(int id = 0)
+        public ActionResult Details()
         {
-            User user = db.Users.Find(id);
+            User user = db.Users.Find(WebSecurity.CurrentUserId);
             if (user == null)
             {
                 return HttpNotFound();
             }
             return View(user);
         }
+
     }
 }

@@ -77,8 +77,8 @@
 
                     function folderAlert() {
 
-                        if ($('#FolderName').val() == "" || $('#FolderName').val().length <= 4) {
-                            alert("Please enter a valid folder name; mininum characters 4");
+                        if ($('#FolderName').val() == "" || $('#FolderName').val().length <= 1) {
+                            alert("Please enter a valid folder name; mininum characters 1");
                         }
                         else {
 
