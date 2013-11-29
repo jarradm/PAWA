@@ -130,13 +130,9 @@ namespace PAWA.Classes
 
                             // fill the rest of the final row to maintain proper <td> width if there is only
                             // one row of data. Doesn't fill if at start of row, don't want full row of fakes.
-                            if (exitFiles && i > 0)
+                            if (exitFiles)
                             {
                                 htmlOutput += "<td>\n<span class=\"body-content-table-fakeimage\"/></span>\n"; ;
-                            }
-                            else if (exitFiles && i == 0)
-                            {
-                                break;
                             }
                             else
                             {
@@ -154,17 +150,13 @@ namespace PAWA.Classes
                         }
                     }
 
-                    count++;
+                    
                     htmlOutput += "</tr>\n";
                 }
-
+                count++;
                 htmlOutput += "</table>\n";
-                if (!(exitFiles && count == 0))
-                {
-                    htmlTables.Add(htmlOutput);
-                }
-                count = 0;
-            }
+                htmlTables.Add(htmlOutput);
+            } while (count < exitCount);
 
             return htmlTables;
         }

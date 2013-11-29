@@ -1,5 +1,4 @@
 ﻿@model PAWA.ViewModels.AlbumViewModel
-
 @using System.Web.Optimization
 @{
     ViewBag.Title = "Album";
@@ -51,11 +50,10 @@
                     <br /><label>Location:</label>
                     <select id="InFolderID" style="position:relative;left: 62px;width: 211px;">
                         @{
-                                PAWA.Classes.Tools toolbox = new PAWA.Classes.Tools();
-                                IList<PAWA.Models.Folder> folderlist = toolbox.getFolders(WebSecurity.CurrentUserId);
+                            PAWA.Classes.Tools toolbox = new PAWA.Classes.Tools();
+                            IList<PAWA.Models.Folder> folderlist = toolbox.getFolders(WebSecurity.CurrentUserId);
 
-                            for (int i = 0; i < folderlist.Count; i++)
-                            {
+                            for (int i = 0; i < folderlist.Count;i++ ) {
                                 @:<option value="
                                     @Html.Raw(folderlist.ElementAt(i).FolderID.ToString());
                                         @:">
@@ -81,6 +79,33 @@
 
 
 
+<!--
+<script type="text/javascript">
+    self.create = function () {
+
+        var folder = {
+            FolderName: $('#FolderName').val(),
+            InFolderID: $('#InfolderID').val(),
+        };
+
+        $.ajax({
+            url: 'Folders/CreateFolder', /*may be something else*/
+            cache: false,
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(folder),
+            statusCode: {
+                201 /*Created*/: function (data) {
+                    self.folders.push(data);
+                }
+            }
+        })
+        /* need to work out how to post the folder object through the controller and folder class */
+    }
+
+
+</script> -->
+
 
 <script type="text/javascript">
    
@@ -92,7 +117,6 @@
             //hide button
             $("#body-content-button-previous").hide();
         }
-        
         $("input[name='Submit']").click(function () {
             if ($('#DropDownList').val() == "Delete") {
 
@@ -107,8 +131,6 @@
             }
         });
     });
-
- 
 </script>
 
 <script type="text/javascript">
@@ -197,8 +219,8 @@
 
         $("#page-top").position({ my: "center top", at: "center top", of: "body", collision: "none" });
         $("#body-content-button-create").position({ my: "right bottom", at: "right-2 top-2", of: ".body-content-table", collision: "none" });
-        $("#body-content-button-next").position({ my: "center top", at: "center bottom+2", of: ".body-content-table", collision: "none" });
-        $("#body-content-button-top").position({ my: "right top", at: "right-2 bottom+2", of: ".body-content-table", collision: "none" });
+        $("#body-content-button-next").position({ my: "center top", at: "center bottom+2", of: "#table-" + (count - 1), collision: "none" });
+        $("#body-content-button-top").position({ my: "right top", at: "right-2 bottom+2", of: "#table-" + (count - 1), collision: "none" });
         $(".body-content-table-checkbox").each(function () {
             $(this).position({ my: "right bottom", at: "right-5 bottom-5", of: $(this).parent().children("img"), collision: "none" });
         });
@@ -240,7 +262,7 @@
 
     $("#body-content-button-next").click(function() {
         var element = "#table-" + count;
-        $(element).removeAttr('disabled');
+        $(element).show();
         count++;
         Position();
     });
