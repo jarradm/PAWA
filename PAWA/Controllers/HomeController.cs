@@ -73,26 +73,6 @@ namespace PAWA.Controllers
         [HttpPost]
         public ActionResult GetAlbumList(UserIDType value) {
             int UserID=WebSecurity.CurrentUserId;
-            /*
-            try
-            {
-                UserID = Convert.ToInt32(value.userID);
-            }
-            catch (Exception e)
-            {
-                System.Console.WriteLine("eror: " + e);
-                UserID = 0;//Response.Output;
-            }
-            */
-            /*
-            string returnValue = "";
-            returnValue += "{";
-            for (int i = 0; i < folderList.Count(); )
-            {
-                returnValue += i+":{FolderID:\""+i+"\",";
-                returnValue += "FolderName:\"" + i + "\"},";
-            }
-            returnValue += "length:" + folderList.Count() + "}";*/
 
             var folderList = from f in dbContext.Folders
                              where f.UserID == UserID

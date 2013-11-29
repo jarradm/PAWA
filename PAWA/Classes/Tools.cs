@@ -261,13 +261,13 @@ namespace PAWA.Classes
         {
             //open db connection
             PAWAContext db = new PAWAContext();
-           
+
             //create new list for files,
             //will be used to generate DDL options
             IList<Models.Folder> list = new List<Models.Folder>();
-           
+
             //Add Root directory
-            list.Add(new Models.Folder {FolderID = -1, FolderName = "Root"});
+            list.Add(new Models.Folder { FolderID = -1, FolderName = "Root" });
 
             //Foreach folder in the database
             foreach (var f in db.Folders)
@@ -278,7 +278,32 @@ namespace PAWA.Classes
                     //add folder to List
                     list.Add(new Models.Folder { FolderID = f.FolderID, FolderName = f.FolderName, InFolderID = f.InFolderID });
                 }
-                
+
+            }
+            return list;
+        }
+        public PAWA.Models.Folder getFolder(int userID, int folderID)
+        {
+            //open db connection
+            PAWAContext db = new PAWAContext();
+
+            //create new list for files,
+            //will be used to generate DDL options
+            IList<Models.Folder> list = new List<Models.Folder>();
+
+            //Add Root directory
+            list.Add(new Models.Folder { FolderID = -1, FolderName = "Root" });
+
+            //Foreach folder in the database
+            foreach (var f in db.Folders)
+            {
+                //if folder belongs to user
+                if (f.UserID == userID)
+                {
+                    //add folder to List
+                    list.Add(new Models.Folder { FolderID = f.FolderID, FolderName = f.FolderName, InFolderID = f.InFolderID });
+                }
+
             }
             return list;
         }
