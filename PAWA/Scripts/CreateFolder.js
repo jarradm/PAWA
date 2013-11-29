@@ -81,12 +81,13 @@
                             alert("Please enter a valid folder name; mininum characters 1");
                         }
                         else {
-
+                            alert($("#SelectInFolderID").val());
                             var folder = {
                                 FolderName: $('#FolderName').val(),
-                                InFolderID: $('#InFolderID').val(),
+                                InFolderID: $('#SelectInFolderID').val(),
                             };
 
+                            alert(folder.InFolderID);
 
                             $.get("../Folders/createFolder?FolderName=" + folder.FolderName
                                 + "&InFolderID=" + folder.InFolderID, function () {
