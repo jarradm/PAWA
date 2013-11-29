@@ -1,4 +1,5 @@
 ﻿if (pop != window.alert) { var pop = function () { } }// Disableable test alert
+if (pop != window.alert) { var pop = window.alert }// Disableable test alert
 
 /**
   * <summary> 
@@ -13,8 +14,22 @@
   *
   */
 $(document).ready(function () {
-    $("#resultPopup").dialog({ autoOpen: false, resizable: false, height: 140,  width: 280 });
+    $("#resultPopup").dialog({ autoOpen: false });
     $("form").first().submit(function (event) {
+        // Handle for submit on where dropdown is Delete.
+        // If no images are selected, cancel the submit action.
+        if ($('#DropDownList').val() == "Delete") {
+            if (hasChecked() == false) {
+                alert("You have not selected any images to delete.");
+                event.preventDefault();
+                return;
+            } else {
+                if (window.confirm('These images will be permanently deleted. Do you wish to continue?')) {
+                    $('#DropDownList').val() = "Delete";
+                    $("form:first").submit();
+                } else event.preventDefault();
+            }
+        }
         // Handle for submit on where dropdown is Move.
         // If no images are selected, cancel the submit action.
         if ($("#DropDownList").val() == "Move") {
@@ -109,7 +124,7 @@ var moveSubmitButton = function () {
         /*POSTED Values*/{ destinationFolder: $("#folderList").val(), selected: checkedImageIDs.toString(), sourceFolder: currentFolder }, function (data) {
             // .POST Success function
             pop("works" + data);
-            window.location.href = window.location;
+            window.open(""+window.location,window.
         });
 };
 
