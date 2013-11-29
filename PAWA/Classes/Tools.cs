@@ -202,6 +202,7 @@ namespace PAWA.Classes
                 PAWAContext db = new PAWAContext();
                 var newTag = new PAWA.Models.Tags
                 {
+
                     FirstDateTime = System.DateTime.Now,
                     Status = Models.Status.Active,
                     TagName = name,
