@@ -40,47 +40,57 @@ namespace PAWA.Controllers
         // POST: /Folder/Edit/5
 
         [HttpPost]
-        public ActionResult EditFolder(FormCollection formal)
+        public ActionResult EditFolder(FormCollection form, string saveChanges, string cancelChanges)
         {
-            Tools tool = new Tools();
+            if (saveChanges != null)
+            {
+                Tools tool = new Tools();
 
-            int index = Convert.ToInt32(formal["fid"]);
-            var folders = from f in dbContext.Folders where f.FolderID == index select f;
-            var folder = folders.First();
-            Folder infolder;
+                int index = Convert.ToInt32(form["fid"]);
+                var folders = from f in dbContext.Folders where f.FolderID == index select f;
+                var folder = folders.First();
+                Folder infolder;
 
-            folder.FolderName = formal["FolderName"];
-            if (formal["InFolderID"] == "") // If putting it in root folder
-            {
-                folder.InFolderID = null;
-            }
-            else // Check that it is not going inside itself
-            {
-                bool isFail = true;
-                int inIndex = Convert.ToInt32(formal["InFolderID"]);
-                do
+                ViewBag.FolderID = new SelectList(dbContext.Folders, "FolderID", "FolderName", folder.InFolderID);
+                folder.FolderName = form["FolderName"];
+                if (form["InFolderID"] == "") // If putting it in root folder
                 {
-                    var infolders = from f in dbContext.Folders where f.FolderID == inIndex select f;
-                    infolder = infolders.First();
-                    inIndex = Convert.ToInt32(infolder.InFolderID);
+                    folder.InFolderID = null;
                 }
-                while ((isFail = (infolder.InFolderID != null)) && (infolder.InFolderID != folder.FolderID));
-                if (isFail == false)
+                else // Check that it is not going inside itself
                 {
-                    folder.InFolderID = Convert.ToInt32(formal["InFolderID"]);
+                    bool isFail = true;
+                    int inIndex = Convert.ToInt32(form["InFolderID"]);
+                    do
+                    {
+                        var infolders = from f in dbContext.Folders where f.FolderID == inIndex select f;
+                        infolder = infolders.First();
+                        inIndex = Convert.ToInt32(infolder.InFolderID);
+                    }
+                    while ((isFail = (infolder.InFolderID != null)) && (infolder.InFolderID != folder.FolderID));
+                    if (isFail == false)
+                    {
+                        folder.InFolderID = Convert.ToInt32(form["InFolderID"]);
+                    }
+                    else { return Content("This Edit Has Failed"); }
                 }
-                else { return Content("This Edit Has Failed"); }
+                if (ModelState.IsValid)
+                {
+                    dbContext.Entry(folder).State = EntityState.Modified;
+                    dbContext.SaveChanges();
+                    Response.Redirect("./../Home/Album?folderID=" + folder.InFolderID);
+                    // return View();
+                }
+                return View();
             }
-            if (ModelState.IsValid)
+            else if (cancelChanges != null)
             {
-                dbContext.Entry(folder).State = EntityState.Modified;
-                dbContext.SaveChanges();
-                Response.Redirect("./../Home/Album?folderID=" + folder.InFolderID);
-                // return View();
+                return RedirectToAction("./../Home/Album/", new { folderID = form["InFolderID"] }); ;
             }
-            ViewBag.UserID = new SelectList(dbContext.Users, "UserID", "UserName", folder.UserID);
-            ViewBag.FolderID = new SelectList(dbContext.Folders, "FolderID", "FolderName", folder.InFolderID);
-            return View();
+            else
+            {
+                return View();
+            }
         }
     }
 }
