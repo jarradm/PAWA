@@ -282,6 +282,18 @@ namespace PAWA.Classes
             }
             return list;
         }
+        public IList<PAWA.Models.File> getFiles(int userID)
+        {
+            PAWAContext db = new PAWAContext();
+
+            IList<Models.File> list = new List<Models.File>();
+
+            foreach (var f in db.Files)
+            {
+                list.Add(new Models.File { FileID = f.FileID, Filename = f.Filename });
+            }
+            return list;
+        }
         ///<summary>
          ///  Uses all passed parimeters to create a new db 
          ///  image object, then pushes it into the db and saves  

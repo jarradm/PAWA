@@ -56,7 +56,7 @@
                         $("#folder-create").dialog({
                             autoOpen: false,
                             width: 400,
-                            height: 180,
+                            height: 190,
                             resizable: false,
                             show: {
                                 effect: "blind",
@@ -77,46 +77,52 @@
 
                     function folderAlert() {
 
-                        var folder = {
-                            FolderName: $('#FolderName').val(),
-                            InFolderID: $('#InFolderID').val(),
-                        };
-                       
+                        if ($('#FolderName').val() == "" || $('#FolderName').val().length <= 1) {
+                            alert("Please enter a valid folder name; mininum characters 1");
+                        }
+                        else {
 
-                        $.get("../Folders/createFolder?FolderName=" + folder.FolderName
-                            + "&InFolderID=" + folder.InFolderID, function () {
-                                
-                                if (folder.InFolderID == -1) {
-                                    window.location.href = "../Home/Album"
-                                } else {
-                                    window.location.href = "../Home/Album?folderID=" + folder.InFolderID
-                                }
+                            var folder = {
+                                FolderName: $('#FolderName').val(),
+                                InFolderID: $('#InFolderID').val(),
+                            };
+
+
+                            $.get("../Folders/createFolder?FolderName=" + folder.FolderName
+                                + "&InFolderID=" + folder.InFolderID, function () {
+
+                                    if (folder.InFolderID == -1) {
+                                        window.location.href = "../Home/Album"
+                                    } else {
+                                        window.location.href = "../Home/Album?folderID=" + folder.InFolderID
+                                    }
+                                });
+
+                            //alert("Data sent :" + JSON.stringify(folder).toString())
+
+                            /*$.ajax({
+                                type: "POST",
+                                url: "../Folders/createFolder",
+                                //data: folder,
+                                success: alert("hi" + folder.FolderName + ":" + folder.InFolderID),
+                                data: JSON.stringify(folder)
+                                //dataType: html5
+                                //url: "www.google.com"
+    
+                                // I hate this so much
+                               
+                          
+                            }).done(function () {
+                                alert("successfully successed this" + folder.FolderName);
+                            }).fail(function () {
+                                alert("you broke something, dumbass");
+                            }).always(function () {
+                                alert("always see this coz i am sexy");
                             });
-                        
-                        //alert("Data sent :" + JSON.stringify(folder).toString())
-
-                        /*$.ajax({
-                            type: "POST",
-                            url: "../Folders/createFolder",
-                            //data: folder,
-                            success: alert("hi" + folder.FolderName + ":" + folder.InFolderID),
-                            data: JSON.stringify(folder)
-                            //dataType: html5
-                            //url: "www.google.com"
-
-                            // I hate this so much
-                           
-                      
-                        }).done(function () {
-                            alert("successfully successed this" + folder.FolderName);
-                        }).fail(function () {
-                            alert("you broke something, dumbass");
-                        }).always(function () {
-                            alert("always see this coz i am sexy");
-                        });
-                        */
-                        $("#folder-create").dialog("close"); //closes the popup
-                        //alert("Success! Folder created");
+                            */
+                            $("#folder-create").dialog("close"); //closes the popup
+                            //alert("Success! Folder created");
+                        }
                     }
 
                     function previousFolder() {
@@ -141,3 +147,5 @@
                         else { ;}
                         
                     }
+
+                    

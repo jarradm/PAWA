@@ -6,57 +6,90 @@
 
 <h2>Details</h2>
 
-<fieldset>
-    <legend>User</legend>
+<fieldset style="width: 800px">
+    <legend >User</legend>
 
     <div class="display-label">
          @Html.DisplayNameFor(model => model.Username)
-    </div>
-    <div class="display-field">
+    
+    <div class="display-field" style="float:right;">
         @Html.DisplayFor(model => model.Username)
-    </div>
+    </div></div>
 
     <div class="display-label">
          @Html.DisplayNameFor(model => model.Password)
-    </div>
-    <div class="display-field">
+    
+    <div class="display-field" style="float:right;">
         @Html.DisplayFor(model => model.Password)
-    </div>
+    </div></div>
 
     <div class="display-label">
          @Html.DisplayNameFor(model => model.Email)
-    </div>
-    <div class="display-field">
+    
+    <div class="display-field" style="float:right;">
         @Html.DisplayFor(model => model.Email)
-    </div>
+    </div></div>
 
     <div class="display-label">
          @Html.DisplayNameFor(model => model.JoinDateTime)
-    </div>
-    <div class="display-field">
+    
+    <div class="display-field" style="float:right;">
         @Html.DisplayFor(model => model.JoinDateTime)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.DeleteDateTime)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.DeleteDateTime)
-    </div>
+    </div></div>
 
     <div class="display-label">
          @Html.DisplayNameFor(model => model.Country)
-    </div>
-    <div class="display-field">
+    
+    <div class="display-field" style="float:right;">
         @Html.DisplayFor(model => model.Country)
-    </div>
+    </div></div>
 
     <div class="display-label">
          @Html.DisplayNameFor(model => model.DateOfBirth)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.DateOfBirth)
-    </div>
+    
+    <div class="display-field" style="float:right;">
+        @{
+            string reformattedDOB = Model.DateOfBirth.ToString();
+            reformattedDOB = reformattedDOB.Substring(0, 10);
+            @Html.Raw(reformattedDOB);
+        }
+    </div></div>
+</fieldset>
+<fieldset style="width: 800px">
+    <legend>Service</legend>
+
+    <div class="display-label">
+         <label>Number of Folders:</label>
+    
+    <div class="display-field" style="float:right;">
+      @{
+          PAWA.Classes.Tools toolbox = new PAWA.Classes.Tools();
+          IList<PAWA.Models.Folder> folderlist = toolbox.getFolders(WebSecurity.CurrentUserId);
+          
+                  
+          @:<label>
+              @Html.Raw(folderlist.Count() );
+            @:</label>
+          
+                        }  
+    </div></div>
+    <div class="display-label">
+         <label>Number of Files Uploaded:</label>
+    
+    <div class="display-field" style="float:right;">
+         @{
+          PAWA.Classes.Tools toolbox2 = new PAWA.Classes.Tools();
+          IList<PAWA.Models.File> filelist = toolbox2.getFiles(WebSecurity.CurrentUserId);
+          
+                  
+          @:<label>
+              @Html.Raw(filelist.Count() );
+            @:</label>
+          
+                        } 
+    </div></div>
+
+
 </fieldset>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id=Model.UserID }) |
