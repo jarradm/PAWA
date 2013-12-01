@@ -10,6 +10,7 @@ using System.Drawing;
 using System.Data;
 using PAWA.ViewModels;
 using WebMatrix.WebData;
+using System.Data.Entity;
 
 namespace PAWA.Controllers
 {

@@ -9,6 +9,8 @@ using System.Drawing;
 using PAWA.Classes;
 using System.IO;
 using System.Data;
+using System.Data.Entity;
+using WebMatrix.WebData;
 
 namespace PAWA.Controllers
 {
@@ -43,13 +45,25 @@ namespace PAWA.Controllers
         public ActionResult EditFolder(FormCollection formal)
         {
             Tools tool = new Tools();
-
+            tool.moveFolder(WebSecurity.CurrentUserId, formal["fid"], formal["InFolderID"]);
+            Folder folder = tool.getFolder(WebSecurity.CurrentUserId, formal["fid"]);
+            folder.FolderName = formal["FolderName"];
+            if (ModelState.IsValid)
+            {
+                dbContext.Entry(folder).State = EntityState.Modified;
+                dbContext.SaveChanges();
+                Response.Redirect("./../Home/Album?folderID=" + folder.InFolderID);
+                // return View();
+            }
+            /*
+            /// Will become the Get Folder method in the data retrieval tools
             int index = Convert.ToInt32(formal["fid"]);
             var folders = from f in dbContext.Folders where f.FolderID == index select f;
             var folder = folders.First();
+
+            /// Will become the Move folder Method in the data manipulation tools
             Folder infolder;
 
-            folder.FolderName = formal["FolderName"];
             if (formal["InFolderID"] == "") // If putting it in root folder
             {
                 folder.InFolderID = null;
@@ -69,8 +83,9 @@ namespace PAWA.Controllers
                 {
                     folder.InFolderID = Convert.ToInt32(formal["InFolderID"]);
                 }
-                else { return Content("This Edit Has Failed"); }
-            }
+                else { return Content("This Edit Has Failed"); } // return (!isFail);
+                // Method will return the true false 
+            }   
             if (ModelState.IsValid)
             {
                 dbContext.Entry(folder).State = EntityState.Modified;
@@ -78,6 +93,7 @@ namespace PAWA.Controllers
                 Response.Redirect("./../Home/Album?folderID=" + folder.InFolderID);
                 // return View();
             }
+             */
             ViewBag.UserID = new SelectList(dbContext.Users, "UserID", "UserName", folder.UserID);
             ViewBag.FolderID = new SelectList(dbContext.Folders, "FolderID", "FolderName", folder.InFolderID);
             return View();

@@ -10,6 +10,7 @@ using PAWA.Classes;
 using System.IO;
 using WebMatrix.WebData;
 using System.Data;
+using System.Data.Entity;
 
 namespace PAWA.Controllers
 {
