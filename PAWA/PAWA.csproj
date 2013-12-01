@@ -306,7 +306,6 @@
     <Content Include="Scripts\CreateFolder.js" />
     <Content Include="packages.config" />
     <None Include="Scripts\jquery-1.6.4-vsdoc.js" />
-    <Content Include="Scripts\GridOptionHandle.js" />
     <Content Include="Images\stripecut.png" />
     <Content Include="Scripts\GridOptionHandle.js" />
     <Content Include="Scripts\jquery-1.6.4.js" />
