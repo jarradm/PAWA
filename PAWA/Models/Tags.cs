@@ -9,7 +9,7 @@ namespace PAWA.Models
 {
     public enum Status
     {
-        Active, Inactive, Frozen
+        Active, Inactive, Frozen, Deleted
     }
 
     public enum UserSuggest

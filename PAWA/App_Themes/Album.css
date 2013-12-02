@@ -116,3 +116,7 @@
     display:inline-block;
     float:right;
 }
+
+.body-content-table-link {
+    cursor: pointer;
+}

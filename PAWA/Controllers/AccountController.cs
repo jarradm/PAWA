@@ -125,6 +125,7 @@ namespace PAWA.Controllers
         // GET: /Account/EditUser
 
         [HttpGet]
+        [Authorize]
         public ActionResult EditUser()
         {
             // WebSecurity.CurrentUserId gets logged in user, UserID 
@@ -163,6 +164,7 @@ namespace PAWA.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult EditUser(string button, UserViewModel uvm, FormCollection fc)
         {            
             var user = db.Users.Where(u => u.UserID == 2).SingleOrDefault();
@@ -214,9 +216,10 @@ namespace PAWA.Controllers
             return View(uvm);
         }
 
-        public ActionResult Details(int id = 0)
+        [Authorize(Roles="User")]
+        public ActionResult Details()
         {
-            User user = db.Users.Find(id);
+            User user = db.Users.Find(WebSecurity.CurrentUserId);
             if (user == null)
             {
                 return HttpNotFound();
@@ -237,6 +240,7 @@ namespace PAWA.Controllers
         // GET: /Account/Delete/
 
         [HttpGet]
+        [Authorize]
         public ActionResult Delete(FormCollection collection)
         {
             try

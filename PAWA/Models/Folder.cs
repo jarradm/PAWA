@@ -19,8 +19,8 @@ namespace PAWA.Models
         public int? InFolderID { get; set; }
         public DateTime CreateDateTime { get; set; }
 
-        [StringLength(50)]
-        [Required()]
+        [StringLength(50, MinimumLength=3, ErrorMessage="Name must be between 3 and 50 characters in length")]
+        [Required(ErrorMessage="Folder must have a name")]
         public string FolderName { get; set; }
 
         

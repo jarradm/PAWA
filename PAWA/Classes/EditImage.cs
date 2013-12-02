@@ -61,5 +61,17 @@ namespace PAWA.Controllers
 
             return Tagfinal;
         }
+
+        public int? InFolderSetting(string FolderID)
+        {
+                if (FolderID == "")
+                {
+                    return null;
+                }
+                else
+                {
+                    return Convert.ToInt32(FolderID);
+                }
+        }
     }
 }
