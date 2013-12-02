@@ -184,19 +184,21 @@
                 if (count == 0 || count <= -2) {
                     //Nothing was so show a message.
                     alert("You cannot perform Edit Selected on " + (-count) + " items.");
-                    return;
+                    // return false to cancel submit
+                    return false;
                 }
                 else {
                     var inputs = document.getElementsByTagName("input"); //or document.forms[0].elements;
                     var re = "_folder";
                     var ipts = inputs[count].id;
                     if (ipts.indexOf(re) != -1) {
-                        window.open("/Folder/EditFolder?FolderID=" + inputs[count].id.replace(re, ""));
+                        window.location = "/Folder/EditFolder?FolderID=" + inputs[count].id.replace(re, "");
                     }
                     else {
-                        window.open("/Image/UpdateImage?fileID=" + inputs[count].name);
+                        window.location = "/Image/UpdateImage?fileID=" + inputs[count].name;
                     }
-                    return;
+                    // return false to cancel submit
+                    return false;
                 }
 
             }
