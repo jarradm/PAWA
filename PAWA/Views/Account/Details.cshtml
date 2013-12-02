@@ -7,7 +7,7 @@
 <link href="~/App_Themes/Details.css" rel="stylesheet" type="text/css" />
 <div id="outer-panel">
     <div id="main-panel">
-        <div id="panel-header" style="font-family: Constantia"><b>My Photos</b></div>
+        <div id="panel-header" style="font-family: Constantia"><b>My Details</b></div>
         <div id="inner-panel">
             <fieldset>
                 <legend >User</legend>
@@ -83,10 +83,20 @@
                     </div>
                 </div>
             </fieldset>
-            <p>
-                @Html.ActionLink("Edit", "Edit", new { id=Model.UserID }) |
-                @Html.ActionLink("Back to List", "Index")
-            </p>
+            <input type="button" value="Edit Details" id="edit-button" />
+            <input type="button" value="Back To Gallery" id="back-button" />
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $("#edit-button").click(function () {
+            window.location = "../EditUser";
+        });
+
+        $("#back-button").click(function () {
+            window.location = "../../Home/Index";
+        });
+    });
+</script>

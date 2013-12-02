@@ -34,8 +34,17 @@
     border-right-width: 1px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
+    padding-bottom: 7px;
 }
 
 .display-field {
     float: right;
+}
+
+#back-button {
+    float: right;
+}
+
+#edit {
+    margin: auto;
 }
