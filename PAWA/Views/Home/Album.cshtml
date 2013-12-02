@@ -227,6 +227,16 @@
         });
     }
 
+    $(document).ready(function () {
+        $(".body-content-table-checkbox").click(function (event) {
+            event.stopPropagation();
+        });
+
+        $(".body-content-table-link").click(function () {
+            window.location = $(this).attr("href");
+        });
+    });
+
     function CheckMorePages()
     {
         var element = "#table-" + count;

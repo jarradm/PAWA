@@ -108,13 +108,13 @@ namespace PAWA.Classes
 
                             if (!exitFolders)
                             {
-                                htmlOutput += "<td>\n<a href=\"./Album?folderID=" + folders.ElementAt(foldersIndex).FolderID + "\">" +
+                                htmlOutput += "<td>\n<div class='body-content-table-link' href=\"./Album?folderID=" + folders.ElementAt(foldersIndex).FolderID + "\">" +
                                 "<img src=\"../../Images/folder.png\" class=\"body-content-table-image\"/>\n" +
                                 "<input type=\"checkbox\" class=\"body-content-table-checkbox\" id=\"" +
                             folders.ElementAt(foldersIndex).FolderID.ToString() + "_folder\" name=\"" +
                             folders.ElementAt(foldersIndex).FolderID.ToString() + "_folder\" />\n" +
                             "<div class=\"body-content-table-folder-text\">" + folders.ElementAt(foldersIndex).FolderName +
-                            "</div></a></td>";
+                            "</div></div></td>";
 
                                 foldersIndex++;
                             }
@@ -138,12 +138,12 @@ namespace PAWA.Classes
                             {
                                 string[] fileExtension = files.ElementAt(filesIndex).Filename.Split('.');
 
-                                htmlOutput += "<td>\n<a href=\"../../Image/DisplayImage?filename=" + files.ElementAt(filesIndex).Filename +
+                                htmlOutput += "<td>\n<div class=\"body-content-table-link\" href=\"../../Image/DisplayImage?filename=" + files.ElementAt(filesIndex).Filename +
                                 "\"><img src=\"../../Images/User/" + fileExtension[0] + "_thumb." + fileExtension[1] +
                                 "\" class=\"body-content-table-image\"/>\n" +
                                 "<input type=\"checkbox\" class=\"body-content-table-checkbox\" name=\"" +
                                 files.ElementAt(filesIndex).FileID.ToString() + "\" id=\"" +
-                                files.ElementAt(filesIndex).FileID.ToString() + "\" /></a>\n</td>";
+                                files.ElementAt(filesIndex).FileID.ToString() + "\" /></div>\n</td>";
 
                                 filesIndex++;
                             }
