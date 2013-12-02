@@ -48,15 +48,17 @@
                     <label>Folder Name:</label>
                     <input type="text" id="FolderName" style="position:relative;left:20px" />
                     <br /><label>Location:</label>
-                    <select id="SelectInFolderID" style="position:relative;left: 62px;width: 211px;">
+                    <select id="InFolderID" style="position:relative;left: 62px;width: 211px;">
                         @{
                             PAWA.Classes.Tools toolbox = new PAWA.Classes.Tools();
                             IList<PAWA.Models.Folder> folderlist = toolbox.getFolders(WebSecurity.CurrentUserId);
 
                             for (int i = 0; i < folderlist.Count;i++ ) {
-                                <option value="@Html.Raw(folderlist.ElementAt(i).FolderID.ToString())">
-                                        @Html.Raw(folderlist.ElementAt(i).FolderName)
-                                </option>
+                                @:<option value="
+                                    @Html.Raw(folderlist.ElementAt(i).FolderID.ToString());
+                                        @:">
+                                        @Html.Raw(folderlist.ElementAt(i).FolderName);
+                                  @:</option>
 
                             }   
                         }
@@ -226,6 +228,16 @@
             $(this).position({ my: "center", at: "center center+10", of: $(this).parent().children("img"), collision: "none" });
         });
     }
+
+    $(document).ready(function () {
+        $(".body-content-table-checkbox").click(function (event) {
+            event.stopPropagation();
+        });
+
+        $(".body-content-table-link").click(function () {
+            window.location = $(this).attr("href");
+        });
+    });
 
     function CheckMorePages()
     {
