@@ -4,94 +4,99 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<link href="~/App_Themes/Details.css" rel="stylesheet" type="text/css" />
+<div id="outer-panel">
+    <div id="main-panel">
+        <div id="panel-header" style="font-family: Constantia"><b>My Details</b></div>
+        <div id="inner-panel">
+            <fieldset>
+                <legend >User</legend>
 
-<fieldset style="width: 800px">
-    <legend >User</legend>
+                <div class="display-label">
+                    @Html.DisplayNameFor(model => model.Username)
+                    <div class="display-field">
+                        @Html.DisplayFor(model => model.Username)
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Username)
+                    </div>
+                </div>
+                <div class="display-label">
+                    @Html.DisplayNameFor(model => model.Email)
+                    <div class="display-field">
+                        @Html.DisplayFor(model => model.Email)
+
+                    </div>
+                </div>
+                <div class="display-label">
+                    @Html.DisplayNameFor(model => model.JoinDateTime)
+                    <div class="display-field">
+                        @Html.DisplayFor(model => model.JoinDateTime)
+                    </div>
+                </div>
+                <div class="display-label">
+                    @Html.DisplayNameFor(model => model.Country)
+                    <div class="display-field">
+                        @Html.DisplayFor(model => model.Country)
+                    </div>
+                </div>
+                <div class="display-label">         
+                    @Html.DisplayNameFor(model => model.DateOfBirth)
+                    <div class="display-field">
+                        @{
+                            string reformattedDOB = Model.DateOfBirth.ToString();
+                            reformattedDOB = reformattedDOB.Substring(0, 10);
+                            @Html.Raw(reformattedDOB);
+                        }
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Service</legend>
+
+                <div class="display-label">
+                    <label>Number of Folders:</label>
     
-    <div class="display-field" style="float:right;">
-        @Html.DisplayFor(model => model.Username)
-    </div></div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Password)
-    
-    <div class="display-field" style="float:right;">
-        @Html.DisplayFor(model => model.Password)
-    </div></div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Email)
-    
-    <div class="display-field" style="float:right;">
-        @Html.DisplayFor(model => model.Email)
-    </div></div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.JoinDateTime)
-    
-    <div class="display-field" style="float:right;">
-        @Html.DisplayFor(model => model.JoinDateTime)
-    </div></div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Country)
-    
-    <div class="display-field" style="float:right;">
-        @Html.DisplayFor(model => model.Country)
-    </div></div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.DateOfBirth)
-    
-    <div class="display-field" style="float:right;">
-        @{
-            string reformattedDOB = Model.DateOfBirth.ToString();
-            reformattedDOB = reformattedDOB.Substring(0, 10);
-            @Html.Raw(reformattedDOB);
-        }
-    </div></div>
-</fieldset>
-<fieldset style="width: 800px">
-    <legend>Service</legend>
-
-    <div class="display-label">
-         <label>Number of Folders:</label>
-    
-    <div class="display-field" style="float:right;">
-      @{
-          PAWA.Classes.Tools toolbox = new PAWA.Classes.Tools();
-          IList<PAWA.Models.Folder> folderlist = toolbox.getFolders(WebSecurity.CurrentUserId);
+                    <div class="display-field">
+                        @{
+                            PAWA.Classes.Tools toolbox = new PAWA.Classes.Tools();
+                            IList<PAWA.Models.Folder> folderlist = toolbox.getFolders(WebSecurity.CurrentUserId);
           
                   
-          @:<label>
-              @Html.Raw(folderlist.Count() );
-            @:</label>
-          
+                            <label>
+                                @Html.Raw(folderlist.Count() )
+                            </label>
                         }  
-    </div></div>
-    <div class="display-label">
-         <label>Number of Files Uploaded:</label>
+                     </div>
+                </div>
+                <div class="display-label">
+                    <label>Number of Files Uploaded:</label>
     
-    <div class="display-field" style="float:right;">
-         @{
-          PAWA.Classes.Tools toolbox2 = new PAWA.Classes.Tools();
-          IList<PAWA.Models.File> filelist = toolbox2.getFiles(WebSecurity.CurrentUserId);
-          
-                  
-          @:<label>
-              @Html.Raw(filelist.Count() );
-            @:</label>
-          
-                        } 
-    </div></div>
+                    <div class="display-field">
+                    @{
+                        PAWA.Classes.Tools toolbox2 = new PAWA.Classes.Tools();
+                        IList<PAWA.Models.File> filelist = toolbox2.getFiles(WebSecurity.CurrentUserId);
 
+                        <label>
+                            @Html.Raw(filelist.Count() )
+                        </label>
+                    } 
+                    </div>
+                </div>
+            </fieldset>
+            <input type="button" value="Edit Details" id="edit-button" />
+            <input type="button" value="Back To Gallery" id="back-button" />
+        </div>
+    </div>
+</div>
 
-</fieldset>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.UserID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<script>
+    $(document).ready(function () {
+        $("#edit-button").click(function () {
+            window.location = "../EditUser";
+        });
+
+        $("#back-button").click(function () {
+            window.location = "../../Home/Index";
+        });
+    });
+</script>
