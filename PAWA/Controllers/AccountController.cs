@@ -42,6 +42,7 @@ namespace PAWA.Controllers
         [AllowAnonymous]
         public ActionResult CreateUser()
         {
+            ViewBag.CountryList = GetCountries();
             return View();
         }
 
@@ -67,7 +68,7 @@ namespace PAWA.Controllers
 
                 return RedirectToAction("../Home/Album");
             }
-
+            ViewBag.CountryList = GetCountries();
             return View(user);
         }
 
