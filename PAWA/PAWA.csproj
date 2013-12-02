@@ -187,6 +187,7 @@
     </Content>
     <Content Include="App_Themes\AdminReports.css" />
     <Content Include="App_Themes\Album.css" />
+    <Content Include="App_Themes\Details.css" />
     <Content Include="App_Themes\DisplayImage.css" />
     <Content Include="App_Themes\Index.css" />
     <Content Include="App_Themes\Login.css" />
