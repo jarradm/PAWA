@@ -72,26 +72,19 @@ namespace PAWA.Controllers
                     {
                         folder.InFolderID = Convert.ToInt32(form["InFolderID"]);
                     }
-                    else { return Content("This Edit Has Failed"); }
+                    else
+                    {
+                        //return View(isFail);
+                        return Content("This Edit Has Failed");
+                    }
                 }
-<<<<<<< HEAD
-                else
-                {
-                    //return View(isFail);
-                    return Content("This Edit Has Failed"); }
-                }
-=======
->>>>>>> 2be4d4a522f3325f4f74784028550e197eaa97de
+
                 if (ModelState.IsValid)
                 {
                     dbContext.Entry(folder).State = EntityState.Modified;
                     dbContext.SaveChanges();
                     Response.Redirect("./../Home/Album?folderID=" + folder.InFolderID);
-<<<<<<< HEAD
-                }
-                ViewBag.UserID = new SelectList(dbContext.Users, "UserID", "UserName", folder.UserID);
-                ViewBag.FolderID = new SelectList(dbContext.Folders, "FolderID", "FolderName", folder.InFolderID);
-=======
+
                     // return View();
                 }
                 return View();
@@ -102,8 +95,8 @@ namespace PAWA.Controllers
             }
             else
             {
->>>>>>> 2be4d4a522f3325f4f74784028550e197eaa97de
                 return View();
             }
         }
     }
+}
