@@ -5,6 +5,10 @@ using System.Web;
 using System.Web.Mvc;
 using PAWA.DAL;
 using PAWA.Classes;
+using PAWA.Models;
+using System.IO;
+using WebMatrix.WebData;
+using System.Data;
 
 namespace PAWA.Controllers
 {
@@ -51,7 +55,7 @@ namespace PAWA.Controllers
             Tools funcs = new Tools();
 
             if (newTag != "")
-            {    
+            {
                 funcs.createTag(newTag, "admin");
                 Tools.tagAdded = true;
             }
@@ -64,10 +68,11 @@ namespace PAWA.Controllers
         {
             Tools funcs = new Tools();
             PAWA.Models.Tags theTag = funcs.getTag(id);
-           
-           
+
+
             return View(theTag);
         }
+
         [HttpPost]
         public ActionResult EditTag([Bind(Include = "TagsID, TagName, Status, UserSuggest")]Models.Tags tag)
         {
@@ -75,10 +80,10 @@ namespace PAWA.Controllers
             db.Tags.Attach(tag);
             var entry = db.Entry(tag);
 
-            entry.Property(e => e.TagName).IsModified = true ;
+            entry.Property(e => e.TagName).IsModified = true;
             entry.Property(e => e.Status).IsModified = true;
             entry.Property(e => e.UserSuggest).IsModified = true;
-            
+
             db.SaveChanges();
             return RedirectToAction("TagManagement");
         }
@@ -88,8 +93,86 @@ namespace PAWA.Controllers
 
         public ActionResult UserManagement()
         {
-            return View();
+            try
+            {
+                return View(dbContext.Users.ToList());
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.Print(ex.ToString());
+                return View();
+            }
         }
+
+
+        public ActionResult FreezeUser(int id)
+        {
+
+            var User = dbContext.Users.Find(id);
+            User.Status = Models.Status.Frozen;
+            User.DeleteDateTime = System.DateTime.Now;
+            if (ModelState.IsValid)
+            {
+                dbContext.Entry(User).State = EntityState.Modified;
+                dbContext.SaveChanges();
+                return RedirectToAction("UserManagement");
+            }
+            return View(User);
+        }
+
+        public ActionResult DeleteUser(int id)
+        {
+
+            var User = dbContext.Users.Find(id);
+            User.Status = Models.Status.Deleted;
+            User.DeleteDateTime = System.DateTime.Now;
+            if (ModelState.IsValid)
+            {
+                dbContext.Entry(User).State = EntityState.Modified;
+                dbContext.SaveChanges();
+                return RedirectToAction("UserManagement");
+            }
+            return View(User);
+        }
+
+        public ActionResult EditUser(int id)
+        {
+            User user = dbContext.Users.Find(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
+        }
+
+        //
+        // POST: /User/Edit/5
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditUser(FormCollection form, User user)
+        {
+
+            user.JoinDateTime = user.JoinDateTime;
+            user.DateOfBirth = Convert.ToDateTime(form["DateOfBirth"]);
+            if (user.Status.ToString() != "Active")
+            {
+                user.DeleteDateTime = System.DateTime.Now;
+            }
+            else
+            {
+                user.DeleteDateTime = null;
+            }
+
+            if (ModelState.IsValid)
+            {
+                dbContext.Entry(user).State = EntityState.Modified;
+                dbContext.SaveChanges();
+                return RedirectToAction("UserManagement");
+            }
+            return View(user);
+        }
+
         public ViewResult ViewUser(string SearchString)
         {
             Tools funcs = new Tools();
