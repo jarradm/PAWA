@@ -3,13 +3,18 @@
 @{
     ViewBag.Title = "EditFolder";
 }
-
-<h2>Edit Folder</h2>
+<link rel="stylesheet" href="~/App_Themes/Index.css" type="text/css" />
 
 @using (Html.BeginForm("EditFolder", "Folder", FormMethod.Post))
 {
-    <fieldset>
-        <legend>Folder</legend>
+    
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+        <div id="outer-panel">
+        <div id="main-panel">
+        <div id="panel-header" style="font-family: Constantia"><b>Edit Folder Info</b></div>
+        <div id="inner-panel">
+
         <div class="editor-label">
             @Html.LabelFor(model => model.InFolderID, "Location")
         </div>
@@ -32,9 +37,17 @@
         <p>
             <input type="submit" value="Save" />
         </p>
-    </fieldset>
+        <div>
+            @Html.ActionLink("Cancel", "Album", "Home", new { area = "" }, null)
+        </div>
+        </div>
+        </div>
+        </div>
 }
 
-    <div>
-    @Html.ActionLink("Cancel", "Album", "Home", new { area = "" }, null)
-    </div>
+@*<script type ="text/javascript">
+    $(document).ready(function () {
+        var isFail = @Html.
+
+    });
+</script>*@
