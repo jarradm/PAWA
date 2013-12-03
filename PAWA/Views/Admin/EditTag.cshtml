@@ -31,7 +31,7 @@
             @Html.LabelFor(model => model.UserSuggest):
         </div>
         <div class="editor-field">
-            @Html.DropDownListFor(model => model.Status, new SelectList(Enum.GetValues(typeof(PAWA.Models.UserSuggest))),new{style = "width: 75px"})
+            @Html.DropDownListFor(model => model.UserSuggest, new SelectList(Enum.GetValues(typeof(PAWA.Models.UserSuggest))),new{style = "width: 75px"})
             @Html.ValidationMessageFor(model => model.UserSuggest)
         </div>
         <p>

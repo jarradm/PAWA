@@ -10,7 +10,6 @@ using PAWA.Classes;
 using System.IO;
 using WebMatrix.WebData;
 using System.Data;
-using System.Data.Entity;
 
 namespace PAWA.Controllers
 {
@@ -189,35 +188,35 @@ namespace PAWA.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult UpdateImage(FormCollection form)
+        public ActionResult UpdateImage(FormCollection form, string saveImage, string cancelImage)
         {
-            EditImage ei = new EditImage();
-            Tools tool = new Tools();
-
             int index = Convert.ToInt32(form["FileID"]);
             var files = from f in dbContext.Files where f.FileID == index select f;
             var file = files.First();
-
-            file.Description = form["Description"];
-            if (form["FolderID"] == "")
-            {
-                file.FolderID = null;
-            }
-            else
-            {
-                file.FolderID = Convert.ToInt32(form["FolderID"]);
-            }
-
-            file.Tags = ei.stringOfTags(form);
-            if (ModelState.IsValid)
-            {
-                dbContext.Entry(file).State = EntityState.Modified;
-                dbContext.SaveChanges();
-                Response.Redirect("DisplayImage?filename=" + form["Filename"]);
-                return View();
-            }
             ViewBag.FolderID = new SelectList(dbContext.Folders, "FolderID", "FolderName", file.FolderID);
-            return View(file);
+            
+            if (saveImage != null)
+            {
+                EditImage ei = new EditImage();
+                Tools tool = new Tools();
+
+                file.Description = form["Description"];
+                file.Tags = ei.stringOfTags(form);
+                file.FolderID = ei.InFolderSetting(form["FolderID"]);
+
+                if (ModelState.IsValid)
+                {
+                    dbContext.Entry(file).State = EntityState.Modified;
+                    dbContext.SaveChanges();
+                    Response.Redirect("DisplayImage?filename=" + form["Filename"]);
+                    return View();
+                }
+                return View(file);
+            }
+            else 
+            {
+                return RedirectToAction("./../Image/DisplayImage", new { filename = form["Filename"] });
+            }
         }
 
     }

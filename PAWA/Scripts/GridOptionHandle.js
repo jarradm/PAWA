@@ -13,7 +13,7 @@
   *
   */
 $(document).ready(function () {
-    $("#resultPopup").dialog({ autoOpen: false, resizable: false, height: 130,  width: 320 });
+    $("#resultPopup").dialog({ autoOpen: false, resizable: false, height: 140,  width: 280 });
     $("form").first().submit(function (event) {
         // Handle for submit on where dropdown is Move.
         // If no images are selected, cancel the submit action.
@@ -22,7 +22,7 @@ $(document).ready(function () {
                 event.preventDefault();
                 pop("before");
                 // .POST 
-                var albumPost = $.post("../../Home/GetAlbumList", function (data) {
+                var albumPost = $.post("../../Home/GetAlbumList", { userID: "1" }, function (data) {
                     // .POST Success function
                     pop("The chidren are safe");
                     $("#resultPopup").empty().append(data);

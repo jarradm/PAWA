@@ -52,7 +52,7 @@ namespace PAWA.Controllers
 
             if (newTag != "")
             {    
-                funcs.createTag(newTag);
+                funcs.createTag(newTag, "admin");
                 Tools.tagAdded = true;
             }
             else { Tools.tagAdded = false; }

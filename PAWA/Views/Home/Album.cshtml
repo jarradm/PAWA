@@ -70,7 +70,7 @@
             
         }
                     </div>
-<div id="resultPopup" title="Move"></div>
+<div id="resultPopup" title="A popup box"></div>
                 
     </div>
 </div>
@@ -175,6 +175,13 @@
         { return count; }
     };
 
+    // Prevents form(event action) from submitting and cleans/closes the dialog box.
+    cancelChanges = function (event) {
+        event.preventDefault()
+        $("#resultPopup").dialog("close");
+        $("#resultPopup").empty();
+    }
+
 
     $(document).ready(function () {
         $("input[name='Submit']").click(function () {
@@ -184,19 +191,27 @@
                 if (count == 0 || count <= -2) {
                     //Nothing was so show a message.
                     alert("You cannot perform Edit Selected on " + (-count) + " items.");
-                    return;
+                    // return false to cancel submit
+                    return false;
+                    $("#resultPopup").attr("title", "Edit");
                 }
                 else {
                     var inputs = document.getElementsByTagName("input"); //or document.forms[0].elements;
                     var re = "_folder";
                     var ipts = inputs[count].id;
                     if (ipts.indexOf(re) != -1) {
-                        window.open("/Folder/EditFolder?FolderID=" + inputs[count].id.replace(re, ""));
+                        $.get("/Folder/EditFolder?folderid=" + inputs[count].id.replace(re, ""), function (data) {
+                            $("#resultPopup").empty().append(data);
+                            $("#resultPopup").dialog({width:360,height:400});
+                            $("#resultPopup").dialog("open");
+                        });
+                        //window.location = "/Folder/EditFolder?FolderID=" + inputs[count].id.replace(re, "");
                     }
                     else {
-                        window.open("/Image/UpdateImage?fileID=" + inputs[count].name);
+                        window.location = "/Image/UpdateImage?fileID=" + inputs[count].name;
                     }
-                    return;
+                    // return false to cancel submit
+                    return false;
                 }
 
             }
@@ -226,6 +241,16 @@
             $(this).position({ my: "center", at: "center center+10", of: $(this).parent().children("img"), collision: "none" });
         });
     }
+
+    $(document).ready(function () {
+        $(".body-content-table-checkbox").click(function (event) {
+            event.stopPropagation();
+        });
+
+        $(".body-content-table-link").click(function () {
+            window.location = $(this).attr("href");
+        });
+    });
 
     function CheckMorePages()
     {

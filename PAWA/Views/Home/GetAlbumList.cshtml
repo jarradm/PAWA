@@ -1,9 +1,9 @@
 ﻿<div id="Inherit Box">
-<label>Chose Folder to move to</label>
+<label>Choose Folder</label>
     <form id="folderSelectionForm">
         <select name="folderList" id="folderList">
             @{
-                PAWA.Classes.GetFolderFormSelectOptions pwa = new PAWA.Classes.GetFolderFormSelectOptions(ViewBag.userID);
+                PAWA.Classes.GetFolderFormSelectOptions pwa = new PAWA.Classes.GetFolderFormSelectOptions(WebSecurity.CurrentUserId);
                 @Html.Raw(pwa.returnHTML);
             }
         </select> 

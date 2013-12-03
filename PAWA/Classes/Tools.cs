@@ -8,7 +8,6 @@ using System.Security.Cryptography;
 using WebMatrix.WebData;
 using PAWA.Models;
 using System.Data;
-using System.Data.Entity;
 
 namespace PAWA.Classes
 {
@@ -25,7 +24,7 @@ namespace PAWA.Classes
 
         public IEnumerable<File> GetFilesFromFolder(int? folderID, int? userId)
         {
-            db = new PAWAContext();
+            //db = new PAWAContext();
             IEnumerable<File> files;
             if (userId != null)
             {
@@ -117,7 +116,7 @@ namespace PAWA.Classes
         ///</summary>
         public List<int> checkIfTagExists(string[] TagArr)
         {
-             db = new PAWAContext();
+            //db = new PAWAContext();
 
             //All of the images tag's Ids in a list
             List<int> ImageTagsIDs = new List<int>();
@@ -141,7 +140,7 @@ namespace PAWA.Classes
                 else
                 {
                     System.Diagnostics.Debug.WriteLine("Is not in DB\nAdding new tag '" + tagLower + "'...");
-                    createTag(tagLower);
+                    createTag(tagLower, "user");
                     System.Diagnostics.Debug.WriteLine("Tag  '" + tagLower + "' added sucessfully.");
                     ImageTagsIDs.Add(getTagID(tagLower));
                 }
@@ -150,7 +149,7 @@ namespace PAWA.Classes
         }
         public PAWA.Models.Tags getTag(int id)
         {
-             db = new PAWAContext();
+            //db = new PAWAContext();
             Models.Tags theTag;
 
             var tag = 
@@ -169,7 +168,7 @@ namespace PAWA.Classes
         ///</summary>
         public void TagUsedCountIncrease(string tagName)
         {
-             db = new PAWAContext();
+            //db = new PAWAContext();
             
             var tag =
                 from x in db.Tags
@@ -197,20 +196,38 @@ namespace PAWA.Classes
         ///<summary>
          /// Used to insert tags into the DB
         ///</summary>
-        public void createTag(string name)
+        public void createTag(string name, string type)
         {
-             db = new PAWAContext();
-            var newTag = new PAWA.Models.Tags
+            
+            if (type == "user")
             {
+                //db = new PAWAContext();
+                var newTag = new PAWA.Models.Tags
+                {
 
-                FirstDateTime = System.DateTime.Now,
-                Status = Models.Status.Active,
-                TagName = name,
-                UseCount = 1,
-                UserSuggest = Models.UserSuggest.User
-            };
-            db.Tags.Add(newTag);
-            db.SaveChanges();
+                    FirstDateTime = System.DateTime.Now,
+                    Status = Models.Status.Active,
+                    TagName = name,
+                    UseCount = 1,
+                    UserSuggest = Models.UserSuggest.User
+                };
+                db.Tags.Add(newTag);
+                db.SaveChanges();
+            }
+            else if (type == "admin")
+            {
+                //db = new PAWAContext();
+                var newTag = new PAWA.Models.Tags
+                {
+                    FirstDateTime = System.DateTime.Now,
+                    Status = Models.Status.Active,
+                    TagName = name,
+                    UseCount = 0,
+                    UserSuggest = Models.UserSuggest.Suggested
+                };
+                db.Tags.Add(newTag);
+                db.SaveChanges();
+            }
         }
         ///<summary>
         /// Used to get the tags id via
@@ -218,7 +235,7 @@ namespace PAWA.Classes
         ///</summary>
         public int getTagID(string tag)
         {
-             db = new PAWAContext();
+            //db = new PAWAContext();
 
             var test =
                 from x in db.Tags
@@ -263,14 +280,14 @@ namespace PAWA.Classes
         public IList<PAWA.Models.Folder> getFolders(int userID)
         {
             //open db connection
-             db = new PAWAContext();
-
+            //db = new PAWAContext();
+           
             //create new list for files,
             //will be used to generate DDL options
             IList<Models.Folder> list = new List<Models.Folder>();
-
+           
             //Add Root directory
-            list.Add(new Models.Folder { FolderID = -1, FolderName = "Root" });
+            list.Add(new Models.Folder {FolderID = -1, FolderName = "Root"});
 
             //Foreach folder in the database
             foreach (var f in db.Folders)
@@ -281,53 +298,13 @@ namespace PAWA.Classes
                     //add folder to List
                     list.Add(new Models.Folder { FolderID = f.FolderID, FolderName = f.FolderName, InFolderID = f.InFolderID });
                 }
-
+                
             }
             return list;
         }
-        ///<summary>
-        /// Returns the specific Folder, given the
-        /// Folder ID and the User ID.
-        ///</summary>
-        /// <param name="userID">ID of the user to witch the folder pertains.</param>
-        /// <param name="folderID">ID of the folder that is being fetched.</param>
-        /// <returns>Returns the requested folder. </returns>
-        public PAWA.Models.Folder getFolder(int userID, int? folderID)
-        {
-            //open db connection
-            db = new PAWAContext();
-            /// WARNING !!!
-            ///  IF db has Zero index, change conditional from "<=" to "<"
-            if (userID <= 0) { userID = 1; } // Assumption handle: User id is always greater then zero
-            if (folderID <= 0) { folderID = null; } // No folder less then zero (considered null)
-            var folders = from f in db.Folders where (f.FolderID == folderID || (f.InFolderID == null && folderID == null)) && f.UserID == userID select f;
-            Folder returnFolder = folders.First();
-
-            return returnFolder;
-        }
-        /// <summary>
-        /// The overloaded Get folder method. 
-        /// </summary>
-        /// <param name="userID">ID of the user to witch the folder pertains.</param>
-        /// <param name="folderID">ID of the folder that is being fetched.</param>
-        /// <returns>Returns the requested folder. </returns>
-        public PAWA.Models.Folder getFolder(int userID, string folderID)
-        {
-            // test for folder, being null or true
-            int convertedFolderID;
-            if (folderID == "" || !Int32.TryParse(folderID,out convertedFolderID)){ convertedFolderID = -1; } // else { convertedFolderID = Convert.ToInt32(folderID); }
-            Folder returnFolder = getFolder(userID,convertedFolderID);
-
-            return returnFolder;
-        }
-
-        ///<summary>
-        /// Returns all of the users owned
-        /// Files in a List(Files)   
-        ///</summary>
         public IList<PAWA.Models.File> getFiles(int userID)
         {
-            PAWAContext db = new PAWAContext();
+            //db = new PAWAContext();
 
             IList<Models.File> list = new List<Models.File>();
 
@@ -343,7 +320,7 @@ namespace PAWA.Classes
         ///</summary>
         public void insertImageToDB(int Height,int Width, int FileSize, string FileName, string Tags, string Description, int? FolderID)
         {
-            PAWAContext db = new PAWAContext();
+            //db = new PAWAContext();
             Tools.UserID = WebSecurity.CurrentUserId;
 
             if (FolderID == -1)
@@ -398,7 +375,7 @@ namespace PAWA.Classes
      /// </summary>
         public PAWA.Models.User getUserByID(int id)
         {
-          PAWAContext db = new PAWAContext();
+          //db = new PAWAContext();
           PAWA.Models.User theUser;
 
             var USER =
@@ -499,7 +476,43 @@ namespace PAWA.Classes
 
             return tagcloud;
         }
+        
+        ///<summary>
+        /// Returns the specific Folder, given the
+        /// Folder ID and the User ID.
+        ///</summary>
+        /// <param name="userID">ID of the user to witch the folder pertains.</param>
+        /// <param name="folderID">ID of the folder that is being fetched.</param>
+        /// <returns>Returns the requested folder. </returns>
+        public PAWA.Models.Folder getFolder(int userID, int? folderID)
+        {
+            //open db connection
+            //db = new PAWAContext();
+            /// WARNING !!!
+            ///  IF db has Zero index, change conditional from "<=" to "<"
+            if (userID <= 0) { userID = 1; } // Assumption handle: User id is always greater then zero
+            if (folderID <= 0) { folderID = null; } // No folder less then zero (considered null)
+            var folders = from f in db.Folders where (f.FolderID == folderID || (f.FolderID == null && folderID == null)) && f.UserID == userID select f;
+            Folder returnFolder;
+            if (folders.Count() > 0) { returnFolder = folders.FirstOrDefault(); } else { returnFolder = new Folder(); }
 
+            return returnFolder;
+        }
+        /// <summary>
+        /// The overloaded Get folder method. 
+        /// </summary>
+        /// <param name="userID">ID of the user to witch the folder pertains.</param>
+        /// <param name="folderID">ID of the folder that is being fetched.</param>
+        /// <returns>Returns the requested folder. </returns>
+        public PAWA.Models.Folder getFolder(int userID, string folderID)
+        {
+            // test for folder, being null or true
+            int convertedFolderID;
+            if (folderID == "" || !Int32.TryParse(folderID, out convertedFolderID)) { convertedFolderID = -1; } // else { convertedFolderID = Convert.ToInt32(folderID); }
+            Folder returnFolder = getFolder(userID, convertedFolderID);
+
+            return returnFolder;
+        }
         /// <summary>
         /// Returns 1 if the subfolder is within the directory tree of the parent folder. Returns 0 if root folder . If the subfolder is in a nonconventional loop(root folder is missing), the return is -1.
         /// </summary>
@@ -508,11 +521,12 @@ namespace PAWA.Classes
         /// <returns></returns>
         public int isSubfolder(Folder subfolder, Folder parentFolder)
         {
-            int? _RootID = null;
+            int _RootID = 0;
+            if (subfolder.FolderID == _RootID) { return _RootID; }
             int returnValue = -1;
             if (subfolder != null && parentFolder != null && parentFolder.UserID == subfolder.UserID)
             {
-                Folder subsParent = getFolder(subfolder.UserID, subfolder.InFolderID);
+                //Folder subsParent? = getFolder(subfolder.UserID, subfolder.InFolderID);
                 Folder testSubFolder = getFolder(subfolder.UserID, subfolder.FolderID);
                 Folder testParentFolder = getFolder(parentFolder.UserID, parentFolder.FolderID);
                 bool hasNotReachedRoot = true;
@@ -531,7 +545,7 @@ namespace PAWA.Classes
         }
         public int findInfinateParentLoop(Folder testFolderIn)
         {
-            int? _RootID = null;
+            int _RootID = 0;
             bool hasNotReachedRoot = true;
             int i = -1;
 
@@ -540,42 +554,64 @@ namespace PAWA.Classes
                 Folder testFolder = getFolder(testFolderIn.UserID, testFolderIn.FolderID);
                 //int inIndex = Convert.ToInt32(destinationFolder);
                 IList<int> folderIDChain = new List<int> { };
-                while ((hasNotReachedRoot = (testFolder.FolderID != _RootID)) && i<0)
+                while ((hasNotReachedRoot = (testFolder.FolderID != _RootID)) && i <= 0)
                 {
                     //check every list item in folderIDChain to see if the folder id has already been seen
                     int? c = folderIDChain.Count;
-                    bool noLoop = true;
-                    if (c != null) { for (i = (int)c; i > 1 && (noLoop = folderIDChain.ElementAt(i-1) != testFolder.FolderID); i--) { } }
-                    if (noLoop == false) { return folderIDChain.ElementAt((int)c-1); }
+                    bool noLoopDetected = true;
+                    for (i = (int)c; i > 1 && (noLoopDetected = folderIDChain.ElementAt(i - 1) != testFolder.FolderID); i--) { } 
+                    if (noLoopDetected == false) { return folderIDChain.ElementAt((int)c - 1); }
                     folderIDChain.Add(testFolder.FolderID);
                     testFolder = getFolder(testFolder.UserID, testFolder.InFolderID);
                 }
             }
             return -1;
         }
-        public bool moveFolder(int userID, string folderToMoveID,string destinationFolderID)
+        public bool changeFolderName(int userID,int folderID,string newFolderName)
+        {
+            bool returnValue = true;
+            if (newFolderName.Count() > 0 && folderID > 0)
+            {
+                Folder folderToEdit = getFolder(userID, folderID);
+                //bool isFail = isSubfolder(destinationFolder, folderToMove) == 0/*Is not a subfolder*/;
+                if (folderToEdit.FolderID != 0)
+                {
+                    folderToEdit.FolderName = newFolderName;
+                    db.Entry<Folder>(folderToEdit).State = EntityState.Modified;
+                    try { db.SaveChanges(); }
+                    catch (Exception e) { System.Diagnostics.Debug.WriteLine("Error : " + e); }
+                }
+                else {returnValue = false;}
+                // Method will return the true false 
+            }
+            return returnValue;
+        }
+        public bool moveFolder(int userID, string folderToMoveID, string destinationFolderID)
         {
             bool returnValue = false;
             Folder folderToMove = getFolder(userID, folderToMoveID);
-            Folder destinationFolder = getFolder(userID,destinationFolderID);
-            if (destinationFolder.FolderID == null) // If putting it in root folder
+            Folder destinationFolder = getFolder(userID, destinationFolderID);
+            if (destinationFolder.FolderID == 0) // If putting it in root folder
             {
                 folderToMove.InFolderID = null;
             }
             else // Check that it is not going inside itself
             {
-                bool isFail = isSubfolder(destinationFolder, folderToMove) == 0/*Is not a subfolder*/;
-                if (isSubfolder(destinationFolder, folderToMove) == 0)
+                bool notSubFolder = isSubfolder(destinationFolder, folderToMove) == 0/*Is not a subfolder*/;
+                if (notSubFolder)
                 {
                     folderToMove.InFolderID = destinationFolder.FolderID;
                 }
-                else { return (!isFail); }
+                else { return (!notSubFolder); }
                 // Method will return the true false 
             }
-            if (db.ChangeTracker.HasChanges())
             {
-                db.Entry(folderToMove).State = EntityState.Modified;
-                db.SaveChanges();
+                db.Entry<Folder>(folderToMove).State = EntityState.Modified;
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception e) { System.Diagnostics.Debug.WriteLine("Error : " + e); }
                 returnValue = true;
             }
             return returnValue;
