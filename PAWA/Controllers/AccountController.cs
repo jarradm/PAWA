@@ -137,7 +137,7 @@ namespace PAWA.Controllers
                 Email = user.Email,
                 Country = user.Country,
                 Gender = user.Gender,
-                Password = user.Password
+                OldPassword = user.Password
             };
 
             ViewBag.CountryList = GetCountries();
@@ -169,12 +169,13 @@ namespace PAWA.Controllers
         public ActionResult EditUser(string button, UserViewModel uvm, FormCollection fc)
         {            
             var user = db.Users.Where(u => u.UserID == 2).SingleOrDefault();
-            string password = fc.Get(2).ToString();
-            string confirmPassword = fc.Get(3).ToString();
+            string password = fc.Get(3).ToString();
+            string confirmPassword = fc.Get(4).ToString();
             string email = fc.Get(1).ToString();
-            string country = fc.Get(4).ToString();
+            string country = fc.Get(5).ToString();
+            string oldPassword = fc.Get("oldPass").ToString();
             
-            //return Content("Password: " + password + "Confirmpassword: " + confirmPassword + "Email: " + email + "Country: " + country + "Gender: " + uvm.Gender);
+            //return Content("Password: " + password + "Confirmpassword: " + confirmPassword + "Email: " + email + "Country: " + country + "Gender: " + uvm.Gender + "Old password: " + oldPassword);
 
             ViewBag.CountryList = GetCountries();
 
@@ -199,10 +200,12 @@ namespace PAWA.Controllers
                         user.Password = user.Password;
                     if (password == confirmPassword)
                     {
-                        uvm.Password = password;
-                        user.Password = uvm.Password;
+                        //uvm.Password = password;
+                        //user.Password = uvm.Password;
+
+                        WebSecurity.ChangePassword(WebSecurity.CurrentUserName, oldPassword, confirmPassword); 
                     }
-                    PAWA.Models.Gender g = (PAWA.Models.Gender)Enum.Parse(typeof(PAWA.Models.Gender), fc.Get(5));
+                    PAWA.Models.Gender g = (PAWA.Models.Gender)Enum.Parse(typeof(PAWA.Models.Gender), fc.Get(6));
                     user.Gender = g;
                     user.Country = uvm.Country;
                 }
@@ -234,7 +237,7 @@ namespace PAWA.Controllers
         [HttpPost]
         public ActionResult Cancel()
         {
-            return RedirectToAction("Login");
+            return RedirectToAction("Home", "Account");
         }
 
         //
@@ -248,8 +251,10 @@ namespace PAWA.Controllers
             {
                 var user = db.Users.Where(u => u.UserID == WebSecurity.CurrentUserId).SingleOrDefault();
 
-                db.Users.Remove(user);
-                //Dangerous Code: dbContext.SaveChanges();
+                user.Status = PAWA.Models.Status.Inactive;
+                user.DeleteDateTime = DateTime.Now;
+                db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
 
                 return RedirectToAction("Login");
             }

@@ -20,6 +20,8 @@ namespace PAWA.ViewModels
         [Compare("ConfirmPassword", ErrorMessage = "Passwords must match.")]
         public string Password { get; set; }
 
+        public string OldPassword { get; set; }
+
         public string ConfirmPassword { get; set; }
 
         [StringLength(100, MinimumLength = 8, ErrorMessage = "Must be between 8 and 100 characters")]

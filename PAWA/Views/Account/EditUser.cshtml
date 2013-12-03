@@ -13,8 +13,8 @@
                 <h2>Edit Profile</h2>
             </div>
             <span class="form-text">@Html.Label("Current Email:")</span>@Html.DisplayFor(m => m.Email)<br />
-            <span class="required"></span><span class="form-text">@Html.Label("New Email:")</span><span></span>@Html.TextBoxFor(m => m.Email, new { Value = ""})<span class="form-helper">@Html.ValidationMessageFor(m => m.Email)</span><br />
-            <span class="form-text">@Html.Label("Old Password:")</span>@Html.DisplayFor(m => m.Password)<br />
+            <span class="required"></span><span class="form-text">@Html.Label("New Email:")</span><span></span>@Html.TextBoxFor(m => m.Email, new { Value = "Enter email"})<span class="form-helper">@Html.ValidationMessageFor(m => m.Email)</span><br />
+            <span class="form-text">@Html.Label("Old Password:")</span>@Html.Password("oldPass")<br />
             <span class="required"></span><span class="form-text">@Html.Label("New Password:")</span>@Html.PasswordFor(m => m.Password, new { Value = "" })<span class="form-helper">@Html.ValidationMessageFor(m => m.Password)</span><br />
             <span class="required"></span><span class="form-text">@Html.Label("Confirm Password:")</span>@Html.PasswordFor(m => m.ConfirmPassword, new { Value = "" })<span class="form-helper">@Html.ValidationMessageFor(m => m.Password)</span><br />
             <span class="required"></span><span class="form-text">@Html.Label("Country:")</span>@Html.DropDownListFor(m => m.Country, (IEnumerable<SelectListItem>)ViewBag.CountryList)<br />
