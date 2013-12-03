@@ -91,3 +91,7 @@ background-repeat:repeat-x;
         background-color:lightgrey;
     }
 /* -------*/
+
+.field-validation-error {
+    color: red;
+}

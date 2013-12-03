@@ -175,6 +175,7 @@
     <Compile Include="Models\Type.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -316,7 +317,6 @@
     <Content Include="Views\Home\GetAlbumList.cshtml" />
     <Content Include="Views\Home\MoveImageTo.cshtml" />
     <Content Include="_AppStart.cshtml" />
-    <Content Include="Views\Home\CreateFolder.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\MostUsedTagReport.cshtml" />
     <Content Include="Views\Admin\MostPopularTagReport.cshtml" />

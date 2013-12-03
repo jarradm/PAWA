@@ -1,4 +1,6 @@
-﻿@{
+﻿@model PAWA.ViewModels.LoginViewModel
+
+@{
     Layout = null;
 }
 <!DOCTYPE html>
@@ -10,8 +12,12 @@
     <script src="~/Scripts/jquery-ui-1.10.3.min.js"></script>
 </head>
 <body>
+    
     @using(Html.BeginForm("Login", "Account", FormMethod.Post))
     {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.IncorrectLogin);
         <br />
      <div id="stripecut">
         <div id="logo"></div>
@@ -19,8 +25,16 @@
             <div id="main-panel">
                 <div id="panel-header" style="font-family: Constantia"><b>Sign In</b></div>
                 <div id="inner-panel">
-            Username: <input type="text" class="textbox" name="username" /><br />
-            Password: <input type="password" class="textbox" name="password" /><br />
+                    @Html.Label(Model.IncorrectLogin, new { @class="field-validation-error" })
+                    @Html.ValidationMessageFor(model => model.IncorrectLogin)
+                    @Html.ValidationMessageFor(model => model.Username)
+            <div>
+            Username: <input type="text" class="textbox" name="Username" />
+            </div>
+                    @Html.ValidationMessageFor(model => model.Password)
+            <div>
+            Password: <input type="password" class="textbox" name="Password" />
+            </div>
    <center>&nbsp&nbsp&nbsp&nbsp<button type="button" class="buttonlogin" style="width: 74px; height: 23px; font-style: italic; font: message-box" onclick="GoToCreateUser()">Register</button>
          
        <input type="submit" name="submit" value="Submit" style="width: 74px; height: 23px; font-style: italic; font: message-box" class="buttonlogin" /></center> 
