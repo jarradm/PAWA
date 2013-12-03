@@ -51,7 +51,7 @@
             @Html.LabelFor(model => model.Country)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Country)
+            @Html.DropDownListFor(m => m.Country, (IEnumerable<SelectListItem>)ViewBag.CountryList)
             @Html.ValidationMessageFor(model => model.Country)
         </div>
 

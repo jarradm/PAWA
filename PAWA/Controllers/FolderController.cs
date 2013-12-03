@@ -51,7 +51,7 @@ namespace PAWA.Controllers
                 var folder = folders.First();
                 Folder infolder;
 
-                ViewBag.FolderID = new SelectList(dbContext.Folders, "FolderID", "FolderName", folder.InFolderID);
+                ViewBag.InFolderID = new SelectList(dbContext.Folders, "FolderID", "FolderName", folder.InFolderID);
                 folder.FolderName = form["FolderName"];
                 if (form["InFolderID"] == "") // If putting it in root folder
                 {

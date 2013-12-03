@@ -137,6 +137,9 @@ namespace PAWA.Controllers
 
         public ActionResult EditUser(int id)
         {
+            AccountController ac = new AccountController();
+            ViewBag.CountryList = ac.GetCountries();
+
             User user = dbContext.Users.Find(id);
             if (user == null)
             {
@@ -152,6 +155,8 @@ namespace PAWA.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditUser(FormCollection form, User user)
         {
+            AccountController ac = new AccountController();
+            ViewBag.CountryList = ac.GetCountries();
 
             user.JoinDateTime = user.JoinDateTime;
             user.DateOfBirth = Convert.ToDateTime(form["DateOfBirth"]);
