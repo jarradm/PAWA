@@ -138,7 +138,7 @@ namespace PAWA.Classes
                 else
                 {
                     System.Diagnostics.Debug.WriteLine("Is not in DB\nAdding new tag '" + tagLower + "'...");
-                    createTag(tagLower, "user");
+                    createTag(tagLower);
                     System.Diagnostics.Debug.WriteLine("Tag  '" + tagLower + "' added sucessfully.");
                     ImageTagsIDs.Add(getTagID(tagLower));
                 }
@@ -194,38 +194,20 @@ namespace PAWA.Classes
         ///<summary>
          /// Used to insert tags into the DB
         ///</summary>
-        public void createTag(string name, string type)
+        public void createTag(string name)
         {
-            
-            if (type == "user")
+            PAWAContext db = new PAWAContext();
+            var newTag = new PAWA.Models.Tags
             {
-                PAWAContext db = new PAWAContext();
-                var newTag = new PAWA.Models.Tags
-                {
 
-                    FirstDateTime = System.DateTime.Now,
-                    Status = Models.Status.Active,
-                    TagName = name,
-                    UseCount = 1,
-                    UserSuggest = Models.UserSuggest.User
-                };
-                db.Tags.Add(newTag);
-                db.SaveChanges();
-            }
-            else if (type == "admin")
-            {
-                PAWAContext db = new PAWAContext();
-                var newTag = new PAWA.Models.Tags
-                {
-                    FirstDateTime = System.DateTime.Now,
-                    Status = Models.Status.Active,
-                    TagName = name,
-                    UseCount = 0,
-                    UserSuggest = Models.UserSuggest.Suggested
-                };
-                db.Tags.Add(newTag);
-                db.SaveChanges();
-            }
+                FirstDateTime = System.DateTime.Now,
+                Status = Models.Status.Active,
+                TagName = name,
+                UseCount = 1,
+                UserSuggest = Models.UserSuggest.User
+            };
+            db.Tags.Add(newTag);
+            db.SaveChanges();
         }
         ///<summary>
         /// Used to get the tags id via
@@ -297,18 +279,6 @@ namespace PAWA.Classes
                     list.Add(new Models.Folder { FolderID = f.FolderID, FolderName = f.FolderName, InFolderID = f.InFolderID });
                 }
                 
-            }
-            return list;
-        }
-        public IList<PAWA.Models.File> getFiles(int userID)
-        {
-            PAWAContext db = new PAWAContext();
-
-            IList<Models.File> list = new List<Models.File>();
-
-            foreach (var f in db.Files)
-            {
-                list.Add(new Models.File { FileID = f.FileID, Filename = f.Filename });
             }
             return list;
         }

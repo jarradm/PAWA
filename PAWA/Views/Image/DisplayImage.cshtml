@@ -9,9 +9,7 @@
 @using (Html.BeginForm("DisplayImage", "Image", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
 <div id="body-area">
-    
     <div id="body-content-image-area">
-        <input type="button" name="back" value="Go Back To Album" id="body-content-button-back" /><br />
         <img src="../../Images/User/@Model.Filename" id="body-content-image"/>
         
     </div>
@@ -31,36 +29,41 @@
         <input type="hidden" name="fileName" value="@Model.Filename" />
         <input type="submit" name="editImage" value="Edit Image" id="body-content-button-edit" />
         <input type="submit" name="deleteImage" value ="Delete Image" id="body-content-button-delete" />
-        <input type="hidden" name="FolderID" value="@ViewBag.FolderID" id="body-content-hidden-folderid" />
     </div>
+   <div id="shareBacker">
+       <div id="panel-header">Share this image on</div>
+       <div id="inner-panel">
+
+     <div id="facebookButton">
+        <input id="ShareFacebook" type="submit" name="ShareToFacebook" onclick="" value="login" />
+        </div>
+        <div id="twitterButton">
+        </div>
+           </div>
+       </div>
 </div>
 }
+    
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $("input[name='deleteImage']").click(function () { 
+        $("input[name='deleteImage']").click(function () {
             return confirm('This image will be permanently deleted. Do you wish to continue?');
         });
     });
 </script>
 
 <script>
-    // position after image loads due to unknown image height
+    // position after image loads
     $(window).load(function () {
-
         $("#body-content-button-edit").position({ my: "left top", at: "left top", of: "#body-content-button-area", collision: "none" });
         $("#body-content-button-delete").position({ my: "right top", at: "right top", of: "#body-content-button-area", collision: "none" });
+        $("#shareBacker").position({ my: "right top", at: "right+210 top", of: "#body-content-description", collision: "none" });
 
-        $("#body-content-button-back").click(function () {
-            var folderID = $("#body-content-hidden-folderid").val();
-
-            // redirect to the folder album view where the picture comes from
-            if (folderID == "null") {
-                window.location = "../Home/Album";
-            }
-            else {
-                window.location = "../Home/Album?folderID=" + folderID;
-            }
-        });
     });
+</script>
+<script>
+    function test() {
+
+    }
 </script>

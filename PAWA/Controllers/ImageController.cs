@@ -10,6 +10,7 @@ using PAWA.Classes;
 using System.IO;
 using WebMatrix.WebData;
 using System.Data;
+using Facebook;
 
 namespace PAWA.Controllers
 {
@@ -33,17 +34,45 @@ namespace PAWA.Controllers
         {
             int UserID = WebSecurity.CurrentUserId;
 
+            if (Request.QueryString["code"] != null)
+            {
+                SocialMediaTools socTools = new SocialMediaTools();
+                var fb = new FacebookClient();
+                string accessCode = Request.QueryString["code"].ToString();
 
-            var files = from f in dbContext.Files
-                        where f.UserID == UserID &&
-                              f.Filename == filename
-                        select f;
+                dynamic result = fb.Post("oauth/access_token", new
+                {
+                    client_id = "333143620161224", //This is my facebook APP ID
+                    client_secret = "48a7bbdec0e82f32af25681980b288d0", //The APP's SECRET ID
+                    redirect_uri = Request.Url.AbsoluteUri.ToString(),
+                    code = accessCode //Code used to swap for Token
 
-            ViewBag.Tags = PAWA.Classes.DisplayImage.GetTags(dbContext, files.First().Tags);
-            int value = files.SingleOrDefault().FileID;
-            ViewBag.FolderId = files.SingleOrDefault().FolderID;
+                });
+                //Check result object for the token
+                var accessToken = result.access_token;
+                //Throw Token into a session, incase we might need later
+                Session["AccessToken"] = accessToken;
+                //Attach Token to Current Clients token paramater
+                fb.AccessToken = accessToken;
+                //Start Upload, passing filename and currently open client
+                socTools.PostToFacebook(filename, fb);
+                //Completed
+                Response.Redirect("./../Home/Album");
+                return View();
+            }
+            else
+            {
+                var files = from f in dbContext.Files
+                            where f.UserID == UserID &&
+                                  f.Filename == filename
+                            select f;
 
-            return View(files.First());
+                ViewBag.Tags = PAWA.Classes.DisplayImage.GetTags(dbContext, files.First().Tags);
+                int value = files.SingleOrDefault().FileID;
+                ViewBag.FolderId = files.SingleOrDefault().FolderID;
+
+                return View(files.First());
+            }
         }
 
         //
@@ -64,9 +93,9 @@ namespace PAWA.Controllers
             /*True = Uploaded worked
             * False = Error
             * Null =  No action*/
-            if (Tools.uploaded == true) { ViewData["Uploaded"] = "File Uploaded Sucessfully!"; }
-            else if (Tools.uploaded == false) { ViewData["Uploaded"] = "File couldn't upload"; }
-            else if (Tools.uploaded == null) { ViewData["Uploaded"] = " "; }
+            if (Tools.uploaded == true) { TempData["Uploaded"] = "File Uploaded Sucessfully!"; }
+            else if (Tools.uploaded == false) { TempData["Uploaded"] = "File couldn't upload"; }
+            else if (Tools.uploaded == null) { TempData["Uploaded"] = " "; }
 
             //return list to view
             return View(list);
@@ -140,7 +169,7 @@ namespace PAWA.Controllers
 
 
         [HttpPost]
-        public ActionResult DisplayImage(string fileName, string editImage, string deleteImage)
+        public ActionResult DisplayImage(string fileName, string editImage, string deleteImage, string ShareToFacebook)
         {
 
             //If they want to delete
@@ -160,7 +189,26 @@ namespace PAWA.Controllers
                 int index = ei.GetID(fileName);
                 return RedirectToAction("./../Image/UpdateImage", new{fileID = index}); ;
             }
+                 //If they want to share to Facebook
+            else if (ShareToFacebook != null)
+            {
+                SocialMediaTools SocTools = new SocialMediaTools();
+                FacebookClient FBClient = new FacebookClient();
+
+                //Create a custom query for facebook, they then return a in-url code which we exchange for a user token
+                var loginUrl = FBClient.GetLoginUrl(new
+                {
+                    client_id = "333143620161224",
+                    redirect_uri = (Request.Url.AbsoluteUri.ToString() + "?filename=" + fileName),
+                    response_type = "code",
+                    scope = "publish_actions,publish_stream"
+                });
+                //Reload the page and get a new Acess Token for this user --> Go to HTTPPOST
+                Response.Redirect(loginUrl.AbsoluteUri);
+                return View(fileName);
+            }
             else
+            
             {
                 //Not deleting, do nothing
                 return DisplayImage(fileName);
@@ -188,35 +236,35 @@ namespace PAWA.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult UpdateImage(FormCollection form, string saveImage, string cancelImage)
+        public ActionResult UpdateImage(FormCollection form)
         {
+            EditImage ei = new EditImage();
+            Tools tool = new Tools();
+
             int index = Convert.ToInt32(form["FileID"]);
             var files = from f in dbContext.Files where f.FileID == index select f;
             var file = files.First();
+
+            file.Description = form["Description"];
+            if (form["FolderID"] == "")
+            {
+                file.FolderID = null;
+            }
+            else
+            {
+                file.FolderID = Convert.ToInt32(form["FolderID"]);
+            }
+
+            file.Tags = ei.stringOfTags(form);
+            if (ModelState.IsValid)
+            {
+                dbContext.Entry(file).State = EntityState.Modified;
+                dbContext.SaveChanges();
+                Response.Redirect("DisplayImage?filename=" + form["Filename"]);
+                return View();
+            }
             ViewBag.FolderID = new SelectList(dbContext.Folders, "FolderID", "FolderName", file.FolderID);
-            
-            if (saveImage != null)
-            {
-                EditImage ei = new EditImage();
-                Tools tool = new Tools();
-
-                file.Description = form["Description"];
-                file.Tags = ei.stringOfTags(form);
-                file.FolderID = ei.InFolderSetting(form["FolderID"]);
-
-                if (ModelState.IsValid)
-                {
-                    dbContext.Entry(file).State = EntityState.Modified;
-                    dbContext.SaveChanges();
-                    Response.Redirect("DisplayImage?filename=" + form["Filename"]);
-                    return View();
-                }
-                return View(file);
-            }
-            else 
-            {
-                return RedirectToAction("./../Image/DisplayImage", new { filename = form["Filename"] });
-            }
+            return View(file);
         }
 
     }
