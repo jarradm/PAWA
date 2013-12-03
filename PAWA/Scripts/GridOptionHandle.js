@@ -1,4 +1,4 @@
-﻿if (pop != window.alert) { var pop = function () { } }// Disableable test alert
+﻿if (pop != window.alert) { var pop = window.alert }// Disableable test alert
 
 /**
   * <summary> 
@@ -75,7 +75,7 @@ var getCheckedIDArray = function (o) {
             //  required condition is true. If true, the
             //  appropriate value is added to the returnArray.
             if (o && (checkedInputID.search('_folder') != -1)) {
-                pop("submit btn working");
+                pop("submit btn working\nFolder ID : " + checkedInputID.substring(checkedInputID.search("_folder") + 7, checkedInputID.toString().length));
                 returnValue.push([checkedInputID.substring(checkedInputID.search("_folder") + 7, checkedInputID.toString().length)]);
             } else if (!o && (checkedInputID.search('_folder') == -1)) {
                 returnValue.push([checkedInputID]);
@@ -98,6 +98,7 @@ var getCheckedIDArray = function (o) {
 var moveSubmitButton = function () {
 
     var checkedImageIDs = getCheckedIDArray(false);
+    var checkedFolderIDs = getCheckedIDArray(true);
     // Get list of all checked elements
     // Loop through each checkbox, find the checkboxs ID value,
     // determine whether it is an image or folder, add the ID 
@@ -105,6 +106,12 @@ var moveSubmitButton = function () {
     pop("Folder : " + $("#folderList").val() + "\nLength : " + checkedImageIDs.length + "\nValues : " + checkedImageIDs.toString() );
     var currentFolder = "" + getCurrentFolderID();
     // .POST
+    $.post("../../Home/MoveImageTo",
+        /*POSTED Values*/{ destinationFolder: $("#folderList").val(), selected: checkedImageIDs.toString(), sourceFolder: currentFolder }, function (data) {
+            // .POST Success function
+            pop("works" + data);
+            window.location.href = window.location;
+        });
     $.post("../../Home/MoveImageTo",
         /*POSTED Values*/{ destinationFolder: $("#folderList").val(), selected: checkedImageIDs.toString(), sourceFolder: currentFolder }, function (data) {
             // .POST Success function
