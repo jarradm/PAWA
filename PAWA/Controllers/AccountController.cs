@@ -78,26 +78,38 @@ namespace PAWA.Controllers
         [AllowAnonymous]
         public ActionResult Login()
         {
-            if(!WebSecurity.Initialized)
+            LoginViewModel lvm = new LoginViewModel
             {
-                WebSecurity.InitializeDatabaseConnection("PAWAContext", "User", "UserID", "Username", true);
-            }
-
-            return View();
+                Username = "",
+                Password = "",
+                IncorrectLogin = ""
+            };
+                
+            return View(lvm);
         }
 
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult Login(FormCollection form)
+        [ValidateAntiForgeryToken]
+        public ActionResult Login(LoginViewModel lvm)
         {
-            bool success = WebSecurity.Login(form["username"], form["password"], false);
+            if (ModelState.IsValid)
+            {
+                bool success = WebSecurity.Login(lvm.Username, lvm.Password, false);
 
-            if (success)
-            {                       
-                Response.Redirect("~/Account/Index");
+                if (success)
+                {
+                    Response.Redirect("~/Account/Index");
+                }
+
+                lvm.IncorrectLogin = "Incorrect Username/Password Combination!";
+            }
+            else
+            {
+                lvm.IncorrectLogin = "";
             }
 
-            return View();
+            return View(lvm);
         }
                 
         public ActionResult NewLogin()
