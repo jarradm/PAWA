@@ -158,8 +158,6 @@ namespace PAWA.Controllers
             AccountController ac = new AccountController();
             ViewBag.CountryList = ac.GetCountries();
 
-            user.JoinDateTime = user.JoinDateTime;
-            user.DateOfBirth = Convert.ToDateTime(form["DateOfBirth"]);
             if (user.Status.ToString() != "Active")
             {
                 user.DeleteDateTime = System.DateTime.Now;
