@@ -43,7 +43,7 @@
                     @Html.ValidationMessageFor(model => model.Password)
                     <div class="editor-label">
                         @Html.LabelFor(model => model.Password)
-                        @Html.EditorFor(model => model.Password)
+                        @Html.PasswordFor(model => model.Password, new { @class="text-box" })
                     </div>
                     @Html.ValidationMessageFor(model => model.Email)
                     <div class="editor-label">
