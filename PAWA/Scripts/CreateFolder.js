@@ -58,14 +58,6 @@
                             width: 400,
                             height: 190,
                             resizable: false,
-                            show: {
-                                effect: "blind",
-                                duration: 1000
-                            },
-                            hide: {
-                                effect: "explode",
-                                duration: 1500
-                            }
                         });
 
                         $("#body-content-button-create").click(function () {
@@ -81,13 +73,10 @@
                             alert("Please enter a valid folder name; mininum characters 1");
                         }
                         else {
-                            alert($("#SelectInFolderID").val());
                             var folder = {
                                 FolderName: $('#FolderName').val(),
                                 InFolderID: $('#SelectInFolderID').val(),
                             };
-
-                            alert(folder.InFolderID);
 
                             $.get("../Folders/createFolder?FolderName=" + folder.FolderName
                                 + "&InFolderID=" + folder.InFolderID, function () {
