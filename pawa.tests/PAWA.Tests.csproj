@@ -101,9 +101,6 @@
     <Content Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\PAWA\PAWA.csproj">
       <Project>{99feca64-0464-485c-b872-d4bcf663c053}</Project>
       <Name>PAWA</Name>

@@ -290,7 +290,6 @@
     <Content Include="Images\PAWACP Logo2.jpg" />
     <Content Include="Images\Rabbit Profile.jpg" />
     <Content Include="Scripts\CreateFolder.js" />
-    <Content Include="packages.config" />
     <None Include="Scripts\jquery-1.6.4-vsdoc.js" />
     <Content Include="Images\stripecut.png" />
     <Content Include="Scripts\GridOptionHandle.js" />
