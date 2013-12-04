@@ -5,6 +5,14 @@
 }
 
 <h2>EditUser</h2>
+<script src="~/Scripts/jquery-1.6.4.js"></script>
+<script src="~/Scripts/jquery-ui-1.10.3.js"></script>
+<link rel="stylesheet" href="~/App_Themes/PAWA_jQuery_Theme/jquery-ui-1.10.3.custom.css">
+<script>
+    $(document).ready(function () {
+        $("#DateOfBirth").datepicker({ dateFormat: 'yy-mm-dd', changeMonth: true, changeYear: true, yearRange: "1900:nn" });
+    });
+</script>
 
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()

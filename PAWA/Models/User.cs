@@ -38,7 +38,8 @@ namespace PAWA.Models
         public string Country { get; set; }
 
         [Required(ErrorMessage = "Date of Birth required.")]
-        [AgeValidation(ErrorMessage = "Too young to regiseter.")]
+        [AgeValidation(ErrorMessage = "Too young to register.")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         public DateTime DateOfBirth { get; set; }
 
         [Required()]
