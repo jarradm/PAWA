@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using PAWA.Classes;
 
 namespace PAWA.Models
 {
@@ -37,6 +38,7 @@ namespace PAWA.Models
         public string Country { get; set; }
 
         [Required(ErrorMessage = "Date of Birth required.")]
+        [AgeValidation(ErrorMessage = "Too young to regiseter.")]
         public DateTime DateOfBirth { get; set; }
 
         [Required()]
