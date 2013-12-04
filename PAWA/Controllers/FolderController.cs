@@ -9,6 +9,7 @@ using System.Drawing;
 using PAWA.Classes;
 using System.IO;
 using System.Data;
+using WebMatrix.WebData;
 
 namespace PAWA.Controllers
 {
@@ -34,7 +35,7 @@ namespace PAWA.Controllers
             ViewBag.InFolderID = new SelectList(dbContext.Folders.Where(f => f.FolderID != folderid), "FolderID", "FolderName", folder.InFolderID);
             ViewBag.fid = folderid;
 
-            return View(folder);
+            return PartialView(folder);
         }
 
         // POST: /Folder/Edit/5
@@ -42,55 +43,17 @@ namespace PAWA.Controllers
         [HttpPost]
         public ActionResult EditFolder(FormCollection form, string saveChanges, string cancelChanges)
         {
-            if (saveChanges != null)
-            {
-                Tools tool = new Tools();
-
-                int index = Convert.ToInt32(form["fid"]);
-                var folders = from f in dbContext.Folders where f.FolderID == index select f;
-                var folder = folders.First();
-                Folder infolder;
-
-                ViewBag.InFolderID = new SelectList(dbContext.Folders, "FolderID", "FolderName", folder.InFolderID);
-                folder.FolderName = form["FolderName"];
-                if (form["InFolderID"] == "") // If putting it in root folder
-                {
-                    folder.InFolderID = null;
-                }
-                else // Check that it is not going inside itself
-                {
-                    bool isFail = true;
-                    int inIndex = Convert.ToInt32(form["InFolderID"]);
-                    do
-                    {
-                        var infolders = from f in dbContext.Folders where f.FolderID == inIndex select f;
-                        infolder = infolders.First();
-                        inIndex = Convert.ToInt32(infolder.InFolderID);
-                    }
-                    while ((isFail = (infolder.InFolderID != null)) && (infolder.InFolderID != folder.FolderID));
-                    if (isFail == false)
-                    {
-                        folder.InFolderID = Convert.ToInt32(form["InFolderID"]);
-                    }
-                    else { return Content("This Edit Has Failed"); }
-                }
-                if (ModelState.IsValid)
-                {
-                    dbContext.Entry(folder).State = EntityState.Modified;
-                    dbContext.SaveChanges();
-                    Response.Redirect("./../Home/Album?folderID=" + folder.InFolderID);
-                    // return View();
-                }
-                return View();
-            }
-            else if (cancelChanges != null)
-            {
-                return RedirectToAction("./../Home/Album/", new { folderID = form["InFolderID"] }); ;
-            }
-            else
-            {
-                return View();
-            }
+            Tools toolbelt = new Tools();
+            bool SuccessfulMove = toolbelt.moveFolder(WebSecurity.CurrentUserId, form["fid"], form["InFolderID"]);
+            bool successfulNameChange = toolbelt.changeFolderName(WebSecurity.CurrentUserId, Convert.ToInt32(form["fid"]), form["FolderName"]);
+            string errorMessage = "";
+            string redirectUrl = "./../Home/Album?folderID=" + form["InFolderID"];
+            if (!SuccessfulMove) { errorMessage += "<ERROR>This Edit Has Failed\nThe folder was not moved</ERROR>"; redirectUrl="./../Home/Album";}
+            if (!successfulNameChange) { errorMessage += "<ERROR>This Edit Has Failed\nThe folder name was not changed</ERROR>"; redirectUrl = "./../Home/Album"; }
+            ViewBag.UserID = new SelectList(dbContext.Users, "UserID", "UserName", WebSecurity.CurrentUserId);
+            ViewBag.FolderID = new SelectList(dbContext.Folders, "FolderID", "FolderName", form["InFolderID"]);
+            Response.Redirect(redirectUrl+errorMessage);
+            return PartialView();
         }
     }
 }
