@@ -57,7 +57,18 @@ namespace PAWA.Controllers
             ViewBag.CountryList = GetCountries();
             return View();
         }
-
+        public ActionResult Close()
+        {
+            var user = db.Users.Where(u => u.UserID == WebSecurity.CurrentUserId).SingleOrDefault();
+            user.Status = PAWA.Models.Status.Inactive;
+            user.DeleteDateTime = System.DateTime.Now;
+            if (ModelState.IsValid == true)
+            {
+                db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            return Login("0");
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
@@ -202,11 +213,12 @@ namespace PAWA.Controllers
 
             if (button == "cancel")
             {
-                return RedirectToAction("EditUser");
+                return RedirectToAction("Details");
             }
             else if (button == "delete")
             {
-                return RedirectToAction("Delete", "Account");
+                Close();
+                return RedirectToAction("Login");
             }
             if (button == "submit")
             {
@@ -237,7 +249,7 @@ namespace PAWA.Controllers
                     db.Entry(user).State = EntityState.Modified;
                     db.SaveChanges();
 
-                    return View(uvm);
+                    return RedirectToAction("Details");
                 }
                 else
                 {
