@@ -26,7 +26,6 @@
             </select>
           
             <input type="submit" name="Submit" value="Go" />
-            <input type="button" name="move" value="Move Selected" onclick="clickMoveSelected(event)" />
             <input type="button" name="Back" value="Go Up A Folder" id="body-content-button-back" />
             <input type="button" name="Create" value="Create Folder" id="body-content-button-create" />
             
@@ -210,6 +209,9 @@
                     return false;
                 }
 
+            }
+            else if($("#DropDownList").val() == "Move") {
+                clickMoveSelected(event);// Handle for submit on where dropdown is Move.
             }
         });
     });

@@ -15,14 +15,7 @@
 $(document).ready(function () {
     $("#resultPopup").dialog({ autoOpen: false, resizable: false, height: 140, width: 340 });
     $("#resultPopup").attr("title", "Move selected");
-    $("form").first().submit(clickMoveSelected(event));
 });
-
-dropdownMoveselected = function (event) {
-    if ($("#DropDownList").val() == "Move") {
-        clickMoveSelected(event);// Handle for submit on where dropdown is Move.
-    }
-}
 
 clickMoveSelected = function (event) {
     // If no images are selected, cancel the submit action.
