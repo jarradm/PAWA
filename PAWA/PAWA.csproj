@@ -128,6 +128,7 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="Classes\AdminReports.cs" />
+    <Compile Include="Classes\AgeValidation.cs" />
     <Compile Include="Classes\AlbumGrid.cs" />
     <Compile Include="Classes\DeleteFolder.cs" />
     <Compile Include="Classes\DeleteImage.cs" />
