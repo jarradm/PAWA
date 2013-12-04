@@ -24,6 +24,18 @@ namespace PAWA.Controllers
         [Authorize]
         public ActionResult Index()
         {
+            var userID = WebSecurity.CurrentUserId;
+
+            var user = (from u in db.Users
+                        where u.UserID == userID
+                        select u).SingleOrDefault();
+
+            if (user.Status == Status.Deleted)
+            {
+                WebSecurity.Logout();
+                return RedirectToAction("Index", new { d = "1" });
+            }
+
             if(Roles.IsUserInRole("User"))
             {
                 Response.Redirect("/Home/Album");
@@ -76,15 +88,21 @@ namespace PAWA.Controllers
         // GET: /Account/Login
         [HttpGet]
         [AllowAnonymous]
-        public ActionResult Login()
+        public ActionResult Login(string d = "0")
         {
+            
             LoginViewModel lvm = new LoginViewModel
             {
                 Username = "",
-                Password = "",
-                IncorrectLogin = ""
+                Password = ""
             };
-                
+
+            // user has tried to login to deleted account
+            if (d == "1")
+            {
+                ModelState.AddModelError("DeletedUser", "Invalid login: Account has been deleted.");
+            }
+  
             return View(lvm);
         }
 
@@ -99,14 +117,12 @@ namespace PAWA.Controllers
 
                 if (success)
                 {
-                    Response.Redirect("~/Account/Index");
+                    return RedirectToAction("Index");
                 }
-
-                lvm.IncorrectLogin = "Incorrect Username/Password Combination!";
-            }
-            else
-            {
-                lvm.IncorrectLogin = "";
+                else
+                {
+                    ModelState.AddModelError("IncorrectLogin", "Incorrect Username/Password Combination!");
+                }
             }
 
             return View(lvm);
@@ -167,7 +183,7 @@ namespace PAWA.Controllers
             //To get the Country Names from the CultureInfo installed in windows
             foreach (CultureInfo cul in CultureInfo.GetCultures(CultureTypes.SpecificCultures))
             {
-                country = new RegionInfo(new CultureInfo(cul.Name, false).LCID);
+                country = new RegionInfo(cul.LCID);
                 countryNames.Add(new SelectListItem() { Text = country.DisplayName, Value = country.DisplayName });
             }
             
