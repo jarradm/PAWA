@@ -26,6 +26,7 @@
             </select>
           
             <input type="submit" name="Submit" value="Go" />
+            <input type="button" name="move" value="Move Selected" onclick="clickMoveSelected(event)" />
             <input type="button" name="Back" value="Go Up A Folder" id="body-content-button-back" />
             <input type="button" name="Create" value="Create Folder" id="body-content-button-create" />
             
@@ -170,6 +171,13 @@
         { return count; }
     };
 
+    // Prevents form(event action) from submitting and cleans/closes the dialog box.
+    cancelChanges = function (event) {
+        event.preventDefault()
+        $("#resultPopup").dialog("close");
+        $("#resultPopup").empty();
+    }
+
 
     $(document).ready(function () {
         $("input[name='Submit']").click(function () {
@@ -181,13 +189,19 @@
                     alert("You cannot perform Edit Selected on " + (-count) + " items.");
                     // return false to cancel submit
                     return false;
+                    $("#resultPopup").attr("title", "Edit");
                 }
                 else {
                     var inputs = document.getElementsByTagName("input"); //or document.forms[0].elements;
                     var re = "_folder";
                     var ipts = inputs[count].id;
                     if (ipts.indexOf(re) != -1) {
-                        window.location = "/Folder/EditFolder?FolderID=" + inputs[count].id.replace(re, "");
+                        $.get("/Folder/EditFolder?folderid=" + inputs[count].id.replace(re, ""), function (data) {
+                            $("#resultPopup").empty().append(data);
+                            $("#resultPopup").dialog({width:360,height:400});
+                            $("#resultPopup").dialog("open");
+                        });
+                        //window.location = "/Folder/EditFolder?FolderID=" + inputs[count].id.replace(re, "");
                     }
                     else {
                         window.location = "/Image/UpdateImage?fileID=" + inputs[count].name;
