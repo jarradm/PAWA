@@ -586,6 +586,10 @@ namespace PAWA.Classes
             }
             return returnValue;
         }
+        public bool moveFolder(int userID, string folderToMoveID, int? destinationFolderID) 
+        {
+            return moveFolder(userID, folderToMoveID, destinationFolderID.ToString());
+        }
         public bool moveFolder(int userID, string folderToMoveID, string destinationFolderID)
         {
             bool returnValue = false;

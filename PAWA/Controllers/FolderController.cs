@@ -48,8 +48,8 @@ namespace PAWA.Controllers
             bool successfulNameChange = toolbelt.changeFolderName(WebSecurity.CurrentUserId, Convert.ToInt32(form["fid"]), form["FolderName"]);
             string errorMessage = "";
             string redirectUrl = "./../Home/Album?folderID=" + form["InFolderID"];
-            if (!SuccessfulMove) { errorMessage += "<ERROR>This Edit Has Failed\nThe folder was not moved</ERROR>"; redirectUrl="./../Home/Album"}
-            if (!successfulNameChange) { errorMessage += "<ERROR>This Edit Has Failed\nThe folder name was not changed</ERROR>"; redirectUrl="./../Home/Album"}
+            if (!SuccessfulMove) { errorMessage += "<ERROR>This Edit Has Failed\nThe folder was not moved</ERROR>"; redirectUrl="./../Home/Album";}
+            if (!successfulNameChange) { errorMessage += "<ERROR>This Edit Has Failed\nThe folder name was not changed</ERROR>"; redirectUrl = "./../Home/Album"; }
             ViewBag.UserID = new SelectList(dbContext.Users, "UserID", "UserName", WebSecurity.CurrentUserId);
             ViewBag.FolderID = new SelectList(dbContext.Folders, "FolderID", "FolderName", form["InFolderID"]);
             Response.Redirect(redirectUrl+errorMessage);

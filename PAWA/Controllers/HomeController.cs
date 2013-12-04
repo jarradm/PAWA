@@ -71,9 +71,10 @@ namespace PAWA.Controllers
 
         
         [HttpPost]
-        public ActionResult GetAlbumList(UserIDType value) {
-            int UserID=WebSecurity.CurrentUserId;
+        public ActionResult GetAlbumList() {
             /*
+             * int UserID=WebSecurity.CurrentUserId;
+            
             try
             {
                 UserID = Convert.ToInt32(value.userID);
@@ -92,13 +93,13 @@ namespace PAWA.Controllers
                 returnValue += i+":{FolderID:\""+i+"\",";
                 returnValue += "FolderName:\"" + i + "\"},";
             }
-            returnValue += "length:" + folderList.Count() + "}";*/
+            returnValue += "length:" + folderList.Count() + "}";
 
             var folderList = from f in dbContext.Folders
                              where f.UserID == UserID
                              select f.Folders;
             ViewBag.userID = UserID;
-
+            */
             return PartialView();
         }
 
@@ -112,6 +113,35 @@ namespace PAWA.Controllers
             }
             return returnValue;
         }
+        
+        [HttpPost]
+        public ActionResult MoveFolderTo(MoveItemList moveItemList)
+        {
+
+            Tools toolbelt = new Tools();
+            int? newFolderID;
+            int? currentFolder;
+            IList<string> selectedItems = new List<string> { };
+            {// Initialise Posted string variables into workable data
+                if (moveItemList.selected != null)
+                {
+                    selectedItems = moveItemList.selected.Split((new char[] { ',' }), StringSplitOptions.RemoveEmptyEntries);
+                }
+                newFolderID = Convert.ToInt32(moveItemList.destinationFolder);
+                currentFolder = Convert.ToInt32(moveItemList.sourceFolder);
+                if (currentFolder <= 0) { currentFolder = null; }
+            }
+
+            string ReturnValue = "Count :" + selectedItems.Count  ;
+            // Move all the folders that need be moved.
+            for (int i = 0; i < selectedItems.Count ; i++)
+            {
+                bool SuccessfulMove = toolbelt.moveFolder(WebSecurity.CurrentUserId, selectedItems.ElementAt(i).ToString(), newFolderID);
+                ReturnValue += "Folder : " + selectedItems.ElementAt(i).ToString() + " : Success : " + SuccessfulMove + "\n"; 
+            }
+
+            return Content(ReturnValue);
+        }
 
         [HttpPost]
         public ActionResult MoveImageTo(MoveItemList moveItemList)
@@ -123,7 +153,7 @@ namespace PAWA.Controllers
             }
             int? newFolderID = Convert.ToInt32(moveItemList.destinationFolder);
             int? currentFolder = Convert.ToInt32(moveItemList.sourceFolder);
-            if (currentFolder < 0) { currentFolder = null; }
+            if (currentFolder <= 0) { currentFolder = null; }
             IList<Folder> listOfUserFolders;
             IEnumerable<File> listOfUserFiles;
             {
@@ -141,7 +171,8 @@ namespace PAWA.Controllers
             string ReturnValue = "";
             ReturnValue += "Selected Items Count : " + selectedItems.Count + " : " + selectedItems.Count();
             ReturnValue += "\nFolders Count : " + listOfUserFolders.Count + " : " + listOfUserFolders.Count();
-            ReturnValue += "\nFiles Count  : " + listOfUserFiles.Count() + "\nFileID : " + listOfUserFiles.ElementAt(listOfUserFiles.Count()-1).Description;
+            ReturnValue += "\nFiles Count  : " + listOfUserFiles.Count() ;
+            if (listOfUserFiles.Count() > 0){ReturnValue += "\nFileID : " + listOfUserFiles.ElementAt(listOfUserFiles.Count()-1).Description;}
             ReturnValue += "\nNew Folder ID : " + newFolderID.ToString();
 
             for (int i = 0; i < amountOfUserFolders; i++){
