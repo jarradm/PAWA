@@ -178,22 +178,15 @@ namespace PAWA.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult EditUser(string button, UserViewModel uvm, FormCollection fc)
-        {            
+        public ActionResult EditUser(string button, UserViewModel uvm)
+        {
             var user = db.Users.Where(u => u.UserID == 2).SingleOrDefault();
-            string password = fc.Get(3).ToString();
-            string confirmPassword = fc.Get(4).ToString();
-            string email = fc.Get(1).ToString();
-            string country = fc.Get(5).ToString();
-            string oldPassword = fc.Get("oldPass").ToString();
-            
-            //return Content("Password: " + password + "Confirmpassword: " + confirmPassword + "Email: " + email + "Country: " + country + "Gender: " + uvm.Gender + "Old password: " + oldPassword);
 
             ViewBag.CountryList = GetCountries();
 
             if (button == "cancel")
             {
-                return RedirectToAction("Login", "Account");
+                return RedirectToAction("EditUser");
             }
             else if (button == "delete")
             {
@@ -201,32 +194,40 @@ namespace PAWA.Controllers
             }
             if (button == "submit")
             {
-                TryUpdateModel(uvm);
                 if (ModelState.IsValid == true)
                 {
-                    if (!String.IsNullOrEmpty(email))
-                        user.Email = uvm.Email;
-                    if (String.IsNullOrEmpty(email))
-                        user.Email = user.Email;
-                    if (String.IsNullOrEmpty(password))
-                        user.Password = user.Password;
-                    if (password == confirmPassword)
-                    {
-                        //uvm.Password = password;
-                        //user.Password = uvm.Password;
 
-                        WebSecurity.ChangePassword(WebSecurity.CurrentUserName, oldPassword, confirmPassword); 
+                    user.Email = uvm.Email;
+
+                    // Check if password entered into OldPassword field
+                    if (!String.IsNullOrEmpty(uvm.OldPassword))
+                    {
+                        // Don't want to change password to an empty password
+                        if (String.IsNullOrEmpty(uvm.Password))
+                        {
+                            ModelState.AddModelError("Password", "Password is required");
+                            return View(uvm);
+                        }
+
+                        // Change password
+                        if (!WebSecurity.ChangePassword(WebSecurity.CurrentUserName, uvm.OldPassword, uvm.ConfirmPassword))
+                        {
+                            ModelState.AddModelError("OldPassword", "Old password incorrect.");
+                        }
                     }
-                    PAWA.Models.Gender g = (PAWA.Models.Gender)Enum.Parse(typeof(PAWA.Models.Gender), fc.Get(6));
-                    user.Gender = g;
+
+                    user.Gender = uvm.Gender;
                     user.Country = uvm.Country;
+                    db.Entry(user).State = EntityState.Modified;
+                    db.SaveChanges();
+
+                    return View(uvm);
                 }
                 else
                 {
                     db.GetValidationErrors();
+
                 }
-                db.Entry(user).State = EntityState.Modified;
-                db.SaveChanges();
 
             }
             return View(uvm);
