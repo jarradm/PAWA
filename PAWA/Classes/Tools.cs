@@ -35,6 +35,7 @@ namespace PAWA.Classes
             {
                 files = new HashSet<File> { };
             }
+
             return files;
         }
 
@@ -57,6 +58,9 @@ namespace PAWA.Classes
                 newGraphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
                 newGraphics.DrawImage(imgFile, new Rectangle(0, 0, newSize.Width, newSize.Height));
             }
+
+            imgFile.Dispose();
+
             return newImage;
         }
         ///<summary> 

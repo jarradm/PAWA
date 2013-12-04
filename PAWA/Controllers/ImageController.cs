@@ -113,7 +113,7 @@ namespace PAWA.Controllers
                 file.SaveAs(path);
 
                 //temp image for thumb resize, so it doesnt overwrite the original image
-                Image tempImage = System.Drawing.Image.FromFile(path);
+                Image tempImage = System.Drawing.Image.FromFile(path);                
 
                 //Create new database file using tempimage properties
                 funcs.insertImageToDB(tempImage.Height, tempImage.Width, (int)(new System.IO.FileInfo(path).Length / 1000), fileName, finalTags, description, Convert.ToInt16(FolderID));
