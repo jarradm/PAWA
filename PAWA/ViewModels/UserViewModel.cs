@@ -27,6 +27,7 @@ namespace PAWA.ViewModels
         [StringLength(100, MinimumLength = 8, ErrorMessage = "Must be between 8 and 100 characters")]
         [EmailAddress(ErrorMessage = "Not a valid email address.")]
         public string Email { get; set; }
+        
 
         [Required()]
         public string Country { get; set; }

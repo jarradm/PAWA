@@ -17,35 +17,34 @@
     {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true)
-        @Html.HiddenFor(model => model.IncorrectLogin);
-        <br />
      <div id="stripecut">
         <div id="logo"></div>
         <div id="outer-panel">
             <div id="main-panel">
                 <div id="panel-header" style="font-family: Constantia"><b>Sign In</b></div>
                 <div id="inner-panel">
-                    @Html.Label(Model.IncorrectLogin, new { @class="field-validation-error" })
-                    @Html.ValidationMessageFor(model => model.IncorrectLogin)
-                    @Html.ValidationMessageFor(model => model.Username)
-            <div>
-            Username: <input type="text" class="textbox" name="Username" />
+                    <fieldset>
+                        <legend>Login</legend>
+                    
+                        @Html.ValidationMessage("DeletedUser")
+                        @Html.ValidationMessage("IncorrectLogin")
+                        @Html.ValidationMessageFor(model => model.Username)
+                        <div class="editor-label">
+                            @Html.Label("User Name")
+                            @Html.TextBoxFor(m => m.Username, new { @class = "text-box" })
+                        </div>
+                            @Html.ValidationMessageFor(model => model.Password)
+                        <div>
+                            @Html.Label("Password")
+                            @Html.PasswordFor(m => m.Password, new { @class = "text-box" })
+                        </div>
+                    </fieldset>
+                    <input type="submit" name="submit" value="Submit" class="buttonlogin" />
+                    <input type="button" class="buttonlogin" onclick="GoToCreateUser()" value="Register" />           
+                </div>
             </div>
-                    @Html.ValidationMessageFor(model => model.Password)
-            <div>
-            Password: <input type="password" class="textbox" name="Password" />
-            </div>
-   <center>&nbsp&nbsp&nbsp&nbsp<button type="button" class="buttonlogin" style="width: 74px; height: 23px; font-style: italic; font: message-box" onclick="GoToCreateUser()">Register</button>
-         
-       <input type="submit" name="submit" value="Submit" style="width: 74px; height: 23px; font-style: italic; font: message-box" class="buttonlogin" /></center> 
-                     <br /> User: TVMegaFan <br />Password: qwert
-            <br /> Admin: CaptalAngine <br />Password: 12345
-           
         </div>
-                 </div>
-             </div>
-          </div>
-        
+    </div>
     }
 
     <script>
