@@ -191,6 +191,7 @@
     <Content Include="App_Themes\CreateUser.css" />
     <Content Include="App_Themes\Details.css" />
     <Content Include="App_Themes\DisplayImage.css" />
+    <Content Include="App_Themes\EditUser.css" />
     <Content Include="App_Themes\Index.css" />
     <Content Include="App_Themes\Login.css" />
     <Content Include="App_Themes\PAWA_jQuery_Theme\images\animated-overlay.gif" />
@@ -278,6 +279,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
     <Content Include="Global.asax" />
+    <Content Include="Images\bg_lite.png" />
     <Content Include="Images\BlueGreenGradient1.jpg" />
     <Content Include="Images\BlueGreenGradient2.jpg" />
     <Content Include="Images\BlueGreenGradient3.jpg" />
@@ -289,6 +291,14 @@
     <Content Include="Images\PAWACP Logo.jpg" />
     <Content Include="Images\PAWACP Logo2.jpg" />
     <Content Include="Images\Rabbit Profile.jpg" />
+    <Content Include="Images\User\1b3a3eb3fda1e33ae12a954a3e433557de17ea2bb04990a332b1015e7df638c8.jpg" />
+    <Content Include="Images\User\1b3a3eb3fda1e33ae12a954a3e433557de17ea2bb04990a332b1015e7df638c8_thumb.jpg" />
+    <Content Include="Images\User\38ab90242284a5106e273e406efe84f533f652ca5fa51d30f11af581f2c032ad.jpg" />
+    <Content Include="Images\User\38ab90242284a5106e273e406efe84f533f652ca5fa51d30f11af581f2c032ad_thumb.jpg" />
+    <Content Include="Images\User\3ab28c4f18e4daee52ffa4587016ba491c45812d7d1051e24b191648b3d152e7.jpg" />
+    <Content Include="Images\User\3ab28c4f18e4daee52ffa4587016ba491c45812d7d1051e24b191648b3d152e7_thumb.jpg" />
+    <Content Include="Images\User\82579f271ca76ddae60732c761804e0a090e8dd6fd85e9d43dfab981cb881567.jpg" />
+    <Content Include="Images\User\82579f271ca76ddae60732c761804e0a090e8dd6fd85e9d43dfab981cb881567_thumb.jpg" />
     <Content Include="Scripts\CreateFolder.js" />
     <Content Include="packages.config" />
     <None Include="Scripts\jquery-1.6.4-vsdoc.js" />
