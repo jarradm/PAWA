@@ -143,7 +143,7 @@ namespace PAWA.Classes
                 else
                 {
                     System.Diagnostics.Debug.WriteLine("Is not in DB\nAdding new tag '" + tagLower + "'...");
-                    createTag(tagLower);
+                    createTag(tagLower, "user");
                     System.Diagnostics.Debug.WriteLine("Tag  '" + tagLower + "' added sucessfully.");
                     ImageTagsIDs.Add(getTagID(tagLower));
                 }
@@ -200,49 +200,38 @@ namespace PAWA.Classes
          /// Used to insert tags into the DB
         ///</summary>
         public void createTag(string name, string type)
-    
-          {
-             
-             if (type == "user")
-             PAWAContext db = new PAWAContext();
-            var newTag = new PAWA.Models.Tags
-              {
+        {
+            
+            if (type == "user")
+            {
                 //db = new PAWAContext();
                 var newTag = new PAWA.Models.Tags
-                 {
-  
+                {
+
                     FirstDateTime = System.DateTime.Now,
-                     Status = Models.Status.Active,
-                     TagName = name,
-                     UseCount = 1,
-                     UserSuggest = Models.UserSuggest.User
-                 };
-                 db.Tags.Add(newTag);
-                 db.SaveChanges();
-             }
-             else if (type == "admin")
-             {
-                 PAWAContext db = new PAWAContext();
-                 var newTag = new PAWA.Models.Tags
-                 {
-                     FirstDateTime = System.DateTime.Now,
-                     Status = Models.Status.Active,
-                     TagName = name,
-                     UseCount = 0,
-                     UserSuggest = Models.UserSuggest.Suggested
-                 };
-                 db.Tags.Add(newTag);
-                 db.SaveChanges();
-             }
-                 FirstDateTime = System.DateTime.Now,
-                 Status = Models.Status.Active,
-                 TagName = name,
-                 UseCount = 1,
-                 UserSuggest = Models.UserSuggest.User
-             };
-             db.Tags.Add(newTag);
-             db.SaveChanges();
-          }
+                    Status = Models.Status.Active,
+                    TagName = name,
+                    UseCount = 1,
+                    UserSuggest = Models.UserSuggest.User
+                };
+                db.Tags.Add(newTag);
+                db.SaveChanges();
+            }
+            else if (type == "admin")
+            {
+                PAWAContext db = new PAWAContext();
+                var newTag = new PAWA.Models.Tags
+                {
+                    FirstDateTime = System.DateTime.Now,
+                    Status = Models.Status.Active,
+                    TagName = name,
+                    UseCount = 0,
+                    UserSuggest = Models.UserSuggest.Suggested
+                };
+                db.Tags.Add(newTag);
+                db.SaveChanges();
+            }
+        }
         ///<summary>
         /// Used to get the tags id via
         /// passed tag name
@@ -316,18 +305,18 @@ namespace PAWA.Classes
             }
             return list;
         }
-		 public IList<PAWA.Models.File> getFiles(int userID)
- -        {
+        public IList<PAWA.Models.File> getFiles(int userID)
+        {
             //db = new PAWAContext();
- -
- -            IList<Models.File> list = new List<Models.File>();
- -
- -            foreach (var f in db.Files)
- -            {
- -                list.Add(new Models.File { FileID = f.FileID, Filename = f.Filename });
- -            }
- -            return list;
- -        }
+
+            IList<Models.File> list = new List<Models.File>();
+
+            foreach (var f in db.Files)
+            {
+                list.Add(new Models.File { FileID = f.FileID, Filename = f.Filename });
+            }
+            return list;
+        }
         ///<summary>
          ///  Uses all passed parimeters to create a new db 
          ///  image object, then pushes it into the db and saves  
