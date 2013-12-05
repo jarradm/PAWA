@@ -277,10 +277,6 @@ namespace PAWA.Controllers
             
             if (saveImage != null)
             {
-                EditImage ei = new EditImage();
-                Tools tool = new Tools();
-
-                file.Description = form["Description"];
                 file.Tags = ei.stringOfTags(form);
                 file.FolderID = ei.InFolderSetting(form["FolderID"]);
 
@@ -288,8 +284,7 @@ namespace PAWA.Controllers
                 {
                     dbContext.Entry(file).State = EntityState.Modified;
                     dbContext.SaveChanges();
-                    Response.Redirect("DisplayImage?filename=" + form["Filename"]);
-                    return View();
+                    return RedirectToAction("./../Image/DisplayImage", new { filename = form["Filename"] });
                 }
                 return View(file);
             }
