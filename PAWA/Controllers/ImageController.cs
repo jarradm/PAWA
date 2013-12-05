@@ -65,7 +65,22 @@ namespace PAWA.Controllers
             * False = Error
             * Null =  No action*/
             if (Tools.uploaded == true) { ViewData["Uploaded"] = "File Uploaded Sucessfully!"; }
-            else if (Tools.uploaded == false) { ViewData["Uploaded"] = "File couldn't upload"; }
+            else if (Tools.uploaded == false) 
+            {
+                var user = (from u in dbContext.Users
+                            where u.UserID == WebSecurity.CurrentUserId
+                            select u).SingleOrDefault();
+
+                // user can't upload if account is frozen
+                if (user.Status == Status.Frozen)
+                {
+                    ViewData["Uploaded"] = "Couldn't upload,<br> your privileges have been suspended.";
+                }
+                else
+                {
+                    ViewData["Uploaded"] = "File couldn't upload";
+                }
+            }
             else if (Tools.uploaded == null) { ViewData["Uploaded"] = " "; }
 
             //return list to view
@@ -81,6 +96,17 @@ namespace PAWA.Controllers
             string finalTags;
 
             System.Drawing.Imaging.ImageFormat fileExtension;
+
+            var user = (from u in dbContext.Users
+                        where u.UserID == WebSecurity.CurrentUserId
+                        select u).SingleOrDefault();
+
+            // user can't upload if account is frozen
+            if (user.Status == Status.Frozen)
+            {
+                Tools.uploaded = false;
+                return RedirectToAction("UploadImage");
+            }
 
 
             //Check file is valid
