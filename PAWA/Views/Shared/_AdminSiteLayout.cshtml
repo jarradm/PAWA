@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <link href="~/App_Themes/SiteLayout.css" rel="stylesheet" type="text/css" />
+    <!--<link href="~/Content/themes/base/jquery.ui.all.css" rel="stylesheet" />-->
+    <link rel="stylesheet" href="~/App_Themes/PAWA_jQuery_Theme/jquery-ui-1.10.3.custom.css">
+    <script src="~/Scripts/jquery-1.6.4.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.10.3.min.js"></script>
+    
+</head>
+<body>
+    <div id="logout">
+        Admin: @WebSecurity.CurrentUserName | <a href="~/Account/Logout" id="logout-link">Logout</a>
+    </div>
+    <div id="header">
+        @Html.Partial("AdminHeaderView")
+    </div>
+
+    <div id="body">
+        @RenderBody()
+    </div>
+
+    <div id="footer">
+        @Html.Partial("FooterView")
+    </div>
+    <script>
+        $(window).load(function () {
+            $("#footer").position({ my: "bottom", at: "bottom", of: document, collision: "none" });
+        });
+    </script>
+</body>
+
+</html>

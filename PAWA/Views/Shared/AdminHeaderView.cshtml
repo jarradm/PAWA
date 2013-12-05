@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "HeaderView";
+    
+}
+
+<link href="@Url.Content("~/App_Themes/SiteLayout_AdminHeader.css")" rel="stylesheet" type="text/css" />
+
+
+<div id="header-area">
+    <div id="header-stripe">
+    <div id="header-content-area">
+        <img id="header-logo-image" src="~/Images/logopng.png" />
+
+        <div id="header-navbar-area">
+            <a href="~/Admin/Index" class="header-navbar-links" id="header-navbar-home-link">
+                <span id="header-navbar-home" class="navbar">
+                ○  Home
+                </span>
+            </a>
+        </div>
+    </div>
+        </div>
+
+    <script>
+        // Position navbar elements from right to left
+        $(window).ready(function () {
+            $("#header-navbar-area").position({ my: "right bottom", at: "right bottom-70", of: "#header-content-area", collision: "none" });
+            $("#header-navbar-home-link").position({ my: "right bottom", at: "right bottom", of: "#header-navbar-area", collision: "none" });
+        });
+    </script>
+</div>

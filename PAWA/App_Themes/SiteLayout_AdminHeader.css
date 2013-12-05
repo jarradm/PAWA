@@ -1,0 +1,58 @@
+﻿#header-content-area {
+    margin: auto;
+    width: 400px;
+    height: 124px;
+    margin-bottom: 50px;
+}
+
+#header-logo-image {
+    position: relative;
+    width: 250px;
+    height: 80px;
+    
+}
+#header-stripe {
+    background-image:url('/Images/stripecut.png');
+    background-color:transparent;
+    min-width:700px;
+    background-repeat:repeat-x;
+}
+
+#header-navbar-home {
+
+}
+
+#header-navbar-user {
+
+}
+
+#header-navbar-upload {
+   
+}
+
+#header-navbar-options {
+
+}
+
+.header-navbar-links {
+    padding: 0px 0px 0px 0px;
+    font-size: 0px;
+    color: white;
+    width: 150px;
+}
+
+.header-navbar-links:visited {
+    color: white;
+}
+
+.navbar {
+    display: inline-block;
+    width: 150px;
+    text-align: center;
+    font-size: 18px;
+}
+
+#header-navbar-area {
+    width: 100%;
+    padding: 0px;
+}
