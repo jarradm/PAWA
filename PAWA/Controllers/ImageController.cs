@@ -94,8 +94,23 @@ namespace PAWA.Controllers
             * False = Error
             * Null =  No action*/
             if (Tools.uploaded == true) { TempData["Uploaded"] = "File Uploaded Sucessfully!"; }
-            else if (Tools.uploaded == false) { TempData["Uploaded"] = "File couldn't upload"; }
-            else if (Tools.uploaded == null) { TempData["Uploaded"] = " "; }
+            else if (Tools.uploaded == false) 
+            {
+                var user = (from u in dbContext.Users
+                            where u.UserID == WebSecurity.CurrentUserId
+                            select u).SingleOrDefault();
+
+                // user can't upload if account is frozen
+                if (user.Status == Status.Frozen)
+                {
+                    ViewData["Uploaded"] = "Couldn't upload,<br> your privileges have been suspended.";
+                }
+                else
+                {
+                    ViewData["Uploaded"] = "File couldn't upload";
+                }
+            }
+            else if (Tools.uploaded == null) { ViewData["Uploaded"] = " "; }
 
             //return list to view
             return View(list);
@@ -110,6 +125,17 @@ namespace PAWA.Controllers
             string finalTags;
 
             System.Drawing.Imaging.ImageFormat fileExtension;
+
+            var user = (from u in dbContext.Users
+                        where u.UserID == WebSecurity.CurrentUserId
+                        select u).SingleOrDefault();
+
+            // user can't upload if account is frozen
+            if (user.Status == Status.Frozen)
+            {
+                Tools.uploaded = false;
+                return RedirectToAction("UploadImage");
+            }
 
 
             //Check file is valid
@@ -236,7 +262,7 @@ namespace PAWA.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult UpdateImage(FormCollection form)
+        public ActionResult UpdateImage(FormCollection form, string saveImage, string cancelImage)
         {
             EditImage ei = new EditImage();
             Tools tool = new Tools();
@@ -247,24 +273,30 @@ namespace PAWA.Controllers
 
             file.Description = form["Description"];
             if (form["FolderID"] == "")
-            {
-                file.FolderID = null;
-            }
-            else
-            {
-                file.FolderID = Convert.ToInt32(form["FolderID"]);
-            }
-
-            file.Tags = ei.stringOfTags(form);
-            if (ModelState.IsValid)
-            {
-                dbContext.Entry(file).State = EntityState.Modified;
-                dbContext.SaveChanges();
-                Response.Redirect("DisplayImage?filename=" + form["Filename"]);
-                return View();
-            }
             ViewBag.FolderID = new SelectList(dbContext.Folders, "FolderID", "FolderName", file.FolderID);
-            return View(file);
+            
+            if (saveImage != null)
+            {
+                EditImage ei = new EditImage();
+                Tools tool = new Tools();
+
+                file.Description = form["Description"];
+                file.Tags = ei.stringOfTags(form);
+                file.FolderID = ei.InFolderSetting(form["FolderID"]);
+
+                if (ModelState.IsValid)
+                {
+                    dbContext.Entry(file).State = EntityState.Modified;
+                    dbContext.SaveChanges();
+                    Response.Redirect("DisplayImage?filename=" + form["Filename"]);
+                    return View();
+                }
+                return View(file);
+            }
+            else 
+            {
+                return RedirectToAction("./../Image/DisplayImage", new { filename = form["Filename"] });
+            }
         }
 
     }

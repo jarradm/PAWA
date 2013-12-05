@@ -30,7 +30,7 @@ namespace PAWA.Controllers
                         where u.UserID == userID
                         select u).SingleOrDefault();
 
-            if (user.Status == Status.Deleted)
+            if (user.Status == Status.Deleted || user.Status == Status.Inactive)
             {
                 WebSecurity.Logout();
                 return RedirectToAction("Index", new { d = "1" });
