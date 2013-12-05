@@ -46,6 +46,9 @@
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="Facebook">
+      <HintPath>..\packages\Facebook.6.4.2\lib\net45\Facebook.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -134,6 +137,7 @@
     <Compile Include="Classes\DeleteImage.cs" />
     <Compile Include="Classes\DisplayImage.cs" />
     <Compile Include="Classes\EditImage.cs" />
+    <Compile Include="Classes\SocialMediaTools.cs" />
     <Compile Include="Classes\Tools.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
@@ -301,6 +305,7 @@
     <Content Include="Images\User\82579f271ca76ddae60732c761804e0a090e8dd6fd85e9d43dfab981cb881567.jpg" />
     <Content Include="Images\User\82579f271ca76ddae60732c761804e0a090e8dd6fd85e9d43dfab981cb881567_thumb.jpg" />
     <Content Include="Scripts\CreateFolder.js" />
+    <Content Include="packages.config" />
     <None Include="Scripts\jquery-1.6.4-vsdoc.js" />
     <Content Include="Images\stripecut.png" />
     <Content Include="Scripts\GridOptionHandle.js" />

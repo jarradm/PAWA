@@ -36,14 +36,34 @@
                     100 Most Used Tags
                     <input type="button" id="tagcloud-overlay-close-button" value="X" onclick="CloseCloudOverlay()"/>
                 </div>
-                <div id="tagcloud-overlay-item-area">
+                <div style="color:red" id="tagcloud-overlay-item-area">
                     @Html.Raw(PAWA.Classes.Tools.CreateTagCloudOverlayContents(PAWA.Classes.Tools.GetTop100Tags(new PAWA.DAL.PAWAContext())))
                 </div>
             </div>
         </div>
     </div>
+@{
+    //Determine what color the text is by checking the Tempdata value
+    string color = "";
+    PAWA.Classes.Tools.uploaded = null; //Reset uploaded for next page load
+    if(TempData["Uploaded"] != "")
+    {
+        if ((@Html.Encode(TempData["Uploaded"])).Contains("Sucess"))
+        {
+            color = "green";
+            @:<h3 style="color:@color">@Html.Raw(TempData["Uploaded"])</h3>
+            
+           
+        }
+        else if ((@Html.Encode(TempData["Uploaded"])).Contains("couldn"))
+        {
+            color = "red";
+             @:<h3 style="color:@color">@Html.Raw(TempData["Uploaded"])</h3>
+            
+        }
+    }
+ }
 
-<h3>@Html.Raw(ViewData["Uploaded"])</h3>
 
 <script>
     function TagHelp()
