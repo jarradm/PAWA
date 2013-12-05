@@ -24,7 +24,7 @@ background-repeat:repeat-x;
 /*PAWA LOGIN PANEL*/
 #main-panel {
     margin:auto;
-    width: 300px;
+    width: 375px;
     height: 133px;
     border-top-right-radius:15px;
     border-bottom-right-radius:15px;
@@ -59,6 +59,7 @@ background-repeat:repeat-x;
     border-right-width: 1px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
+    padding-bottom: 13px;
     
 }
 
@@ -66,32 +67,25 @@ background-repeat:repeat-x;
     padding-top: 5px;
     margin-left: 77px;
 }
-.textbox {
-    border:1px solid;
-       border-radius:15px;
-       text-align:center;
-}
-    .textbox:focus {
-        outline:none;
-        box-shadow: 0px 0px 3pt 3pt lightblue;
-        background-color:lightgrey;
-    }
-.buttonlogin {
-    outline:none;
-    border: 1px solid;
-    border-radius:15px;
-}
-    .buttonlogin:hover {
-        border: 1px solid;
-        background-color: lightblue;
-        cursor: pointer;
-    }
-    .buttonlogin:active {
-        
-        background-color:lightgrey;
-    }
+
 /* -------*/
 
 .field-validation-error {
     color: red;
+}
+
+label {
+    display: inline-block;
+    padding-top: 1px;
+}
+
+input.text-box {
+    float: right;
+    width: 211px;
+    margin: 0px;
+    padding: 0px;
+}
+
+.editor-label {
+    padding-bottom: 15px;
 }

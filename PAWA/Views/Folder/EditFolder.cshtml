@@ -14,7 +14,14 @@
             @Html.LabelFor(model => model.InFolderID, "Location")
         </div>
         <div class="editor-field">
-            @Html.DropDownList("InFolderID", "Album Home")
+            
+        <select name="InFolderID" id="folderList">
+            @{
+                PAWA.Classes.GetFolderFormSelectOptions pwa = new PAWA.Classes.GetFolderFormSelectOptions(WebSecurity.CurrentUserId);
+                @Html.Raw(pwa.returnHTML);
+            }
+        </select> 
+            @*Html.DropDownList("InFolderID", "Album Home")*@
             @Html.ValidationMessageFor(model => model.InFolderID)
         </div>
 
@@ -31,7 +38,7 @@
 
         <p>
             <input type="submit" name="saveChanges" value="Save" />
-            <input type="submit" name="cancelChanges" value="Cancel" />
+            <input type="submit" name="cancelChanges" value="Cancel" onclick="cancelChanges(event)"/>
         </p>
     </fieldset>
 }

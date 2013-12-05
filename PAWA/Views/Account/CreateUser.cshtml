@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="~/App_Themes/PAWA_jQuery_Theme/jquery-ui-1.10.3.custom.css">
     <script>
         $(document).ready(function () {
-            $("#DateOfBirth").datepicker({ dateFormat: 'yy-mm-dd' });
+            $("#DateOfBirth").datepicker({ dateFormat: 'yy-mm-dd', changeMonth: true, changeYear: true, yearRange: "1900:nn" });
         });
     </script>
 </head>
@@ -43,7 +43,7 @@
                     @Html.ValidationMessageFor(model => model.Password)
                     <div class="editor-label">
                         @Html.LabelFor(model => model.Password)
-                        @Html.EditorFor(model => model.Password)
+                        @Html.PasswordFor(model => model.Password, new { @class="text-box" })
                     </div>
                     @Html.ValidationMessageFor(model => model.Email)
                     <div class="editor-label">

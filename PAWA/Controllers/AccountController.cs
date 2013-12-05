@@ -24,6 +24,18 @@ namespace PAWA.Controllers
         [Authorize]
         public ActionResult Index()
         {
+            var userID = WebSecurity.CurrentUserId;
+
+            var user = (from u in db.Users
+                        where u.UserID == userID
+                        select u).SingleOrDefault();
+
+            if (user.Status == Status.Deleted)
+            {
+                WebSecurity.Logout();
+                return RedirectToAction("Index", new { d = "1" });
+            }
+
             if(Roles.IsUserInRole("User"))
             {
                 Response.Redirect("/Home/Album");
@@ -45,7 +57,18 @@ namespace PAWA.Controllers
             ViewBag.CountryList = GetCountries();
             return View();
         }
-
+        public ActionResult Close()
+        {
+            var user = db.Users.Where(u => u.UserID == WebSecurity.CurrentUserId).SingleOrDefault();
+            user.Status = PAWA.Models.Status.Inactive;
+            user.DeleteDateTime = System.DateTime.Now;
+            if (ModelState.IsValid == true)
+            {
+                db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            return Login("0");
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
@@ -76,15 +99,21 @@ namespace PAWA.Controllers
         // GET: /Account/Login
         [HttpGet]
         [AllowAnonymous]
-        public ActionResult Login()
+        public ActionResult Login(string d = "0")
         {
+            
             LoginViewModel lvm = new LoginViewModel
             {
                 Username = "",
-                Password = "",
-                IncorrectLogin = ""
+                Password = ""
             };
-                
+
+            // user has tried to login to deleted account
+            if (d == "1")
+            {
+                ModelState.AddModelError("DeletedUser", "Invalid login: Account has been deleted.");
+            }
+  
             return View(lvm);
         }
 
@@ -99,14 +128,12 @@ namespace PAWA.Controllers
 
                 if (success)
                 {
-                    Response.Redirect("~/Account/Index");
+                    return RedirectToAction("Index");
                 }
-
-                lvm.IncorrectLogin = "Incorrect Username/Password Combination!";
-            }
-            else
-            {
-                lvm.IncorrectLogin = "";
+                else
+                {
+                    ModelState.AddModelError("IncorrectLogin", "Incorrect Username/Password Combination!");
+                }
             }
 
             return View(lvm);
@@ -167,7 +194,7 @@ namespace PAWA.Controllers
             //To get the Country Names from the CultureInfo installed in windows
             foreach (CultureInfo cul in CultureInfo.GetCultures(CultureTypes.SpecificCultures))
             {
-                country = new RegionInfo(new CultureInfo(cul.Name, false).LCID);
+                country = new RegionInfo(cul.LCID);
                 countryNames.Add(new SelectListItem() { Text = country.DisplayName, Value = country.DisplayName });
             }
             
@@ -178,55 +205,57 @@ namespace PAWA.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult EditUser(string button, UserViewModel uvm, FormCollection fc)
-        {            
+        public ActionResult EditUser(string button, UserViewModel uvm)
+        {
             var user = db.Users.Where(u => u.UserID == 2).SingleOrDefault();
-            string password = fc.Get(3).ToString();
-            string confirmPassword = fc.Get(4).ToString();
-            string email = fc.Get(1).ToString();
-            string country = fc.Get(5).ToString();
-            string oldPassword = fc.Get("oldPass").ToString();
-            
-            //return Content("Password: " + password + "Confirmpassword: " + confirmPassword + "Email: " + email + "Country: " + country + "Gender: " + uvm.Gender + "Old password: " + oldPassword);
 
             ViewBag.CountryList = GetCountries();
 
             if (button == "cancel")
             {
-                return RedirectToAction("Login", "Account");
+                return RedirectToAction("Details");
             }
             else if (button == "delete")
             {
-                return RedirectToAction("Delete", "Account");
+                Close();
+                return RedirectToAction("Login");
             }
             if (button == "submit")
             {
-                TryUpdateModel(uvm);
                 if (ModelState.IsValid == true)
                 {
-                    if (!String.IsNullOrEmpty(email))
-                        user.Email = uvm.Email;
-                    if (String.IsNullOrEmpty(email))
-                        user.Email = user.Email;
-                    if (String.IsNullOrEmpty(password))
-                        user.Password = user.Password;
-                    if (password == confirmPassword)
-                    {
-                        //uvm.Password = password;
-                        //user.Password = uvm.Password;
 
-                        WebSecurity.ChangePassword(WebSecurity.CurrentUserName, oldPassword, confirmPassword); 
+                    user.Email = uvm.Email;
+
+                    // Check if password entered into OldPassword field
+                    if (!String.IsNullOrEmpty(uvm.OldPassword))
+                    {
+                        // Don't want to change password to an empty password
+                        if (String.IsNullOrEmpty(uvm.Password))
+                        {
+                            ModelState.AddModelError("Password", "Password is required");
+                            return View(uvm);
+                        }
+
+                        // Change password
+                        if (!WebSecurity.ChangePassword(WebSecurity.CurrentUserName, uvm.OldPassword, uvm.ConfirmPassword))
+                        {
+                            ModelState.AddModelError("OldPassword", "Old password incorrect.");
+                        }
                     }
-                    PAWA.Models.Gender g = (PAWA.Models.Gender)Enum.Parse(typeof(PAWA.Models.Gender), fc.Get(6));
-                    user.Gender = g;
+
+                    user.Gender = uvm.Gender;
                     user.Country = uvm.Country;
+                    db.Entry(user).State = EntityState.Modified;
+                    db.SaveChanges();
+
+                    return RedirectToAction("Details");
                 }
                 else
                 {
                     db.GetValidationErrors();
+
                 }
-                db.Entry(user).State = EntityState.Modified;
-                db.SaveChanges();
 
             }
             return View(uvm);
