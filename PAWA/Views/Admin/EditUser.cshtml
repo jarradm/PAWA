@@ -2,12 +2,10 @@
 
 @{
     ViewBag.Title = "EditUser";
+    Layout = "~/Views/Shared/_AdminSiteLayout.cshtml";
 }
 
-<h2>EditUser</h2>
-<script src="~/Scripts/jquery-1.6.4.js"></script>
-<script src="~/Scripts/jquery-ui-1.10.3.js"></script>
-<link rel="stylesheet" href="~/App_Themes/PAWA_jQuery_Theme/jquery-ui-1.10.3.custom.css">
+<link rel="stylesheet" href="~/App_Themes/CreateUser.css" />
 <script>
     $(document).ready(function () {
         $("#DateOfBirth").datepicker({ dateFormat: 'yy-mm-dd', changeMonth: true, changeYear: true, yearRange: "1900:nn" });
@@ -17,74 +15,71 @@
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
-
+<div id="outer-panel">
+        <div id="main-panel">
+            <div id="panel-header" style="font-family: Constantia"><b>Edit User</b></div>
+            <div id="inner-panel">
     <fieldset>
         <legend>User</legend>
 
+                    @Html.ValidationMessageFor(model => model.Username)
+                    <div class="editor-label">
+                        @Html.Label("User Name")
+                        @Html.EditorFor(model => model.Username)
+                    </div>
+
+                    @Html.ValidationMessageFor(model => model.Password)
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Password)
+                        @Html.PasswordFor(model => model.Password, new { @class="text-box" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Email)
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Email)
+                        @Html.EditorFor(model => model.Email)
+                    </div>
+
+                    @Html.ValidationMessageFor(model => model.Status)
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Status)
+                        @Html.DropDownListFor(model => model.Status, new SelectList(Enum.GetValues(typeof(PAWA.Models.Status))),new{style = "width: 75px"})
+                    </div>
+
+                    @Html.ValidationMessageFor(model => model.Country)
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Country)
+                        @Html.DropDownListFor(m => m.Country, (IEnumerable<SelectListItem>)ViewBag.CountryList)
+                    </div>
+
+                    @Html.ValidationMessageFor(model => model.DateOfBirth)
+                    <div class="editor-label">
+                        @Html.Label("Date Of Birth")
+                        @Html.EditorFor(model => model.DateOfBirth)
+                    </div>
+                    <div class="radio-label">
+                        @Html.LabelFor(model => model.Gender)
+                        <div id="radio-male">
+                            @Html.RadioButtonFor(model => model.Gender, "Male", new { id = "male", @checked = "checked" })
+                            @Html.Label("male", "Male")
+                        </div>
+                        <div id="radio-female">
+                            @Html.RadioButtonFor(model => model.Gender, "Female", new { id = "female" })
+                            @Html.Label("female", "Female")
+                        </div>
+                    </div>
+                     @Html.HiddenFor(model => model.JoinDateTime)
+
         @Html.HiddenFor(model => model.UserID)
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Username)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Username)
-            @Html.ValidationMessageFor(model => model.Username)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Password)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Password)
-            @Html.ValidationMessageFor(model => model.Password)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Email)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Email)
-            @Html.ValidationMessageFor(model => model.Email)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Status)
-        </div>
-        <div class="editor-field">
-            @Html.DropDownListFor(model => model.Status, new SelectList(Enum.GetValues(typeof(PAWA.Models.Status))),new{style = "width: 75px"})
-            @Html.ValidationMessageFor(model => model.Status)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Country)
-        </div>
-        <div class="editor-field">
-            @Html.DropDownListFor(m => m.Country, (IEnumerable<SelectListItem>)ViewBag.CountryList)
-            @Html.ValidationMessageFor(model => model.Country)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.DateOfBirth)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.DateOfBirth)
-            @Html.ValidationMessageFor(model => model.DateOfBirth)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Gender)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Gender)
-            @Html.ValidationMessageFor(model => model.Gender)
-        </div>
-        <p>
+        
             @Html.HiddenFor(model => model.JoinDateTime)
             <input type="submit" value="Save" />
-        </p>
     </fieldset>
-}
-
-<div>
+                <div>
     @Html.ActionLink("Back to List", "UserManagement")
 </div>
+</div>
+</div>
+</div>
+}
+

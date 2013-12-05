@@ -191,6 +191,7 @@
     <Content Include="App_Data\PAWADB_log.ldf">
       <DependentUpon>PAWADB.mdf</DependentUpon>
     </Content>
+    <Content Include="App_Themes\AdminEditUser.css" />
     <Content Include="App_Themes\AdminReports.css" />
     <Content Include="App_Themes\Album.css" />
     <Content Include="App_Themes\CreateUser.css" />
@@ -217,9 +218,11 @@
     <Content Include="App_Themes\PAWA_jQuery_Theme\images\ui-icons_ffffff_256x240.png" />
     <Content Include="App_Themes\PAWA_jQuery_Theme\jquery-ui-1.10.3.custom.css" />
     <Content Include="App_Themes\SiteLayout.css" />
+    <Content Include="App_Themes\SiteLayout_AdminHeader.css" />
     <Content Include="App_Themes\SiteLayout_Footer.css" />
     <Content Include="App_Themes\SiteLayout_Header.css" />
     <Content Include="App_Themes\UploadImage.css" />
+    <Content Include="App_Themes\UserManagement.css" />
     <Content Include="App_Themes\ViewUser.css" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -347,6 +350,8 @@
     <Content Include="Views\Account\Details.cshtml" />
     <Content Include="Views\Account\EditUser.cshtml" />
     <Content Include="Views\Admin\EditUser.cshtml" />
+    <Content Include="Views\Shared\_AdminSiteLayout.cshtml" />
+    <Content Include="Views\Shared\AdminHeaderView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201310102227375_InitialCreate.resx">
