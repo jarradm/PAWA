@@ -16,7 +16,18 @@
     <script>
         $(document).ready(function () {
             $("#DateOfBirth").datepicker({ dateFormat: 'yy-mm-dd', changeMonth: true, changeYear: true, yearRange: "1900:nn" });
+            $("#DateOfBirth").attr("readonly", "readonly");
+            $("#Username").attr("onblur", "usernameCheck()");
+            $("span[data-valmsg-for|=Username]").css("color", "#AA4444");
+            usernameCheck()
         });
+        var usernameCheck = function () {
+            $.post("./_ExistingUser", { Username: $("#Username").val().toString() }, function (data) {
+                if ((data + "").toLocaleLowerCase() != "ok") {
+                    $("span[data-valmsg-for|=Username]").empty().append(data);
+                } else { $("span[data-valmsg-for|=Username]").empty(); }
+            });
+        }
     </script>
 </head>
 <body>
