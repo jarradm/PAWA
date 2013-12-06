@@ -23,13 +23,13 @@ namespace PAWA.Classes
             // born 13 years ago to the year
             else if (now.Year - 13 == parse.Year)
             {
-                if (now.Month > parse.Month)
+                if (now.Month < parse.Month)
                 {
                     return false;
                 }
                 else if (now.Month == parse.Month)
                 {
-                    if (now.Day > parse.Day)
+                    if (now.Day < parse.Day)
                     {
                         return false;
                     }
