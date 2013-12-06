@@ -4,8 +4,6 @@
     ViewBag.Title = "EditFolder";
 }
 
-<h2>Edit Folder</h2>
-
 @using (Html.BeginForm("EditFolder", "Folder", FormMethod.Post))
 {
     <fieldset>
@@ -38,7 +36,6 @@
 
         <p>
             <input type="submit" name="saveChanges" value="Save" />
-            <input type="submit" name="cancelChanges" value="Cancel" onclick="cancelChanges(event)"/>
         </p>
     </fieldset>
 }

@@ -65,7 +65,8 @@
             
         }
                     </div>
-<div id="resultPopup" title="A popup box"></div>
+<div id="resultPopup" title="Move Selected"></div>
+<div id="folderPopup" title="Edit Selected Folder"></div>
                 
     </div>
 </div>
@@ -188,7 +189,6 @@
                     alert("You cannot perform Edit Selected on " + (-count) + " items.");
                     // return false to cancel submit
                     return false;
-                    $("#resultPopup").attr("title", "Edit");
                 }
                 else {
                     var inputs = document.getElementsByTagName("input"); //or document.forms[0].elements;
@@ -196,9 +196,10 @@
                     var ipts = inputs[count].id;
                     if (ipts.indexOf(re) != -1) {
                         $.get("/Folder/EditFolder?folderid=" + inputs[count].id.replace(re, ""), function (data) {
-                            $("#resultPopup").empty().append(data);
-                            $("#resultPopup").dialog({width:360,height:400});
-                            $("#resultPopup").dialog("open");
+                            $("#folderPopup").attr("title", "Edit Selected Folder");
+                            $("#folderPopup").empty().append(data);
+                            $("#folderPopup").dialog({width:360,height:300});
+                            $("#folderPopup").dialog("open");
                         });
                         //window.location = "/Folder/EditFolder?FolderID=" + inputs[count].id.replace(re, "");
                     }
