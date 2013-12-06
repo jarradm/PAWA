@@ -36,7 +36,7 @@
                     100 Most Used Tags
                     <input type="button" id="tagcloud-overlay-close-button" value="X" onclick="CloseCloudOverlay()"/>
                 </div>
-                <div style="color:red" id="tagcloud-overlay-item-area">
+                <div id="tagcloud-overlay-item-area">
                     @Html.Raw(PAWA.Classes.Tools.CreateTagCloudOverlayContents(PAWA.Classes.Tools.GetTop100Tags(new PAWA.DAL.PAWAContext())))
                 </div>
             </div>
