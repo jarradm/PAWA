@@ -69,6 +69,24 @@ namespace PAWA.Controllers
             }
             return Login("0");
         }
+
+
+
+        [HttpPost]
+        public ActionResult _ExistingUser(string Username)
+        {
+            string returnValue = "ok";
+            User user = (from u in db.Users
+                         where u.Username == Username
+                         select u).SingleOrDefault();
+
+            if (user != null)
+            {
+                returnValue = "User Already Exists";
+            }
+            return Content(returnValue);
+        }
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
@@ -77,19 +95,25 @@ namespace PAWA.Controllers
 
             if (ModelState.IsValid)
             {
-                WebSecurity.CreateUserAndAccount(user.Username, user.Password, new
+                try
                 {
-                    Email = user.Email,
-                    Country = user.Country,
-                    JoinDateTime = DateTime.Now,
-                    Status = Status.Active,
-                    DateOfBirth = user.DateOfBirth.ToString("dd-MM-yyyy"),
-                    Gender = user.Gender,
-                    Password = "notused"
-                });
-                Roles.AddUserToRole(user.Username, "user");
+                    WebSecurity.CreateUserAndAccount(user.Username, user.Password, new
+                    {
+                        Email = user.Email,
+                        Country = user.Country,
+                        JoinDateTime = DateTime.Now,
+                        Status = Status.Active,
+                        DateOfBirth = user.DateOfBirth.ToString("dd-MM-yyyy"),
+                        Gender = user.Gender,
+                        Password = "notused"
+                    });
+                    Roles.AddUserToRole(user.Username, "user");
 
-                return RedirectToAction("../Home/Album");
+                    return RedirectToAction("../Home/Album");
+                }
+                catch
+                {
+                }
             }
             ViewBag.CountryList = GetCountries();
             return View(user);
