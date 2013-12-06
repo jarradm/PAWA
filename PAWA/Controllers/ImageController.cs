@@ -93,7 +93,7 @@ namespace PAWA.Controllers
             /*True = Uploaded worked
             * False = Error
             * Null =  No action*/
-            if (Tools.uploaded == true) { TempData["Uploaded"] = "File Uploaded Sucessfully!"; }
+            if (Tools.uploaded == true) { TempData["Uploaded"] = "File Uploaded Successfully!"; }
             else if (Tools.uploaded == false) 
             {
                 var user = (from u in dbContext.Users
@@ -103,11 +103,11 @@ namespace PAWA.Controllers
                 // user can't upload if account is frozen
                 if (user.Status == Status.Frozen)
                 {
-                    ViewData["Uploaded"] = "Couldn't upload,<br> your privileges have been suspended.";
+                    TempData["Uploaded"] = "Couldn't upload,<br> your privileges have been suspended.";
                 }
                 else
                 {
-                    ViewData["Uploaded"] = "File couldn't upload";
+                    TempData["Uploaded"] = "File couldn't upload";
                 }
             }
             else if (Tools.uploaded == null) { ViewData["Uploaded"] = " "; }

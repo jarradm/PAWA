@@ -48,17 +48,17 @@
     PAWA.Classes.Tools.uploaded = null; //Reset uploaded for next page load
     if(TempData["Uploaded"] != "")
     {
-        if ((@Html.Encode(TempData["Uploaded"])).Contains("Sucess"))
+        if ((@Html.Encode(TempData["Uploaded"])).Contains("Success"))
         {
             color = "green";
-            @:<h3 style="color:@color">@Html.Raw(TempData["Uploaded"])</h3>
+            @:<h3 id="upload-status-tag" style="color:@color">@Html.Raw(TempData["Uploaded"])</h3>
             
            
         }
-        else if ((@Html.Encode(TempData["Uploaded"])).Contains("couldn"))
+        else if ((@Html.Encode(TempData["Uploaded"])).Contains("ouldn"))
         {
             color = "red";
-             @:<h3 style="color:@color">@Html.Raw(TempData["Uploaded"])</h3>
+             @:<h3 id="upload-status-tag" style="color:@color">@Html.Raw(TempData["Uploaded"])</h3>
             
         }
     }
@@ -73,10 +73,15 @@
 
     $(document).ready(function () {
         $("#tagcloud-button").click(function () {
+            
             $("#tagcloud-overlay-area").show();
             $("#tagcloud-overlay-close-button").position({ my: "right top", at: "right-12 top+4", of: "#tagcloud-overlay-area-header", collision: "none" });
             $("#tagcloud-overlay-area").position({ my: "center center", at: "center center", of: window, collision: "none" });
         });
+
+        setTimeout(function () {
+            $("#upload-status-tag").hide()
+        }, 1500);
     });
 
     function AddTagToTextBox(button)
