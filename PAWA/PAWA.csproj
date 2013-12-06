@@ -174,8 +174,8 @@
     <Compile Include="Models\File.cs" />
     <Compile Include="Models\Folder.cs" />
     <Compile Include="Classes\MoveFolder.cs" />
-    <Compile Include="Models\FolderRepository.cs" />
-    <Compile Include="Models\IFolderRepository.cs" />
+    <Compile Include="DAL\FolderRepository.cs" />
+    <Compile Include="DAL\IFolderRepository.cs" />
     <Compile Include="Models\Tags.cs" />
     <Compile Include="Models\Type.cs" />
     <Compile Include="Models\User.cs" />
