@@ -4,6 +4,7 @@
   -> In Package Manager Console type 'install-package Newtonsoft.JSon'
   -> In Package Manager Console type 'install-package jQuery.ui.combined'
   -> In Package Manager Console type 'install-package Microsoft.AspNet.Web.Optimization'
+  -> In Package Manager Console type 'install-package Facebook'
   
 2. Build database
   -> In Package Manager Console type 'update-database'
