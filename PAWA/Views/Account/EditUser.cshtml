@@ -4,14 +4,13 @@
     
 }
 <link href="~/App_Themes/EditUser.css" type="text/css" rel="stylesheet" />
-<div id="body-area">
-    <div id="center-content">
+<div id="outer-panel">
+        <div id="main-panel">
+            <div id="panel-header" style="font-family: Constantia"><b>Edit Profile</b></div>
+            <div id="inner-panel">
         @using (Html.BeginForm("EditUser", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.AntiForgeryToken();
-            <div id="formTitle">
-                <h2>Edit Profile</h2>
-            </div>
             <span class="form-text">@Html.Label("Email:")</span>@Html.TextBoxFor(m => m.Email)<br />@Html.ValidationMessageFor(m => m.Email)
             <span class="form-text">@Html.Label("Old Password:")</span>@Html.PasswordFor(m => m.OldPassword)<br />@Html.ValidationMessageFor(m => m.OldPassword)
             <span class="required"></span><span class="form-text">@Html.Label("New Password:")</span>@Html.PasswordFor(m => m.Password, new { Value = "" })<span class="form-helper">@Html.ValidationMessageFor(m => m.Password)</span><br />
@@ -24,6 +23,7 @@
             <span></span><button value="delete" name="button">Close Account</button>
         }
     </div>
+</div>
 </div>
 <script>
     $("#center-content").position({ my: "center top", at: "center top", of: "#body-area" });
