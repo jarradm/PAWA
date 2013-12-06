@@ -23,7 +23,7 @@ namespace PAWA.Models
 
         [StringLength(50, ErrorMessage = "Must be up to 50 characters")]
         [Required(ErrorMessage = "Password required.")]
-        public string Password { get; set; }
+        public string Password { get; set; }                    // not in use, password is handled by WebSecurity API
 
         [StringLength(100, MinimumLength = 8, ErrorMessage = "Must be between 8 and 100 characters")]
         [Required(ErrorMessage = "Email required.")]

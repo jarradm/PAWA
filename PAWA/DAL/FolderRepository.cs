@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using PAWA.Models;
 
-namespace PAWA.Models
+namespace PAWA.DAL
 {
     public class FolderRepository : IFolderRepository
     {

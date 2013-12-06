@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PAWA.Models;
 
-namespace PAWA.Models
+namespace PAWA.DAL
 {
     public interface IFolderRepository
     {
